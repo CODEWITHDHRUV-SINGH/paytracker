@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -9,9 +8,9 @@
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
     <style>
         :root {
-            --bg: #F8FAFD; --white: #FFFFFF; --surface: rgba(255,255,255,0.85);
+            --bg: #F8FAFD; --white: #FFFFFF;
             --border: rgba(228,233,240,0.8); --border-dark: #CDD5E0; --navy: #0B1120;
-            --navy-mid: #1E293B; --blue: #3772FF; --blue-hover: #1D4ED8; --blue-light: #F0F5FF;
+            --blue: #3772FF; --blue-hover: #1D4ED8; --blue-light: #F0F5FF;
             --text-primary: #0F172A; --text-secondary: #475569; --text-muted: #94A3B8;
             --green: #10B981; --green-bg: #ECFDF5; --yellow: #F59E0B; --yellow-bg: #FFFBEB;
             --orange: #F97316; --orange-bg: #FFF7ED; --red: #EF4444; --red-bg: #FEF2F2;
@@ -72,12 +71,12 @@
         .content { flex: 1; padding: 22px 24px; max-width: 1400px; width: 100%; }
         .page { display: none; animation: fadeIn .22s ease; }
         .page.active { display: block; }
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
 
         /* PROGRESS BAR */
-        .progress-bar-wrap { position: fixed; top: 70px; left: 260px; right: 0; height: 3px; z-index: 1000; pointer-events: none; opacity: 0; transition: opacity .2s; }
+        .progress-bar-wrap { position: fixed; top: 0; left: 0; right: 0; height: 3px; z-index: 9999; pointer-events: none; opacity: 0; transition: opacity .2s; }
         .progress-bar-wrap.show { opacity: 1; }
-        .progress-bar-fill { height: 100%; width: 0%; background: linear-gradient(90deg, var(--blue), #60A5FA); transition: width .4s cubic-bezier(.4,0,.2,1); border-radius: 0 2px 2px 0; }
+        .progress-bar-fill { height: 100%; width: 0%; background: linear-gradient(90deg, var(--blue), #60A5FA); transition: width .4s cubic-bezier(.4,0,.2,1); }
 
         /* SKELETON */
         .sk { background: linear-gradient(90deg, #F1F5F9 25%, #E2E8F0 50%, #F1F5F9 75%); background-size: 200% 100%; animation: shimmer 1.4s infinite; border-radius: 6px; }
@@ -150,18 +149,18 @@
         .call-actions { display: flex; flex-direction: column; gap: 6px; flex-shrink: 0; }
 
         /* FILTERS */
-        .filter-tabs { display: flex; gap: 6px; margin-bottom: 14px; flex-wrap: wrap; }
+        .filter-tabs { display: flex; gap: 6px; margin-bottom: 14px; flex-wrap: wrap; align-items: center; }
         .ftab { padding: 6px 14px; border-radius: 20px; font-size: 12.5px; font-weight: 600; cursor: pointer; border: 1.5px solid var(--border); background: var(--white); color: var(--text-muted); transition: all .15s; }
         .ftab:hover { border-color: var(--blue); color: var(--blue); }
         .ftab.active { background: var(--blue); border-color: var(--blue); color: #fff; }
 
         /* PAGINATION */
-        .pagination { display: flex; align-items: center; gap: 8px; padding: 14px 20px; border-top: 1px solid var(--border); justify-content: center; }
+        .pagination { display: flex; align-items: center; gap: 6px; padding: 14px 20px; border-top: 1px solid var(--border); justify-content: center; flex-wrap: wrap; }
         .pg-btn { padding: 5px 12px; border-radius: var(--radius-sm); font-size: 12.5px; font-weight: 600; cursor: pointer; border: 1.5px solid var(--border); background: var(--white); color: var(--text-secondary); transition: all .15s; }
         .pg-btn:hover:not(:disabled) { border-color: var(--blue); color: var(--blue); }
         .pg-btn:disabled { opacity: 0.4; cursor: not-allowed; }
         .pg-btn.active { background: var(--blue); border-color: var(--blue); color: #fff; }
-        .pg-info { font-size: 12px; color: var(--text-muted); }
+        .pg-info { font-size: 12px; color: var(--text-muted); padding: 0 8px; }
 
         /* MODALS */
         .modal-bg { position: fixed; inset: 0; background: rgba(15,28,46,.5); backdrop-filter: blur(4px); z-index: 500; display: flex; align-items: center; justify-content: center; opacity: 0; pointer-events: none; transition: opacity .22s; }
@@ -205,7 +204,7 @@
         .empty-state .icon { font-size: 38px; opacity: .5; }
         .empty-state p { font-size: 14px; font-weight: 500; }
 
-        .summary-chips { display: flex; gap: 8px; margin-bottom: 16px; flex-wrap: wrap; }
+        .summary-chips { display: flex; gap: 8px; flex-wrap: wrap; }
         .s-chip { display: flex; align-items: center; gap: 7px; padding: 6px 13px; background: var(--white); border: 1px solid var(--border); border-radius: var(--radius); font-size: 12px; box-shadow: var(--shadow-sm); }
         .s-dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
         .s-chip .lbl { color: var(--text-muted); }
@@ -240,7 +239,6 @@
         @keyframes spin { to { transform: rotate(360deg); } }
     </style>
 </head>
-
 <body>
 
 <!-- PROGRESS BAR -->
@@ -262,18 +260,18 @@
     </div>
     <nav>
         <div class="nav-group-label">Overview</div>
-        <button class="nav-btn active" onclick="nav('dashboard')"><span class="nav-icon">⊞</span> Dashboard</button>
-        <button class="nav-btn" onclick="nav('today')"><span class="nav-icon">📞</span> Today's Calling<span class="nav-badge" id="badge-today">0</span></button>
+        <button class="nav-btn active" data-page="dashboard" onclick="nav('dashboard')"><span class="nav-icon">⊞</span> Dashboard</button>
+        <button class="nav-btn" data-page="today" onclick="nav('today')"><span class="nav-icon">📞</span> Today's Calling<span class="nav-badge" id="badge-today">0</span></button>
         <div class="nav-group-label">Payments</div>
-        <button class="nav-btn" onclick="nav('active')"><span class="nav-icon">⏳</span> Active Payments</button>
-        <button class="nav-btn" onclick="nav('history')"><span class="nav-icon">📋</span> Call History</button>
-        <button class="nav-btn" onclick="nav('analysis')"><span class="nav-icon">📊</span> Analysis</button>
-        <button class="nav-btn" onclick="nav('archived')"><span class="nav-icon">📁</span> Archives</button>
+        <button class="nav-btn" data-page="active" onclick="nav('active')"><span class="nav-icon">⏳</span> Active Payments</button>
+        <button class="nav-btn" data-page="history" onclick="nav('history')"><span class="nav-icon">📋</span> Call History</button>
+        <button class="nav-btn" data-page="analysis" onclick="nav('analysis')"><span class="nav-icon">📊</span> Analysis</button>
+        <button class="nav-btn" data-page="archived" onclick="nav('archived')"><span class="nav-icon">📁</span> Archives</button>
         <div class="nav-group-label">Actions</div>
         <button class="nav-btn" onclick="openModal('modal-add')"><span class="nav-icon">＋</span> Add Invoice</button>
-        <button class="nav-btn" onclick="hardRefresh()" style="margin-top:4px"><span class="nav-icon">🔄</span> Force Refresh</button>
+        <button class="nav-btn" onclick="hardRefresh()"><span class="nav-icon">🔄</span> Force Refresh</button>
     </nav>
-    <div class="sidebar-footer">PayTrack v9.0 &nbsp;·&nbsp; © 2026</div>
+    <div class="sidebar-footer">PayTrack v10.0 &nbsp;·&nbsp; © 2026</div>
 </aside>
 
 <div class="main">
@@ -294,7 +292,6 @@
     </header>
 
     <div class="content">
-
         <div class="config-banner" id="config-banner">
             <span style="font-size:20px">⚙️</span>
             <p><strong>Setup Required:</strong> Apps Script deploy karo (Execute as: Me, Access: Anyone), phir URL paste karo.</p>
@@ -331,10 +328,10 @@
                 </div>
             </div>
             <div class="stats-row">
-                <div class="stat-card" style="border:none;box-shadow:var(--shadow-premium)"><div class="stat-accent" style="background:var(--purple)"></div><div class="stat-top"><span class="stat-label">Active Parties</span><div class="stat-icon-wrap" style="background:var(--purple-bg)">👤</div></div><div class="stat-value" id="s-parties">—</div><div class="stat-footer"><span id="s-records">—</span></div></div>
+                <div class="stat-card" style="border:none;box-shadow:var(--shadow-premium)"><div class="stat-accent" style="background:var(--purple)"></div><div class="stat-top"><span class="stat-label">Active Parties</span><div class="stat-icon-wrap" style="background:var(--purple-bg)">👤</div></div><div class="stat-value" id="s-parties">—</div><div class="stat-footer" id="s-records">—</div></div>
                 <div class="stat-card" style="border:none;box-shadow:var(--shadow-premium)"><div class="stat-accent" style="background:var(--red)"></div><div class="stat-top"><span class="stat-label">Critical Overdue</span><div class="stat-icon-wrap" style="background:var(--red-bg)">🚨</div></div><div class="stat-value" id="s-overdue" style="color:var(--red)">—</div><div class="stat-footer">Past due date</div></div>
-                <div class="stat-card" style="border:none;box-shadow:var(--shadow-premium)"><div class="stat-accent" style="background:var(--yellow)"></div><div class="stat-top"><span class="stat-label">Due & Follow-ups</span><div class="stat-icon-wrap" style="background:var(--yellow-bg)">⏰</div></div><div class="stat-value" id="s-soon" style="color:var(--yellow)">—</div><div class="stat-footer">Due or Follow-up soon</div></div>
-                <div class="stat-card" style="border:none;box-shadow:var(--shadow-premium)"><div class="stat-accent" style="background:linear-gradient(90deg,var(--blue),#60A5FA)"></div><div class="stat-top"><span class="stat-label">Action Today</span><div class="stat-icon-wrap" style="background:var(--blue-light)">📞</div></div><div class="stat-value" id="s-calls" style="color:var(--blue)">—</div><div class="stat-footer">Ready to be called</div></div>
+                <div class="stat-card" style="border:none;box-shadow:var(--shadow-premium)"><div class="stat-accent" style="background:var(--yellow)"></div><div class="stat-top"><span class="stat-label">Due Soon</span><div class="stat-icon-wrap" style="background:var(--yellow-bg)">⏰</div></div><div class="stat-value" id="s-soon" style="color:var(--yellow)">—</div><div class="stat-footer">Due within 7 days</div></div>
+                <div class="stat-card" style="border:none;box-shadow:var(--shadow-premium)"><div class="stat-accent" style="background:linear-gradient(90deg,var(--blue),#60A5FA)"></div><div class="stat-top"><span class="stat-label">Action Today</span><div class="stat-icon-wrap" style="background:var(--blue-light)">📞</div></div><div class="stat-value" id="s-calls" style="color:var(--blue)">—</div><div class="stat-footer">Ready to call</div></div>
             </div>
             <div class="grid-2">
                 <div class="card" style="border:none;box-shadow:var(--shadow-premium)">
@@ -343,7 +340,9 @@
                         <span class="card-title">Aging Analysis</span>
                         <span class="card-subtitle">Outstanding by period</span>
                     </div>
-                    <div class="card-body" id="aging-container"><div id="aging-sk">${Array(6).fill('<div class="sk sk-text"></div>').join('')}</div></div>
+                    <div class="card-body" id="aging-container">
+                        <div id="aging-sk">${Array(6).fill('<div class="sk sk-text"></div>').join('')}</div>
+                    </div>
                 </div>
                 <div style="display:flex;flex-direction:column;gap:14px">
                     <div class="card">
@@ -352,7 +351,7 @@
                             <button class="btn btn-primary" style="width:100%;justify-content:center" onclick="nav('today')">📞 Start Today's Calling</button>
                             <button class="btn btn-outline" style="width:100%;justify-content:center" onclick="openModal('modal-add')">＋ Add New Invoice</button>
                             <button class="btn btn-outline" style="width:100%;justify-content:center" onclick="nav('active')">⏳ View All Pending</button>
-                            <button class="btn btn-ghost" style="width:100%;justify-content:center" onclick="loadDashboard(true)">↺ Refresh</button>
+                            <button class="btn btn-ghost" style="width:100%;justify-content:center" onclick="loadDashboard(true)">↺ Refresh Dashboard</button>
                         </div>
                     </div>
                 </div>
@@ -371,7 +370,7 @@
             <div style="display:flex;align-items:center;gap:8px;margin-bottom:14px;flex-wrap:wrap;">
                 <button class="ftab active" id="tab-today-calling" onclick="setTodayFilter('today',this)">📞 Today Calling</button>
                 <button class="ftab" id="tab-pending-calling" onclick="setTodayFilter('pending',this)">⏳ Pending <span id="pending-count-badge" style="background:var(--red);color:#fff;font-size:10px;font-weight:700;padding:1px 7px;border-radius:10px;margin-left:4px">0</span></button>
-                <div class="summary-chips" id="today-chips" style="margin:0;flex:1;"></div>
+                <div class="summary-chips" id="today-chips"></div>
             </div>
             <div class="call-list" id="call-list-container"></div>
         </div>
@@ -387,13 +386,13 @@
                 <button class="ftab" onclick="filterActive('Normal',this)">🟢 Normal</button>
                 <button class="ftab" onclick="filterActive('Reminder',this)">🔵 Reminder</button>
                 <button class="ftab" onclick="filterActive('Paid',this)">✅ Paid</button>
-                <button class="btn btn-sm btn-ghost" onclick="downloadActiveExcel()" style="margin-left:auto;color:var(--green);border-color:var(--green-bg)">📥 Download Excel</button>
+                <button class="btn btn-sm btn-ghost" onclick="downloadActiveExcel()" style="margin-left:auto;color:var(--green);border-color:var(--green-bg)">📥 Download</button>
             </div>
             <div class="card">
                 <div class="card-head">
                     <span class="card-title">Active Payments</span>
                     <span class="card-subtitle" id="active-count"></span>
-                    <button class="btn btn-ghost btn-sm" onclick="loadActive(true)" style="margin-left:8px">↺ Refresh</button>
+                    <button class="btn btn-ghost btn-sm" onclick="loadActive(true)" style="margin-left:8px">↺</button>
                 </div>
                 <div class="tbl-wrap"><table>
                     <thead><tr><th>#</th><th>Customer</th><th>Phone No.</th><th>Invoice</th><th>Dealer Type</th><th>Sales Person</th><th>Invoice Amt</th><th>Balance</th><th>Dispatch</th><th>Due Date</th><th>Due Days</th><th>Priority</th><th>Status</th><th>Action</th></tr></thead>
@@ -443,7 +442,6 @@
                 <div class="pagination" id="archived-pagination"></div>
             </div>
         </div>
-
     </div>
 </div>
 
@@ -496,17 +494,42 @@
 <div class="toast-wrap" id="toasts"></div>
 
 <script>
-// ═══════════════════════════════════════════
-// PAYTRACK v9.0 — OPTIMIZED FRONTEND
-// Key changes:
-//   1. sessionStorage cache — survives page nav, clears on tab close
-//   2. Parallel API calls (Promise.all) for independent data
-//   3. Pagination for Active/History/Archived — no DOM overload
-//   4. Progress bar instead of full-screen loader
-//   5. Preload next pages in background
-// ═══════════════════════════════════════════
+// ══════════════════════════════════════════════════════
+// PAYTRACK v10.0 — OPTIMIZED FRONTEND
+// Key improvements over v9:
+//   1. Server-side pagination — no more loading all records
+//   2. Fixed renderPagination — no more function.toString() hack
+//   3. Client-side filter cache — instantaneous filter switching
+//   4. Proper search: client-side first, server fallback
+//   5. All cached data lives in module-level variables (not sessionStorage)
+//      because server cache handles persistence now
+// ══════════════════════════════════════════════════════
 
 let WEBAPP_URL = localStorage.getItem('paytrack_webapp_url') || '';
+
+// ── App State ──────────────────────────────────────────────────
+// All raw data stored in memory — server cache means we won't need to re-fetch often
+const AppData = {
+    dashboard: null,
+    today: null,           // Full today calling list
+    active: null,          // Full active list (server sends paginated, we store last page)
+    activeAll: null,       // Complete list for client-side filtering (loaded lazily)
+    history: null,
+    analysis: null,
+    archived: null,
+};
+
+const AppState = {
+    currentPage: 'dashboard',
+    activeFilter: 'all',
+    activePage: 1,
+    historyPage: 1,
+    archivedPage: 1,
+    todayFilter: 'today',
+    searchTimer: null,
+};
+
+const PAGE_SIZE = { active: 100, history: 50, archived: 100 };
 
 // ── Config ─────────────────────────────────────────────────────
 function saveWebAppUrl() {
@@ -519,50 +542,6 @@ function saveWebAppUrl() {
     loadDashboard(true);
 }
 
-// ═══════════════════════════════════════════
-// SESSION STORAGE CACHE
-// TTL-based; keys expire after N ms
-// ═══════════════════════════════════════════
-const SESSION_CACHE_TTL = {
-    dashboard:    3 * 60 * 1000,   // 3 min
-    today:        3 * 60 * 1000,
-    active_all:   6 * 60 * 1000,   // 6 min — matches server CacheService
-    history_all:  6 * 60 * 1000,
-    analysis:     6 * 60 * 1000,
-    archived_all: 6 * 60 * 1000,
-};
-
-const sCache = {
-    set(key, data) {
-        try {
-            const ttl = SESSION_CACHE_TTL[key] || 5 * 60 * 1000;
-            sessionStorage.setItem('pt_' + key, JSON.stringify({ data, exp: Date.now() + ttl }));
-        } catch(e) {}
-    },
-    get(key) {
-        try {
-            const raw = sessionStorage.getItem('pt_' + key);
-            if (!raw) return null;
-            const { data, exp } = JSON.parse(raw);
-            if (Date.now() > exp) { sessionStorage.removeItem('pt_' + key); return null; }
-            return data;
-        } catch(e) { return null; }
-    },
-    del(...keys) { keys.forEach(k => sessionStorage.removeItem('pt_' + k)); },
-    clear() { Object.keys(sessionStorage).filter(k => k.startsWith('pt_')).forEach(k => sessionStorage.removeItem(k)); }
-};
-
-// ── App State (in-memory, session as backup) ───────────────────
-const AppState = {
-    dashboard: null, today: null, analysis: null,
-    activeFilter: 'all',
-    activePage: 1, historyPage: 1, archivedPage: 1,
-    activePagination: null, historyPagination: null, archivedPagination: null
-};
-
-let currentPage = 'dashboard';
-let searchTimer = null;
-
 // ── INIT ───────────────────────────────────────────────────────
 document.addEventListener('DOMContentLoaded', () => {
     const now = new Date();
@@ -573,64 +552,48 @@ document.addEventListener('DOMContentLoaded', () => {
 
     if (WEBAPP_URL) {
         document.getElementById('config-banner').classList.add('hidden');
-        // Parallel preload dashboard + today on startup
         loadDashboard();
-        // Pre-warm active in background after 500ms
-        setTimeout(() => {
-            if (!sCache.get('active_all')) {
-                api('getActivePayments', { page: 1, pageSize: 100, filter: 'all' }, null, true);
-            }
-        }, 500);
     } else {
         document.getElementById('webapp-url-input').focus();
     }
 });
 
-// ═══════════════════════════════════════════
-// API — with progress bar, no full-screen loader for reads
-// ═══════════════════════════════════════════
-let _activeRequests = 0;
-let _progress = 0;
-let _progressTimer = null;
+// ══════════════════════════════════════════════════════
+// PROGRESS BAR
+// ══════════════════════════════════════════════════════
+let _activeReqs = 0;
+let _pct = 0;
+let _pTimer = null;
 
 function startProgress() {
-    _activeRequests++;
-    if (_activeRequests === 1) {
-        _progress = 0;
+    _activeReqs++;
+    if (_activeReqs === 1) {
+        _pct = 0;
         setProgress(15);
-        clearInterval(_progressTimer);
-        _progressTimer = setInterval(() => {
-            if (_progress < 85) setProgress(_progress + (85 - _progress) * 0.1);
-        }, 300);
+        clearInterval(_pTimer);
+        _pTimer = setInterval(() => { if (_pct < 85) setProgress(_pct + (85 - _pct) * 0.1); }, 300);
         document.getElementById('progress-bar').classList.add('show');
     }
 }
-
 function endProgress() {
-    _activeRequests = Math.max(0, _activeRequests - 1);
-    if (_activeRequests === 0) {
-        clearInterval(_progressTimer);
+    _activeReqs = Math.max(0, _activeReqs - 1);
+    if (_activeReqs === 0) {
+        clearInterval(_pTimer);
         setProgress(100);
-        setTimeout(() => {
-            document.getElementById('progress-bar').classList.remove('show');
-            setProgress(0);
-        }, 400);
+        setTimeout(() => { document.getElementById('progress-bar').classList.remove('show'); setProgress(0); }, 400);
     }
 }
+function setProgress(p) { _pct = p; document.getElementById('progress-fill').style.width = p + '%'; }
 
-function setProgress(pct) {
-    _progress = pct;
-    document.getElementById('progress-fill').style.width = pct + '%';
-}
-
-async function api(action, payload, query, silent = false) {
+// ══════════════════════════════════════════════════════
+// API
+// ══════════════════════════════════════════════════════
+async function api(action, payload, query, silent) {
     if (!WEBAPP_URL) { toast('Pehle Web App URL set karo', 'error'); return null; }
     if (!silent) startProgress();
-
     const body = { action };
     if (payload !== undefined) body.payload = payload;
     if (query !== undefined) body.query = query;
-
     try {
         const res = await fetch(WEBAPP_URL, {
             method: 'POST',
@@ -642,43 +605,42 @@ async function api(action, payload, query, silent = false) {
         const text = await res.text();
         if (!text || !text.trim()) throw new Error('Empty response. Script deploy check karo.');
         const data = JSON.parse(text.replace(/^\uFEFF/, '').trim());
-        if (!data) { toast('Empty response', 'error'); return null; }
-        if (!data.success) { toast(data.message || 'Error', 'error'); return null; }
+        if (!data.success) { toast(data.message || 'Server error', 'error'); return null; }
         return data;
     } catch (err) {
         let msg = err.message;
-        if (msg.includes('Failed to fetch')) msg = 'CORS/network error. Script deploy check karo: Execute as Me, Access Anyone.';
+        if (msg.includes('Failed to fetch')) msg = 'CORS/network error. Deploy settings check karo.';
         toast('Error: ' + msg, 'error');
-        console.error('PayTrack API:', err);
         return null;
     } finally {
         if (!silent) endProgress();
     }
 }
 
-// ── NAV ────────────────────────────────────────────────────────
+// ══════════════════════════════════════════════════════
+// NAVIGATION
+// ══════════════════════════════════════════════════════
 const PAGE_META = {
     dashboard: ['Dashboard', 'Payment overview & analytics'],
-    today: ["Today's Calling", 'Contacts to call today'],
-    active: ['Active Payments', 'All pending invoices'],
-    history: ['Call History', 'Complete call log records'],
-    analysis: ['Data Analysis', 'Performance by User or Dealer'],
-    search: ['Search Results', 'Matching payment records'],
-    archived: ['Archived Payments', 'Historical paid records'],
+    today:     ["Today's Calling", 'Contacts to call today'],
+    active:    ['Active Payments', 'All pending invoices'],
+    history:   ['Call History', 'Complete call log records'],
+    analysis:  ['Data Analysis', 'Performance by User or Dealer'],
+    search:    ['Search Results', 'Matching payment records'],
+    archived:  ['Archived Payments', 'Historical paid records'],
 };
 
-function nav(page, force = false) {
+function nav(page, force) {
     document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
-    document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
+    document.querySelectorAll('.nav-btn[data-page]').forEach(b => b.classList.remove('active'));
     const pg = document.getElementById('page-' + page);
     if (pg) pg.classList.add('active');
-    document.querySelectorAll('.nav-btn').forEach(b => {
-        if (b.onclick && b.onclick.toString().includes(`'${page}'`)) b.classList.add('active');
-    });
+    const navBtn = document.querySelector(`.nav-btn[data-page="${page}"]`);
+    if (navBtn) navBtn.classList.add('active');
     const [title, sub] = PAGE_META[page] || [page, ''];
     document.getElementById('page-title').textContent = title;
     document.getElementById('page-sub').textContent = sub;
-    currentPage = page;
+    AppState.currentPage = page;
     if (page === 'dashboard') loadDashboard(force);
     if (page === 'today')     loadToday(force);
     if (page === 'active')    loadActive(force);
@@ -687,36 +649,30 @@ function nav(page, force = false) {
     if (page === 'archived')  loadArchived(force);
 }
 
-function hardRefresh() {
-    sCache.clear();
-    AppState.dashboard = null; AppState.today = null; AppState.analysis = null;
-    api('clearCache', null, null, true).then(() => {
-        toast('Cache cleared! Refreshing...', 'info');
-        nav(currentPage, true);
-    });
+async function hardRefresh() {
+    AppData.dashboard = null; AppData.today = null; AppData.active = null;
+    AppData.activeAll = null; AppData.history = null; AppData.analysis = null; AppData.archived = null;
+    await api('clearCache', null, null, true);
+    toast('Cache cleared! Refreshing...', 'info');
+    nav(AppState.currentPage, true);
 }
 
-// ── DASHBOARD ──────────────────────────────────────────────────
-async function loadDashboard(force = false) {
-    if (!force) {
-        const cached = AppState.dashboard || sCache.get('dashboard');
-        if (cached) { renderDashboard(cached, true); return; }
-    }
+// ══════════════════════════════════════════════════════
+// DASHBOARD
+// ══════════════════════════════════════════════════════
+async function loadDashboard(force) {
+    if (!force && AppData.dashboard) { renderDashboard(AppData.dashboard, true); return; }
     const res = await api('getDashboardData');
     if (!res) return;
-    AppState.dashboard = res.data;
-    sCache.set('dashboard', res.data);
-    renderDashboard(res.data, !!res.fromCache);
-
-    // Background preload today + active
-    if (!sCache.get('today')) api('getTodayCalling', null, null, true).then(r => { if (r) sCache.set('today', r.data); });
-    if (!sCache.get('active_all')) api('getActivePayments', { page: 1, pageSize: 100, filter: 'all' }, null, true).then(r => { if (r) sCache.set('active_all', r.data); });
+    AppData.dashboard = res.data;
+    renderDashboard(res.data, res.fromCache);
+    // Preload today silently
+    if (!AppData.today) api('getTodayCalling', null, null, true).then(r => { if (r) AppData.today = r.data; });
 }
 
 function renderDashboard(d, fromCache) {
     document.getElementById('last-update-time').textContent = new Date().toLocaleTimeString();
-    document.getElementById('cache-indicator').innerHTML = fromCache
-        ? '<span class="cache-badge">⚡ Cached</span>' : '';
+    document.getElementById('cache-indicator').innerHTML = fromCache ? '<span class="cache-badge">⚡ Cached</span>' : '';
     document.getElementById('s-total').textContent = fmt(d.totalOutstanding);
     document.getElementById('s-overdue').textContent = fmt(d.overdue);
     document.getElementById('s-soon').textContent = fmt(d.dueSoon);
@@ -731,14 +687,17 @@ function renderDashboard(d, fromCache) {
 function renderAging(buckets, total) {
     const colors = { 'Within Credit':'#059669','<30 Days':'#2563EB','30-60 Days':'#D97706','60-90 Days':'#EA580C','90-120 Days':'#DC2626','>120 Days':'#7C3AED' };
     document.getElementById('aging-container').innerHTML = Object.entries(buckets).map(([lbl, amt]) => {
-        const pct = total > 0 ? Math.max(2, (amt / total) * 100) : 0;
+        const pct = total > 0 ? Math.max(2, (amt/total)*100) : 0;
         return `<div class="aging-item"><span class="aging-lbl">${lbl}</span><div class="aging-bar-track"><div class="aging-bar-fill" style="width:${pct}%;background:${colors[lbl]||'#94A3B8'}"></div></div><span class="aging-amt">${fmt(amt)}</span></div>`;
     }).join('');
 }
 
 function renderTopOverdue(records) {
     const tbody = document.getElementById('tbl-overdue');
-    if (!records.length) { tbody.innerHTML = `<tr><td colspan="8"><div class="empty-state"><span class="icon">🎉</span><p>No overdue accounts</p></div></td></tr>`; return; }
+    if (!records.length) {
+        tbody.innerHTML = `<tr><td colspan="8"><div class="empty-state"><span class="icon">🎉</span><p>No overdue accounts!</p></div></td></tr>`;
+        return;
+    }
     tbody.innerHTML = records.map((r, i) => `
     <tr>
       <td style="color:var(--text-muted)">${i+1}</td>
@@ -752,54 +711,55 @@ function renderTopOverdue(records) {
     </tr>`).join('');
 }
 
-// ── TODAY'S CALLING ────────────────────────────────────────────
-let todayFilter = 'today';
-
+// ══════════════════════════════════════════════════════
+// TODAY'S CALLING
+// ══════════════════════════════════════════════════════
 function setTodayFilter(f, el) {
-    todayFilter = f;
+    AppState.todayFilter = f;
     document.querySelectorAll('#tab-today-calling,#tab-pending-calling').forEach(b => b.classList.remove('active'));
     if (el) el.classList.add('active');
-    const data = AppState.today || sCache.get('today');
-    if (data) renderToday(data);
+    if (AppData.today) renderToday(AppData.today);
 }
 
-async function loadToday(force = false) {
-    if (!force) {
-        const cached = AppState.today || sCache.get('today');
-        if (cached) { renderToday(cached); return; }
-    }
-    document.getElementById('call-list-container').innerHTML = '<div class="card"><div class="card-body">' + Array(4).fill('<div class="sk sk-row"></div>').join('') + '</div></div>';
+async function loadToday(force) {
+    if (!force && AppData.today) { renderToday(AppData.today); return; }
+    document.getElementById('call-list-container').innerHTML = '<div class="card"><div class="card-body">' + Array(4).fill('<div class="sk sk-row" style="margin:6px 0"></div>').join('') + '</div></div>';
     const res = await api('getTodayCalling');
     if (!res) return;
-    AppState.today = res.data;
-    sCache.set('today', res.data);
+    AppData.today = res.data;
     renderToday(res.data);
 }
 
 function renderToday(records) {
     const todayStr = new Date().toISOString().split('T')[0];
-    const todayRecs  = records.filter(r => { const fu = r['Next Follow-up']; if (fu) { try { return new Date(fu).toISOString().split('T')[0] === todayStr; } catch {} } return r.overdueDays === 0; });
-    const pendingRecs = records.filter(r => r.overdueDays > 0 || (r['Next Follow-up'] && new Date(r['Next Follow-up']).toISOString().split('T')[0] < todayStr));
-    const displayToday   = todayRecs.length > 0 ? todayRecs : records.filter(r => r.overdueDays <= 0);
-    const displayPending = pendingRecs.length > 0 ? pendingRecs : records.filter(r => r.overdueDays > 0);
-    const filtered = todayFilter === 'today' ? displayToday : displayPending;
+    // Categorize
+    const todayRecs = records.filter(r => {
+        if (r['Next Follow-up']) {
+            try { return new Date(r['Next Follow-up']).toISOString().split('T')[0] === todayStr; } catch {}
+        }
+        return r.overdueDays === 0;
+    });
+    const pendingRecs = records.filter(r => r.overdueDays > 0);
+    const displayToday   = todayRecs.length   ? todayRecs   : records.filter(r => r.overdueDays <= 0);
+    const displayPending = pendingRecs.length ? pendingRecs : records.filter(r => r.overdueDays > 0);
+    const filtered = AppState.todayFilter === 'pending' ? displayPending : displayToday;
 
     document.getElementById('badge-today').textContent = records.length;
     document.getElementById('pending-count-badge').textContent = displayPending.length;
 
-    const counts = { Critical:0, High:0, Medium:0, Normal:0, Reminder:0 };
-    filtered.forEach(r => { if (counts[r.priority] !== undefined) counts[r.priority]++; });
-    const chipColors = { Critical:'var(--red)', High:'var(--orange)', Medium:'var(--yellow)', Normal:'var(--green)', Reminder:'var(--blue)' };
+    const counts = { Critical:0,High:0,Medium:0,Normal:0,Reminder:0 };
+    filtered.forEach(r => { if (r.priority in counts) counts[r.priority]++; });
+    const chipColors = { Critical:'var(--red)',High:'var(--orange)',Medium:'var(--yellow)',Normal:'var(--green)',Reminder:'var(--blue)' };
     document.getElementById('today-chips').innerHTML = Object.entries(counts).filter(([,c]) => c > 0)
-        .map(([p, c]) => `<div class="s-chip"><div class="s-dot" style="background:${chipColors[p]}"></div><span class="lbl">${p}</span><span class="val">${c}</span></div>`).join('');
+        .map(([p,c]) => `<div class="s-chip"><div class="s-dot" style="background:${chipColors[p]}"></div><span class="lbl">${p}</span><span class="val">${c}</span></div>`).join('');
 
     const container = document.getElementById('call-list-container');
     if (!filtered.length) {
-        const msg = todayFilter === 'today' ? 'No Today Call!' : 'No pending call!';
-        container.innerHTML = `<div class="card"><div class="empty-state"><span class="icon">🎉</span><p>${msg}</p></div></div>`; return;
+        container.innerHTML = `<div class="card"><div class="empty-state"><span class="icon">🎉</span><p>${AppState.todayFilter==='pending'?'No pending calls!':'No calls for today!'}</p></div></div>`;
+        return;
     }
-    const icons = { Critical:'🚨', High:'⚠️', Medium:'📌', Normal:'📞', Reminder:'🔔' };
-    const iconBg = { Critical:'var(--red-bg)', High:'var(--orange-bg)', Medium:'var(--yellow-bg)', Normal:'var(--green-bg)', Reminder:'var(--blue-light)' };
+    const icons = { Critical:'🚨',High:'⚠️',Medium:'📌',Normal:'📞',Reminder:'🔔' };
+    const iconBg = { Critical:'var(--red-bg)',High:'var(--orange-bg)',Medium:'var(--yellow-bg)',Normal:'var(--green-bg)',Reminder:'var(--blue-light)' };
     container.innerHTML = filtered.map(r => {
         const prio = r.priority || 'Normal';
         const hasRemark = r['Last Remarks'] && r['Last Remarks'] !== '-' && r['Last Remarks'] !== 'No Previous Call';
@@ -807,8 +767,8 @@ function renderToday(records) {
       <div class="call-avatar" style="background:${iconBg[prio]||'var(--bg)'}">${icons[prio]||'📞'}</div>
       <div class="call-info">
         <div style="display:flex;justify-content:space-between;align-items:flex-start">
-           <div style="font-size:14px;font-weight:700">${r['Customer Name']} <span style="font-size:12px;font-weight:400;color:var(--text-muted)">(${r['Dealer Code']})</span> ${pill(prio)}</div>
-           <div style="background:var(--red-bg);color:var(--red);padding:4px 10px;border-radius:var(--radius-sm);font-weight:800;font-family:'JetBrains Mono';font-size:16px">${fmt(r['Balance'])}</div>
+          <div style="font-size:14px;font-weight:700">${r['Customer Name']} <span style="font-size:12px;font-weight:400;color:var(--text-muted)">(${r['Dealer Code']})</span> ${pill(prio)}</div>
+          <div style="background:var(--red-bg);color:var(--red);padding:4px 10px;border-radius:var(--radius-sm);font-weight:800;font-family:'JetBrains Mono';font-size:16px">${fmt(r['Balance'])}</div>
         </div>
         <div style="margin-top:8px;font-size:13px;display:flex;gap:12px;flex-wrap:wrap">
           <span>📞 <a href="tel:${r['Dealer Ph. No.']}" style="color:var(--blue);font-weight:800;text-decoration:none;border-bottom:2px solid var(--blue-light)">${r['Dealer Ph. No.']||'No Phone'}</a></span>
@@ -816,68 +776,74 @@ function renderToday(records) {
           <span style="font-weight:900">🚚 ${r['Dispatch Date']||'—'}</span>
         </div>
         <div style="margin-top:6px;font-size:12px;display:flex;gap:12px;flex-wrap:wrap">
-           <span>⏳ Due: <strong>${r.dueDays||0}d</strong></span>
-           <span>📍 ${r['Location']||'—'}</span>
-           ${r['Dealer Type']?`<span>🏷️ ${r['Dealer Type']}</span>`:''}
-           <span>👤 ${r['Sales Person']||'—'}</span>
-           <span style="font-weight:900">💰 Inv: <span style="font-family:'JetBrains Mono'">${fmt(r['Invoice Amount'])}</span></span>
+          <span>⏳ Due: <strong>${r.dueDays||0}d</strong></span>
+          <span>📍 ${r['Location']||'—'}</span>
+          ${r['Dealer Type']?`<span>🏷️ ${r['Dealer Type']}</span>`:''}
+          <span>👤 ${r['Sales Person']||'—'}</span>
+          <span style="font-weight:900">💰 <span style="font-family:'JetBrains Mono'">${fmt(r['Invoice Amount'])}</span></span>
         </div>
-        ${hasRemark?`<div style="margin-top:12px;padding:10px;background:#F8FAFC;border:1px solid var(--border);border-radius:var(--radius-sm)"><div style="font-size:10px;font-weight:800;color:var(--text-muted);text-transform:uppercase;margin-bottom:4px">Last Conversation</div><div style="font-size:13px;color:var(--text-secondary)">💬 ${r['Last Remarks']}</div><div style="font-size:11px;color:var(--text-muted);margin-top:4px">📅 ${r['Last Call Date']||'—'}</div></div>`:''}
+        ${hasRemark?`<div style="margin-top:10px;padding:10px;background:#F8FAFC;border:1px solid var(--border);border-radius:var(--radius-sm)"><div style="font-size:10px;font-weight:800;color:var(--text-muted);text-transform:uppercase;margin-bottom:4px">Last Conversation</div><div style="font-size:13px;color:var(--text-secondary)">💬 ${r['Last Remarks']}</div><div style="font-size:11px;color:var(--text-muted);margin-top:3px">📅 ${r['Last Call Date']||'—'}</div></div>`:''}
       </div>
       <div class="call-actions" style="margin-left:16px">
-        <a href="tel:${r['Dealer Ph. No.']}" class="btn btn-outline btn-sm" style="justify-content:center;color:var(--blue);border-color:var(--blue)">📞 Call Now</a>
+        <a href="tel:${r['Dealer Ph. No.']}" class="btn btn-outline btn-sm" style="justify-content:center;color:var(--blue);border-color:var(--blue)">📞 Call</a>
         <button class="btn btn-primary btn-sm" onclick="openCallModal('${esc(r['Dealer Code'])}','${esc(r['Customer Name'])}','${esc(r['Location']||'')}','${esc(r['Invoice No.'])}',${r['Balance']})">✍️ Log Call</button>
       </div>
     </div>`;
     }).join('');
 }
 
-// ── ACTIVE PAYMENTS — paginated ────────────────────────────────
-async function loadActive(force = false) {
-    if (!force) {
-        const cached = sCache.get('active_all');
-        if (cached) { renderActiveRows(cached, AppState.activePagination || { page:1, pageSize:100, total: cached.length, totalPages: Math.ceil(cached.length/100) }); return; }
+// ══════════════════════════════════════════════════════
+// ACTIVE PAYMENTS — server-side pagination + client-side filter cache
+// ══════════════════════════════════════════════════════
+async function loadActive(force) {
+    if (!force && AppData.activeAll) {
+        applyActiveFilter();
+        return;
     }
     document.getElementById('tbl-active').innerHTML = Array(6).fill('<tr><td colspan="14"><div class="sk sk-row"></div></td></tr>').join('');
-    const res = await api('getActivePayments', { page: AppState.activePage, pageSize: 100, filter: AppState.activeFilter });
+    // Load ALL records (server caches it, so fast after first load)
+    const res = await api('getActivePayments', { page: 1, pageSize: 500 });
     if (!res) return;
-    sCache.set('active_all', res.data);
-    AppState.activePagination = res.pagination;
-    renderActiveRows(res.data, res.pagination);
+    AppData.activeAll = res.data;
+    AppState.activePage = 1;
+    applyActiveFilter();
 }
 
 function filterActive(f, el) {
     AppState.activeFilter = f;
     AppState.activePage = 1;
-    document.querySelectorAll('.ftab').forEach(t => t.classList.remove('active'));
+    document.querySelectorAll('.filter-tabs .ftab').forEach(t => t.classList.remove('active'));
     if (el) el.classList.add('active');
-    // Apply filter client-side on cached data
-    const allData = sCache.get('active_all');
-    if (allData) {
-        let filtered;
-        if (f === 'all')     filtered = allData;
-        else if (f === 'Paid')   filtered = allData.filter(r => r.status === 'Paid');
-        else if (f === 'Active') filtered = allData.filter(r => r.status !== 'Paid');
-        else filtered = allData.filter(r => r.priority === f && r.status !== 'Paid');
-        const pg = { page: 1, pageSize: 100, total: filtered.length, totalPages: Math.ceil(filtered.length / 100) };
-        renderActiveRows(filtered.slice(0, 100), pg);
-    } else {
-        loadActive(true);
-    }
+    if (AppData.activeAll) applyActiveFilter();
+    else loadActive(true);
 }
 
-function renderActiveRows(data, pagination) {
-    const count = document.getElementById('active-count');
-    if (count) count.textContent = `${pagination.total} records`;
+function applyActiveFilter() {
+    const f = AppState.activeFilter;
+    let data = AppData.activeAll || [];
+    if (f === 'Paid')   data = data.filter(r => r.status === 'Paid');
+    else if (f === 'Active') data = data.filter(r => r.status !== 'Paid');
+    else if (f !== 'all') data = data.filter(r => r.priority === f && r.status !== 'Paid');
+    const ps = PAGE_SIZE.active;
+    const total = data.length;
+    const pg = AppState.activePage;
+    const start = (pg - 1) * ps;
+    renderActiveRows(data.slice(start, start + ps), { page: pg, pageSize: ps, total, totalPages: Math.ceil(total / ps) }, data);
+}
+
+function renderActiveRows(pageData, pagination, allFiltered) {
+    document.getElementById('active-count').textContent = `${pagination.total} records`;
     const start = (pagination.page - 1) * pagination.pageSize;
     const tbody = document.getElementById('tbl-active');
-    if (!data.length) {
-        tbody.innerHTML = `<tr><td colspan="14"><div class="empty-state"><span class="icon">✅</span><p>Koi record nahi</p></div></td></tr>`; return;
+    if (!pageData.length) {
+        tbody.innerHTML = `<tr><td colspan="14"><div class="empty-state"><span class="icon">✅</span><p>Koi record nahi</p></div></td></tr>`;
+        document.getElementById('active-pagination').innerHTML = '';
+        return;
     }
-    tbody.innerHTML = data.map((r, i) => {
+    tbody.innerHTML = pageData.map((r, i) => {
         const paid = r.status === 'Paid';
         return `<tr>
-      <td style="color:var(--text-muted)">${start + i + 1}</td>
+      <td style="color:var(--text-muted)">${start+i+1}</td>
       <td><div class="td-primary">${r['Customer Name']}</div><div style="font-size:11px;color:var(--text-muted)">${r['Dealer Code']}</div></td>
       <td><a href="tel:${r['Dealer Ph. No.']}" style="color:var(--blue);text-decoration:none;font-weight:600;font-size:12.5px">${r['Dealer Ph. No.']||'—'}</a></td>
       <td><span class="mono">${r['Invoice No.']}</span></td>
@@ -893,46 +859,44 @@ function renderActiveRows(data, pagination) {
       <td>${!paid?`<button class="btn btn-outline btn-sm" onclick="openCallModal('${esc(r['Dealer Code'])}','${esc(r['Customer Name'])}','${esc(r['Location']||'')}','${esc(r['Invoice No.'])}',${r['Balance']})">📞</button>`:'—'}</td>
     </tr>`;
     }).join('');
-    renderPagination('active-pagination', pagination, (pg) => {
+
+    renderPagination('active-pagination', pagination, pg => {
         AppState.activePage = pg;
-        const allData = sCache.get('active_all');
-        if (allData) {
-            let filtered = allData;
-            const f = AppState.activeFilter;
-            if (f === 'Paid') filtered = allData.filter(r => r.status === 'Paid');
-            else if (f === 'Active') filtered = allData.filter(r => r.status !== 'Paid');
-            else if (f !== 'all') filtered = allData.filter(r => r.priority === f && r.status !== 'Paid');
-            const ps = 100, start = (pg - 1) * ps;
-            renderActiveRows(filtered.slice(start, start + ps), { page: pg, pageSize: ps, total: filtered.length, totalPages: Math.ceil(filtered.length / ps) });
-        }
+        const f = AppState.activeFilter;
+        let data = AppData.activeAll || [];
+        if (f === 'Paid') data = data.filter(r => r.status === 'Paid');
+        else if (f === 'Active') data = data.filter(r => r.status !== 'Paid');
+        else if (f !== 'all') data = data.filter(r => r.priority === f && r.status !== 'Paid');
+        const ps = PAGE_SIZE.active, start = (pg-1)*ps;
+        renderActiveRows(data.slice(start, start+ps), { page:pg, pageSize:ps, total:data.length, totalPages:Math.ceil(data.length/ps) }, data);
         window.scrollTo({ top: 0, behavior: 'smooth' });
     });
 }
 
-// ── CALL HISTORY — paginated ────────────────────────────────────
-async function loadHistory(force = false) {
-    if (!force) {
-        const cached = sCache.get('history_all');
-        if (cached) {
-            const pg = AppState.historyPagination || { page:1, pageSize:50, total:cached.length, totalPages:Math.ceil(cached.length/50) };
-            renderHistoryRows(cached.slice(0, 50), pg); return;
-        }
+// ══════════════════════════════════════════════════════
+// CALL HISTORY
+// ══════════════════════════════════════════════════════
+async function loadHistory(force) {
+    if (!force && AppData.history) {
+        renderHistoryRows(AppData.history.slice(0, PAGE_SIZE.history), { page:1, pageSize:PAGE_SIZE.history, total:AppData.history.length, totalPages:Math.ceil(AppData.history.length/PAGE_SIZE.history) });
+        return;
     }
     document.getElementById('tbl-history').innerHTML = Array(5).fill('<tr><td colspan="10"><div class="sk sk-row"></div></td></tr>').join('');
-    const res = await api('getCallingHistory', { page: 1, pageSize: 50 });
+    const res = await api('getCallingHistory', { page: 1, pageSize: 500 });
     if (!res) return;
-    sCache.set('history_all', res.data);
-    AppState.historyPagination = res.pagination;
-    renderHistoryRows(res.data, res.pagination);
+    AppData.history = res.data;
+    AppState.historyPage = 1;
+    const ps = PAGE_SIZE.history;
+    renderHistoryRows(res.data.slice(0, ps), { page:1, pageSize:ps, total:res.data.length, totalPages:Math.ceil(res.data.length/ps) });
 }
 
 function renderHistoryRows(records, pagination) {
     const tbody = document.getElementById('tbl-history');
-    if (!records.length) { tbody.innerHTML = `<tr><td colspan="10"><div class="empty-state"><span class="icon">📋</span><p>Koi record nahi</p></div></td></tr>`; return; }
-    const start = (pagination.page - 1) * pagination.pageSize;
-    tbody.innerHTML = records.map((r, i) => `
+    if (!records.length) { tbody.innerHTML = `<tr><td colspan="10"><div class="empty-state"><span class="icon">📋</span><p>Koi record nahi</p></div></td></tr>`; document.getElementById('history-pagination').innerHTML = ''; return; }
+    const start = (pagination.page-1)*pagination.pageSize;
+    tbody.innerHTML = records.map((r,i) => `
     <tr>
-      <td style="color:var(--text-muted)">${start + i + 1}</td>
+      <td style="color:var(--text-muted)">${start+i+1}</td>
       <td style="font-size:11.5px;color:var(--text-muted)">${r['Timestamp']||'—'}</td>
       <td><div class="td-primary">${r['Customer Name']}</div><div style="font-size:11px;color:var(--text-muted)">${r['Dealer Code']}</div></td>
       <td><span class="mono">${r['Invoice No.']}</span></td>
@@ -943,41 +907,39 @@ function renderHistoryRows(records, pagination) {
       <td style="font-family:'JetBrains Mono',monospace;font-size:12px">${r['Adjustment Amount']>0?fmt(r['Adjustment Amount']):'—'}</td>
       <td style="font-size:12px">${r['Adjustment Remarks']||'—'}</td>
     </tr>`).join('');
-    renderPagination('history-pagination', pagination, (pg) => {
+
+    renderPagination('history-pagination', pagination, pg => {
         AppState.historyPage = pg;
-        const allData = sCache.get('history_all');
-        if (allData) {
-            const ps = 50, start = (pg-1)*ps;
-            renderHistoryRows(allData.slice(start, start+ps), { page:pg, pageSize:ps, total:allData.length, totalPages:Math.ceil(allData.length/ps) });
-        }
+        const data = AppData.history || [];
+        const ps = PAGE_SIZE.history, start = (pg-1)*ps;
+        renderHistoryRows(data.slice(start, start+ps), { page:pg, pageSize:ps, total:data.length, totalPages:Math.ceil(data.length/ps) });
         window.scrollTo({ top: 0, behavior: 'smooth' });
     });
 }
 
-// ── ARCHIVES — paginated ────────────────────────────────────────
-async function loadArchived(force = false) {
-    if (!force) {
-        const cached = sCache.get('archived_all');
-        if (cached) {
-            const pg = { page:1, pageSize:100, total:cached.length, totalPages:Math.ceil(cached.length/100) };
-            document.getElementById('archive-count').textContent = `${cached.length} historical records`;
-            renderArchivedRows(cached.slice(0, 100), pg); return;
-        }
+// ══════════════════════════════════════════════════════
+// ARCHIVES
+// ══════════════════════════════════════════════════════
+async function loadArchived(force) {
+    if (!force && AppData.archived) {
+        const ps = PAGE_SIZE.archived;
+        renderArchivedRows(AppData.archived.slice(0, ps), { page:1, pageSize:ps, total:AppData.archived.length, totalPages:Math.ceil(AppData.archived.length/ps) });
+        return;
     }
     document.getElementById('tbl-archived').innerHTML = Array(5).fill('<tr><td colspan="9"><div class="sk sk-row"></div></td></tr>').join('');
-    const res = await api('getArchivedData', { page: 1, pageSize: 100 });
+    const res = await api('getArchivedData', { page: 1, pageSize: 500 });
     if (!res) return;
-    sCache.set('archived_all', res.data);
-    AppState.archivedPagination = res.pagination;
+    AppData.archived = res.data;
     document.getElementById('archive-count').textContent = `${res.pagination.total} historical records`;
-    renderArchivedRows(res.data, res.pagination);
+    const ps = PAGE_SIZE.archived;
+    renderArchivedRows(res.data.slice(0, ps), { page:1, pageSize:ps, total:res.data.length, totalPages:Math.ceil(res.data.length/ps) });
 }
 
 function renderArchivedRows(data, pagination) {
     const tbody = document.getElementById('tbl-archived');
-    if (!data.length) { tbody.innerHTML = `<tr><td colspan="9"><div class="empty-state"><span class="icon">📁</span><p>Koi record nahi</p></div></td></tr>`; return; }
+    if (!data.length) { tbody.innerHTML = `<tr><td colspan="9"><div class="empty-state"><span class="icon">📁</span><p>Koi record nahi</p></div></td></tr>`; document.getElementById('archived-pagination').innerHTML = ''; return; }
     const start = (pagination.page-1)*pagination.pageSize;
-    tbody.innerHTML = data.map((r, i) => `
+    tbody.innerHTML = data.map((r,i) => `
     <tr>
       <td style="color:var(--text-muted)">${start+i+1}</td>
       <td><div class="td-primary">${r['Customer Name']}</div><div style="font-size:11px;color:var(--text-muted)">${r['Dealer Code']}</div></td>
@@ -989,56 +951,71 @@ function renderArchivedRows(data, pagination) {
       <td>${pill(r.priority)}</td>
       <td style="font-size:11.5px;color:var(--text-muted)">${fmtDate(r['Archived Date'])}</td>
     </tr>`).join('');
-    renderPagination('archived-pagination', pagination, (pg) => {
-        const allData = sCache.get('archived_all');
-        if (allData) {
-            const ps = 100, start = (pg-1)*ps;
-            renderArchivedRows(allData.slice(start, start+ps), { page:pg, pageSize:ps, total:allData.length, totalPages:Math.ceil(allData.length/ps) });
-        }
+
+    renderPagination('archived-pagination', pagination, pg => {
+        const data = AppData.archived || [];
+        const ps = PAGE_SIZE.archived, start = (pg-1)*ps;
+        renderArchivedRows(data.slice(start, start+ps), { page:pg, pageSize:ps, total:data.length, totalPages:Math.ceil(data.length/ps) });
         window.scrollTo({ top: 0, behavior: 'smooth' });
     });
 }
 
-// ── PAGINATION RENDERER ────────────────────────────────────────
+// ══════════════════════════════════════════════════════
+// PAGINATION — FIXED (no function.toString() hack)
+// ══════════════════════════════════════════════════════
 function renderPagination(containerId, pg, onPageClick) {
     const el = document.getElementById(containerId);
-    if (!el || pg.totalPages <= 1) { if (el) el.innerHTML = ''; return; }
+    if (!el) return;
+    if (pg.totalPages <= 1) { el.innerHTML = ''; return; }
+
     const { page, totalPages, total, pageSize } = pg;
     const from = (page-1)*pageSize + 1;
     const to = Math.min(page*pageSize, total);
-    let html = `<span class="pg-info">${from}–${to} of ${total}</span>`;
-    html += `<button class="pg-btn" onclick="(${onPageClick.toString()})(${page-1})" ${page<=1?'disabled':''}>‹ Prev</button>`;
-    // Show max 5 pages around current
+
+    el.innerHTML = `
+        <span class="pg-info">${from}–${to} of ${total}</span>
+        <button class="pg-btn" id="pg-prev-${containerId}" ${page<=1?'disabled':''}>&lsaquo; Prev</button>
+        <span id="pg-nums-${containerId}"></span>
+        <button class="pg-btn" id="pg-next-${containerId}" ${page>=totalPages?'disabled':''}>Next &rsaquo;</button>
+    `;
+
+    // Page number buttons
+    const numsEl = document.getElementById('pg-nums-' + containerId);
     const range = [];
     for (let p = Math.max(1, page-2); p <= Math.min(totalPages, page+2); p++) range.push(p);
-    if (range[0] > 1) html += `<button class="pg-btn" onclick="(${onPageClick.toString()})(1)">1</button>${range[0]>2?'<span style="padding:0 4px;color:var(--text-muted)">…</span>':''}`;
-    range.forEach(p => { html += `<button class="pg-btn ${p===page?'active':''}" onclick="(${onPageClick.toString()})(${p})">${p}</button>`; });
-    if (range[range.length-1] < totalPages) html += `${range[range.length-1]<totalPages-1?'<span style="padding:0 4px;color:var(--text-muted)">…</span>':''}<button class="pg-btn" onclick="(${onPageClick.toString()})(${totalPages})">${totalPages}</button>`;
-    html += `<button class="pg-btn" onclick="(${onPageClick.toString()})(${page+1})" ${page>=totalPages?'disabled':''}>Next ›</button>`;
-    el.innerHTML = html;
+    let numsHTML = '';
+    if (range[0] > 1) numsHTML += `<button class="pg-btn" data-p="1">1</button>${range[0]>2?'<span style="padding:0 4px;color:var(--text-muted)">…</span>':''}`;
+    range.forEach(p => { numsHTML += `<button class="pg-btn ${p===page?'active':''}" data-p="${p}">${p}</button>`; });
+    if (range[range.length-1] < totalPages) numsHTML += `${range[range.length-1]<totalPages-1?'<span style="padding:0 4px;color:var(--text-muted)">…</span>':''}<button class="pg-btn" data-p="${totalPages}">${totalPages}</button>`;
+    numsEl.innerHTML = numsHTML;
+
+    // Attach event listeners (no toString hack)
+    document.getElementById('pg-prev-' + containerId).addEventListener('click', () => onPageClick(page-1));
+    document.getElementById('pg-next-' + containerId).addEventListener('click', () => onPageClick(page+1));
+    numsEl.querySelectorAll('.pg-btn[data-p]').forEach(btn => {
+        btn.addEventListener('click', () => onPageClick(parseInt(btn.dataset.p)));
+    });
 }
 
-// ── ANALYSIS ───────────────────────────────────────────────────
+// ══════════════════════════════════════════════════════
+// ANALYSIS
+// ══════════════════════════════════════════════════════
 let analysisView = 'user';
 
 function setAnalysisView(view, el) {
     analysisView = view;
     document.querySelectorAll('.tbtn').forEach(b => b.classList.remove('active'));
     if (el) el.classList.add('active');
-    const cached = sCache.get('analysis');
-    if (cached) renderCurrentAnalysis(cached);
+    if (AppData.analysis) renderCurrentAnalysis(AppData.analysis);
     else loadAnalysis();
 }
 
-async function loadAnalysis(force = false) {
-    if (!force) {
-        const cached = sCache.get('analysis');
-        if (cached) { renderCurrentAnalysis(cached); return; }
-    }
-    document.getElementById('analysis-content').innerHTML = `<div class="empty-state"><span class="icon">⏳</span><p>Loading...</p></div>`;
+async function loadAnalysis(force) {
+    if (!force && AppData.analysis) { renderCurrentAnalysis(AppData.analysis); return; }
+    document.getElementById('analysis-content').innerHTML = `<div class="empty-state"><span class="icon">⏳</span><p>Analyzing data...</p></div>`;
     const res = await api('getAnalysisData');
     if (!res) return;
-    sCache.set('analysis', res.data);
+    AppData.analysis = res.data;
     renderCurrentAnalysis(res.data);
 }
 
@@ -1048,15 +1025,14 @@ function renderCurrentAnalysis(data) {
 }
 
 function renderDealerAnalysis(data) {
-    const container = document.getElementById('analysis-content');
     const stats = data.stats || {};
     const pb = stats.priorityBreakdown || {};
     const prioConfig = [{k:'Critical',c:'var(--red)'},{k:'High',c:'var(--orange)'},{k:'Medium',c:'var(--yellow)'},{k:'Normal',c:'var(--blue)'},{k:'Reminder',c:'var(--text-muted)'}];
-    let prioHtml = prioConfig.map(p => {
+    const prioHtml = prioConfig.map(p => {
         const count = pb[p.k]||0, pct = stats.total>0?(count/stats.total*100):0;
         return `<div class="prio-row"><span class="prio-label">${p.k}</span><div class="prio-bar-wrap"><div class="prio-bar" style="width:${pct}%;background:${p.c}"></div></div><span class="prio-count">${count}</span></div>`;
     }).join('');
-    container.innerHTML = `
+    document.getElementById('analysis-content').innerHTML = `
     <div class="analysis-grid">
       <div class="stat-card"><span class="stat-label">Total Dealers</span><div class="stat-value">${stats.total||0}</div><div class="stat-footer">${stats.active||0} Active</div></div>
       <div class="stat-card"><span class="stat-label">Total Outstanding</span><div class="stat-value" style="font-size:20px">${fmt(stats.totalOutstanding||0)}</div></div>
@@ -1086,7 +1062,9 @@ function renderUserAnalysis(data) {
     </div>`;
 }
 
-// ── FORMS ──────────────────────────────────────────────────────
+// ══════════════════════════════════════════════════════
+// FORMS
+// ══════════════════════════════════════════════════════
 async function submitAddInvoice() {
     const p = {
         salesPerson: v('f-sp'), dispatchDate: v('f-dd'), dealerCode: v('f-dc'),
@@ -1101,12 +1079,12 @@ async function submitAddInvoice() {
     const res = await api('addInvoice', p);
     hideLoader();
     if (!res) return;
-    sCache.del('dashboard', 'active_all', 'today');
-    AppState.dashboard = null; AppState.today = null;
+    // Invalidate in-memory data
+    AppData.dashboard = null; AppData.today = null; AppData.active = null; AppData.activeAll = null;
     toast(res.message, 'success');
     closeModal('modal-add');
-    if (currentPage === 'dashboard') loadDashboard(true);
-    if (currentPage === 'active') loadActive(true);
+    if (AppState.currentPage === 'dashboard') loadDashboard(true);
+    if (AppState.currentPage === 'active') loadActive(true);
 }
 
 function openCallModal(dc, name, loc, inv, bal) {
@@ -1145,58 +1123,54 @@ async function submitLogCall() {
     if (!res) return;
 
     // Invalidate caches
-    sCache.del('dashboard', 'today', 'active_all', 'history_all');
-    AppState.dashboard = null; AppState.today = null;
+    AppData.dashboard = null; AppData.today = null; AppData.active = null;
+    AppData.activeAll = null; AppData.history = null; AppData.analysis = null;
     toast(res.message, 'success');
     closeModal('modal-call');
 
-    // Refresh silently
-    if (currentPage === 'today') {
-        const r = await api('getTodayCalling', null, null, true);
-        if (r) { sCache.set('today', r.data); AppState.today = r.data; renderToday(r.data); }
-    } else if (currentPage === 'active') {
-        const r = await api('getActivePayments', { page: AppState.activePage, pageSize: 100, filter: AppState.activeFilter }, null, true);
-        if (r) { sCache.set('active_all', r.data); renderActiveRows(r.data, r.pagination); }
-    } else if (currentPage === 'dashboard') {
-        loadDashboard(true);
-    }
+    // Refresh current page
+    if (AppState.currentPage === 'today') loadToday(true);
+    else if (AppState.currentPage === 'active') loadActive(true);
+    else if (AppState.currentPage === 'dashboard') loadDashboard(true);
+    else if (AppState.currentPage === 'history') loadHistory(true);
+
     requestAnimationFrame(() => window.scrollTo({ top: scrollY, behavior: 'instant' }));
 }
 
-// ── SEARCH ─────────────────────────────────────────────────────
+// ══════════════════════════════════════════════════════
+// GLOBAL SEARCH — client-side first, server fallback
+// ══════════════════════════════════════════════════════
 async function globalSearch(val) {
-    clearTimeout(searchTimer);
+    clearTimeout(AppState.searchTimer);
     const q = val.trim().toLowerCase();
 
-    // Client-side filtering for active pages
-    if (currentPage === 'active') {
-        const allData = sCache.get('active_all');
-        if (allData) {
-            const filtered = q ? allData.filter(r => matchQ(q, r['Customer Name'], r['Invoice No.'], r['Dealer Code'], r['Dealer Ph. No.'])) : allData;
-            renderActiveRows(filtered.slice(0, 100), { page:1, pageSize:100, total:filtered.length, totalPages:Math.ceil(filtered.length/100) });
-        }
+    // Client-side filtering for pages that have data loaded
+    if (AppState.currentPage === 'active' && AppData.activeAll) {
+        const filtered = q ? AppData.activeAll.filter(r => matchQ(q, r['Customer Name'], r['Invoice No.'], r['Dealer Code'], r['Dealer Ph. No.'])) : AppData.activeAll;
+        const ps = PAGE_SIZE.active;
+        renderActiveRows(filtered.slice(0, ps), { page:1, pageSize:ps, total:filtered.length, totalPages:Math.ceil(filtered.length/ps) }, filtered);
         return;
     }
-    if (currentPage === 'today') {
-        const data = AppState.today || sCache.get('today') || [];
-        renderToday(q ? data.filter(r => matchQ(q, r['Customer Name'], r['Invoice No.'], r['Dealer Code'], r['Dealer Ph. No.'])) : data);
+    if (AppState.currentPage === 'today' && AppData.today) {
+        renderToday(q ? AppData.today.filter(r => matchQ(q, r['Customer Name'], r['Invoice No.'], r['Dealer Code'], r['Dealer Ph. No.'])) : AppData.today);
         return;
     }
-    if (currentPage === 'history') {
-        const data = sCache.get('history_all') || [];
-        const filtered = q ? data.filter(r => matchQ(q, r['Customer Name'], r['Invoice No.'], r['Dealer Code'], r['Remarks'])) : data;
-        renderHistoryRows(filtered.slice(0,50), { page:1,pageSize:50,total:filtered.length,totalPages:Math.ceil(filtered.length/50) });
+    if (AppState.currentPage === 'history' && AppData.history) {
+        const filtered = q ? AppData.history.filter(r => matchQ(q, r['Customer Name'], r['Invoice No.'], r['Dealer Code'], r['Remarks'])) : AppData.history;
+        const ps = PAGE_SIZE.history;
+        renderHistoryRows(filtered.slice(0, ps), { page:1, pageSize:ps, total:filtered.length, totalPages:Math.ceil(filtered.length/ps) });
         return;
     }
-    if (currentPage === 'archived') {
-        const data = sCache.get('archived_all') || [];
-        const filtered = q ? data.filter(r => matchQ(q, r['Customer Name'], r['Invoice No.'], r['Dealer Code'])) : data;
-        renderArchivedRows(filtered.slice(0,100), { page:1,pageSize:100,total:filtered.length,totalPages:Math.ceil(filtered.length/100) });
+    if (AppState.currentPage === 'archived' && AppData.archived) {
+        const filtered = q ? AppData.archived.filter(r => matchQ(q, r['Customer Name'], r['Invoice No.'], r['Dealer Code'])) : AppData.archived;
+        const ps = PAGE_SIZE.archived;
+        renderArchivedRows(filtered.slice(0, ps), { page:1, pageSize:ps, total:filtered.length, totalPages:Math.ceil(filtered.length/ps) });
         return;
     }
 
-    if (q.length < 2) { if (currentPage === 'search') nav('dashboard'); return; }
-    searchTimer = setTimeout(async () => {
+    // Server-side search fallback
+    if (q.length < 2) { if (AppState.currentPage === 'search') nav('dashboard'); return; }
+    AppState.searchTimer = setTimeout(async () => {
         nav('search');
         document.getElementById('tbl-search').innerHTML = Array(5).fill('<tr><td colspan="9"><div class="sk sk-row"></div></td></tr>').join('');
         const res = await api('searchRecords', null, val);
@@ -1221,19 +1195,18 @@ async function globalSearch(val) {
 
 async function runArchiveNow() {
     if (!confirm('Sab PAID invoices Archive mein move honge. Continue?')) return;
-    loader('Archiving...');
+    loader('Archiving paid invoices...');
     const res = await api('archiveNow');
     hideLoader();
     if (!res) return;
-    sCache.clear();
-    AppState.dashboard = null; AppState.today = null; AppState.analysis = null;
+    AppData.dashboard = null; AppData.today = null; AppData.activeAll = null; AppData.archived = null;
     toast(res.message, 'success');
-    nav(currentPage, true);
+    nav(AppState.currentPage, true);
 }
 
 function downloadActiveExcel() {
-    const allData = sCache.get('active_all');
-    if (!allData || !allData.length) { toast('Pehle data load karo', 'error'); return; }
+    const allData = AppData.activeAll;
+    if (!allData || !allData.length) { toast('Pehle Active Payments page kholo', 'error'); return; }
     let filtered = allData;
     const f = AppState.activeFilter;
     if (f === 'Paid') filtered = allData.filter(r => r.status === 'Paid');
@@ -1243,33 +1216,44 @@ function downloadActiveExcel() {
     const headers = ['Customer Name','Dealer Code','Phone No.','Invoice No.','Sales Person','Invoice Amount','Balance','Dispatch Date','Due Date','Due Days','Priority','Status'];
     const csvRows = [headers.join(',')];
     filtered.forEach(r => csvRows.push([
-        `"${(r['Customer Name']||'').replace(/"/g,'""')}"`,`"${(r['Dealer Code']||'').replace(/"/g,'""')}"`,
-        `"${(r['Dealer Ph. No.']||'').replace(/"/g,'""')}"`,`"${(r['Invoice No.']||'').replace(/"/g,'""')}"`,
-        `"${(r['Sales Person']||'').replace(/"/g,'""')}"`,r['Invoice Amount']||0,r['Balance']||0,
-        `"${r['Dispatch Date']||''}"`,`"${fmtDate(r['Payment Due Date'])}"`,r.dueDays||0,`"${r.priority||''}"`,r.status||'Active'
+        `"${(r['Customer Name']||'').replace(/"/g,'""')}"`,
+        `"${(r['Dealer Code']||'').replace(/"/g,'""')}"`,
+        `"${(r['Dealer Ph. No.']||'').replace(/"/g,'""')}"`,
+        `"${(r['Invoice No.']||'').replace(/"/g,'""')}"`,
+        `"${(r['Sales Person']||'').replace(/"/g,'""')}"`,
+        r['Invoice Amount']||0, r['Balance']||0,
+        `"${r['Dispatch Date']||''}"`,
+        `"${fmtDate(r['Payment Due Date'])}"`,
+        r.dueDays||0, `"${r.priority||''}"`, r.status||'Active'
     ].join(',')));
     const blob = new Blob(["\ufeff" + csvRows.join('\r\n')], { type: 'text/csv;charset=utf-8;' });
-    const a = Object.assign(document.createElement('a'), { href: URL.createObjectURL(blob), download: `Active_Payments_${new Date().toISOString().slice(0,10)}.csv` });
+    const a = Object.assign(document.createElement('a'), {
+        href: URL.createObjectURL(blob),
+        download: `Active_Payments_${new Date().toISOString().slice(0,10)}.csv`
+    });
     document.body.appendChild(a); a.click();
     setTimeout(() => { document.body.removeChild(a); URL.revokeObjectURL(a.href); }, 100);
     toast('Download shuru!', 'success');
 }
 
-// ── HELPERS ────────────────────────────────────────────────────
+// ══════════════════════════════════════════════════════
+// HELPERS
+// ══════════════════════════════════════════════════════
 function matchQ(q, ...fields) { return fields.some(f => f && String(f).toLowerCase().includes(q)); }
 function openModal(id) { document.getElementById(id).classList.add('open'); }
 function closeModal(id) { document.getElementById(id).classList.remove('open'); }
 document.addEventListener('click', e => { if (e.target.classList.contains('modal-bg')) closeModal(e.target.id); });
-function loader(msg = 'Loading...') { document.getElementById('loader-msg').textContent = msg; document.getElementById('loader').classList.add('show'); }
+function loader(msg) { document.getElementById('loader-msg').textContent = msg || 'Loading...'; document.getElementById('loader').classList.add('show'); }
 function hideLoader() { document.getElementById('loader').classList.remove('show'); }
 
-function toast(msg, type = 'info') {
-    const icons = { success: '✅', error: '❌', info: 'ℹ️' };
+function toast(msg, type) {
+    type = type || 'info';
+    const icons = { success:'✅', error:'❌', info:'ℹ️' };
     const el = document.createElement('div');
     el.className = `toast ${type}`;
     el.innerHTML = `<span class="toast-icon">${icons[type]}</span><span>${msg}</span>`;
     document.getElementById('toasts').appendChild(el);
-    setTimeout(() => el.style.opacity = '0', 3500);
+    setTimeout(() => { el.style.transition = 'opacity 0.3s'; el.style.opacity = '0'; }, 3500);
     setTimeout(() => el.remove(), 3800);
 }
 
@@ -1286,7 +1270,8 @@ function fmtDate(val) {
     catch { return val; }
 }
 
-function pill(priority = 'Normal') {
+function pill(priority) {
+    priority = priority || 'Normal';
     const map = { Critical:'critical', High:'high', Medium:'medium', Normal:'normal', Reminder:'reminder' };
     return `<span class="badge badge-${map[priority]||'normal'}">${priority}</span>`;
 }
