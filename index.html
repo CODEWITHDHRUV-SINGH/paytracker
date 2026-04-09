@@ -10,26 +10,20 @@
         href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap"
         rel="stylesheet">
     <style>
-        /* ═══════════════════════════════════════════
-   DESIGN SYSTEM
-═══════════════════════════════════════════ */
         :root {
             --bg: #F8FAFD;
             --white: #FFFFFF;
             --surface: rgba(255, 255, 255, 0.85);
             --border: rgba(228, 233, 240, 0.8);
             --border-dark: #CDD5E0;
-
             --navy: #0B1120;
             --navy-mid: #1E293B;
             --blue: #3772FF;
             --blue-hover: #1D4ED8;
             --blue-light: #F0F5FF;
-
             --text-primary: #0F172A;
             --text-secondary: #475569;
             --text-muted: #94A3B8;
-
             --green: #10B981;
             --green-bg: #ECFDF5;
             --yellow: #F59E0B;
@@ -40,20 +34,16 @@
             --red-bg: #FEF2F2;
             --purple: #8B5CF6;
             --purple-bg: #F5F3FF;
-
             --glass: rgba(255, 255, 255, 0.7);
             --glass-border: rgba(255, 255, 255, 0.3);
-
             --radius-sm: 8px;
             --radius: 12px;
             --radius-lg: 18px;
             --radius-xl: 30px;
-
             --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
             --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
             --shadow-lg: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
             --shadow-premium: 0 0 0 1px rgba(0, 0, 0, 0.05), 0 10px 30px -5px rgba(0, 0, 0, 0.1);
-
             --sidebar-w: 260px;
             --header-h: 70px;
         }
@@ -62,7 +52,6 @@
         html { font-size: 14px; }
         body { font-family: 'Plus Jakarta Sans', sans-serif; background: var(--bg); color: var(--text-primary); min-height: 100vh; -webkit-font-smoothing: antialiased; }
 
-        /* ═══════════════════ SIDEBAR ═══════════════════ */
         .sidebar { position: fixed; top: 0; left: 0; bottom: 0; width: var(--sidebar-w); background: var(--navy); display: flex; flex-direction: column; z-index: 200; overflow: hidden; backdrop-filter: blur(8px); border-right: 1px solid rgba(255,255,255,.05); }
         .sidebar::before { content: ''; position: absolute; inset: 0; background-image: linear-gradient(rgba(255,255,255,.03) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,.03) 1px, transparent 1px); background-size: 24px 24px; pointer-events: none; }
         .brand { padding: 20px 20px 18px; border-bottom: 1px solid rgba(255,255,255,.08); flex-shrink: 0; }
@@ -83,7 +72,6 @@
         .nav-badge.info { background: #2563EB; }
         .sidebar-footer { padding: 14px 16px; border-top: 1px solid rgba(255,255,255,.08); font-size: 11px; color: rgba(255,255,255,.28); text-align: center; flex-shrink: 0; }
 
-        /* ═══════════════════ MAIN ═══════════════════ */
         .main { margin-left: var(--sidebar-w); min-height: 100vh; display: flex; flex-direction: column; }
         .topbar { height: var(--header-h); background: var(--white); border-bottom: 1px solid var(--border); display: flex; align-items: center; padding: 0 24px; gap: 16px; position: sticky; top: 0; z-index: 100; box-shadow: var(--shadow-sm); }
         .topbar-title { font-size: 16px; font-weight: 700; color: var(--text-primary); letter-spacing: -.2px; }
@@ -95,7 +83,6 @@
         .search-wrap input { border: none; background: none; outline: none; font-family: inherit; font-size: 13px; color: var(--text-primary); width: 100%; }
         .search-wrap input::placeholder { color: var(--text-muted); }
 
-        /* ═══════════════════ BUTTONS ═══════════════════ */
         .btn { display: inline-flex; align-items: center; gap: 6px; padding: 8px 16px; border-radius: var(--radius-sm); font-family: inherit; font-size: 13px; font-weight: 600; cursor: pointer; border: none; transition: all .18s; white-space: nowrap; line-height: 1; }
         .btn-primary { background: var(--blue); color: #fff; box-shadow: 0 1px 3px rgba(37,99,235,.3); }
         .btn-primary:hover { background: #1D4ED8; box-shadow: 0 4px 12px rgba(37,99,235,.35); transform: translateY(-1px); }
@@ -107,19 +94,16 @@
         .btn-success { background: var(--green); color: #fff; }
         .btn-danger { background: var(--red); color: #fff; }
 
-        /* ═══════════════════ CONTENT ═══════════════════ */
         .content { flex: 1; padding: 22px 24px; max-width: 1400px; width: 100%; }
         .page { display: none; animation: fadeIn .22s ease; }
         .page.active { display: block; }
         @keyframes fadeIn { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: translateY(0); } }
 
-        /* ═══════════════════ SKELETON ═══════════════════ */
         .skeleton { background: linear-gradient(90deg, #F1F5F9 25%, #E2E8F0 50%, #F1F5F9 75%); background-size: 200% 100%; animation: shimmer 1.5s infinite; border-radius: var(--radius-sm); color: transparent !important; border: none !important; }
         @keyframes shimmer { 0% { background-position: 200% 0; } 100% { background-position: -200% 0; } }
         .skeleton-text { height: 14px; width: 100%; margin: 8px 0; }
         .skeleton-rect { height: 100px; width: 100%; }
 
-        /* ═══════════════════ STAT CARDS ═══════════════════ */
         .stats-row { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; margin-bottom: 20px; }
         .stat-card { background: var(--white); border: 1px solid var(--border); border-radius: var(--radius-lg); padding: 18px 20px; position: relative; overflow: hidden; box-shadow: var(--shadow-sm); transition: box-shadow .2s, transform .2s; }
         .stat-card:hover { box-shadow: var(--shadow); transform: translateY(-1px); }
@@ -130,7 +114,6 @@
         .stat-value { font-size: 24px; font-weight: 800; color: var(--text-primary); letter-spacing: -.5px; line-height: 1; font-family: 'JetBrains Mono', monospace; }
         .stat-footer { display: flex; align-items: center; gap: 5px; margin-top: 8px; font-size: 11.5px; color: var(--text-muted); }
 
-        /* ═══════════════════ CARDS ═══════════════════ */
         .card { background: var(--white); border: 1px solid var(--border); border-radius: var(--radius-lg); box-shadow: var(--shadow-sm); overflow: hidden; }
         .card-head { padding: 15px 20px; border-bottom: 1px solid var(--border); display: flex; align-items: center; gap: 10px; }
         .card-title { font-size: 14px; font-weight: 700; color: var(--text-primary); letter-spacing: -.1px; }
@@ -139,7 +122,6 @@
         .grid-2 { display: grid; grid-template-columns: 2fr 1fr; gap: 16px; margin-bottom: 16px; }
         .section-gap { margin-bottom: 16px; }
 
-        /* ═══════════════════ TABLE ═══════════════════ */
         .tbl-wrap { overflow-x: auto; }
         table { width: 100%; border-collapse: collapse; }
         thead tr { background: #F8FAFC; border-bottom: 1px solid var(--border); }
@@ -151,7 +133,6 @@
         .td-primary { font-weight: 600; color: var(--text-primary) !important; }
         .mono { font-family: 'JetBrains Mono', monospace; font-size: 12px; background: var(--bg); padding: 2px 7px; border-radius: 4px; border: 1px solid var(--border); }
 
-        /* ═══════════════════ BADGES ═══════════════════ */
         .badge { display: inline-flex; align-items: center; gap: 4px; padding: 3px 9px; border-radius: 20px; font-size: 11.5px; font-weight: 600; white-space: nowrap; }
         .badge::before { content: ''; width: 5px; height: 5px; border-radius: 50%; flex-shrink: 0; }
         .badge-critical { background: var(--red-bg); color: var(--red); } .badge-critical::before { background: var(--red); }
@@ -162,7 +143,6 @@
         .badge-paid { background: var(--green-bg); color: var(--green); } .badge-paid::before { background: var(--green); }
         .badge-active { background: var(--blue-light); color: var(--blue); } .badge-active::before { background: var(--blue); }
 
-        /* ═══════════════════ AGING BARS ═══════════════════ */
         .aging-item { display: flex; align-items: center; gap: 12px; padding: 9px 0; border-bottom: 1px solid var(--border); }
         .aging-item:last-child { border-bottom: none; }
         .aging-lbl { width: 92px; font-size: 12px; color: var(--text-secondary); font-weight: 500; flex-shrink: 0; }
@@ -170,7 +150,6 @@
         .aging-bar-fill { height: 100%; border-radius: 4px; transition: width .6s cubic-bezier(.4,0,.2,1); }
         .aging-amt { font-family: 'JetBrains Mono', monospace; font-size: 12px; color: var(--text-primary); font-weight: 600; width: 90px; text-align: right; flex-shrink: 0; }
 
-        /* ═══════════════════ CALLING CARDS ═══════════════════ */
         .call-list { display: flex; flex-direction: column; gap: 10px; }
         .call-card { background: var(--white); border: 1.5px solid var(--border); border-radius: var(--radius-lg); padding: 16px 18px; display: flex; align-items: center; gap: 16px; box-shadow: var(--shadow-sm); transition: all .18s; }
         .call-card:hover { border-color: var(--blue); box-shadow: var(--shadow); }
@@ -183,13 +162,11 @@
         .call-info { flex: 1; min-width: 0; }
         .call-actions { display: flex; flex-direction: column; gap: 6px; flex-shrink: 0; }
 
-        /* ═══════════════════ FILTER TABS ═══════════════════ */
         .filter-tabs { display: flex; gap: 6px; margin-bottom: 14px; flex-wrap: wrap; }
         .ftab { padding: 6px 14px; border-radius: 20px; font-size: 12.5px; font-weight: 600; cursor: pointer; border: 1.5px solid var(--border); background: var(--white); color: var(--text-muted); transition: all .15s; }
         .ftab:hover { border-color: var(--blue); color: var(--blue); }
         .ftab.active { background: var(--blue); border-color: var(--blue); color: #fff; }
 
-        /* ═══════════════════ MODAL ═══════════════════ */
         .modal-bg { position: fixed; inset: 0; background: rgba(15,28,46,.5); backdrop-filter: blur(4px); z-index: 500; display: flex; align-items: center; justify-content: center; opacity: 0; pointer-events: none; transition: opacity .22s; }
         .modal-bg.open { opacity: 1; pointer-events: all; }
         .modal { background: var(--white); border-radius: var(--radius-xl); width: 560px; max-width: 95vw; max-height: 90vh; overflow-y: auto; box-shadow: var(--shadow-lg); transform: scale(.96) translateY(8px); transition: transform .22s cubic-bezier(.4,0,.2,1); }
@@ -202,7 +179,6 @@
         .modal-body { padding: 20px 24px; }
         .modal-ft { padding: 14px 24px; border-top: 1px solid var(--border); display: flex; gap: 8px; justify-content: flex-end; background: #FAFBFC; }
 
-        /* ═══════════════════ FORM ═══════════════════ */
         .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
         .form-grid .full { grid-column: 1 / -1; }
         .field { display: flex; flex-direction: column; gap: 5px; }
@@ -215,7 +191,6 @@
         .invoice-info-box .meta { font-size: 12px; color: var(--text-muted); margin-top: 2px; }
         .invoice-info-box .balance { font-family: 'JetBrains Mono', monospace; font-size: 20px; font-weight: 700; color: var(--red); flex-shrink: 0; }
 
-        /* ═══════════════════ TOAST ═══════════════════ */
         .toast-wrap { position: fixed; bottom: 24px; right: 24px; z-index: 9999; display: flex; flex-direction: column; gap: 8px; pointer-events: none; }
         .toast { background: var(--white); border: 1px solid var(--border); border-radius: var(--radius); padding: 11px 16px; display: flex; align-items: center; gap: 10px; min-width: 260px; max-width: 360px; box-shadow: var(--shadow-lg); font-size: 13px; color: var(--text-primary); animation: toastIn .3s cubic-bezier(.4,0,.2,1); pointer-events: all; }
         .toast-icon { font-size: 16px; flex-shrink: 0; }
@@ -224,27 +199,23 @@
         .toast.info { border-left: 3px solid var(--blue); }
         @keyframes toastIn { from { transform: translateX(30px); opacity: 0; } to { transform: translateX(0); opacity: 1; } }
 
-        /* ═══════════════════ LOADER ═══════════════════ */
         .loader-wrap { position: fixed; inset: 0; background: rgba(244,246,250,.75); backdrop-filter: blur(2px); z-index: 9998; display: none; align-items: center; justify-content: center; flex-direction: column; gap: 14px; }
         .loader-wrap.show { display: flex; }
         .spinner { width: 38px; height: 38px; border: 3px solid var(--border); border-top-color: var(--blue); border-radius: 50%; animation: spin .75s linear infinite; }
         .loader-txt { font-size: 13px; color: var(--text-muted); font-weight: 500; }
         @keyframes spin { to { transform: rotate(360deg); } }
 
-        /* ═══════════════════ EMPTY STATE ═══════════════════ */
         .empty-state { display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 56px 20px; color: var(--text-muted); gap: 10px; }
         .empty-state .icon { font-size: 38px; opacity: .5; }
         .empty-state p { font-size: 14px; font-weight: 500; }
         .empty-state small { font-size: 12px; opacity: .7; }
 
-        /* ═══════════════════ SUMMARY CHIPS ═══════════════════ */
         .summary-chips { display: flex; gap: 8px; margin-bottom: 16px; flex-wrap: wrap; }
         .s-chip { display: flex; align-items: center; gap: 7px; padding: 6px 13px; background: var(--white); border: 1px solid var(--border); border-radius: var(--radius); font-size: 12px; box-shadow: var(--shadow-sm); }
         .s-dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
         .s-chip .lbl { color: var(--text-muted); }
         .s-chip .val { font-weight: 700; color: var(--text-primary); margin-left: 2px; }
 
-        /* ═══════════════════ ANALYSIS ═══════════════════ */
         .analysis-controls { display: flex; justify-content: center; margin-bottom: 24px; padding: 10px 0; background: var(--white); border-bottom: 1px solid var(--border); position: sticky; top: 0; z-index: 10; margin-top: -24px; margin-left: -24px; margin-right: -24px; }
         .toggle-group { display: flex; background: var(--bg); padding: 4px; border-radius: var(--radius-lg); gap: 4px; }
         .tbtn { border: none; background: transparent; padding: 8px 24px; font-size: 13px; font-weight: 600; color: var(--text-secondary); cursor: pointer; border-radius: var(--radius); transition: all 0.2s; }
@@ -260,21 +231,17 @@
         .prio-bar { height: 100%; border-radius: 4px; transition: width 0.6s ease; }
         .prio-count { width: 30px; font-size: 12px; font-weight: 700; text-align: right; }
 
-        /* ═══════════════════ CONFIG BANNER ═══════════════════ */
-        .config-banner { background: #FFF8E1; border: 1.5px solid #F59E0B; border-radius: var(--radius); padding: 14px 18px; margin-bottom: 20px; display: flex; align-items: center; gap: 12px; }
+        .config-banner { background: #FFF8E1; border: 1.5px solid #F59E0B; border-radius: var(--radius); padding: 14px 18px; margin-bottom: 20px; display: flex; align-items: center; gap: 12px; flex-wrap: wrap; }
         .config-banner.hidden { display: none; }
-        .config-banner p { font-size: 13px; color: #92400E; flex: 1; }
+        .config-banner p { font-size: 13px; color: #92400E; flex: 1; min-width: 200px; }
         .config-banner strong { color: #78350F; }
-        .config-banner input { font-family: 'JetBrains Mono', monospace; font-size: 12px; flex: 2; padding: 8px 10px; border: 1.5px solid #F59E0B; border-radius: var(--radius-sm); outline: none; background: #fff; }
+        .config-banner input { font-family: 'JetBrains Mono', monospace; font-size: 12px; flex: 2; min-width: 260px; padding: 8px 10px; border: 1.5px solid #F59E0B; border-radius: var(--radius-sm); outline: none; background: #fff; }
         .config-banner input:focus { border-color: var(--blue); }
     </style>
 </head>
 
 <body>
 
-<!-- ══════════════════════════════════════
-     SIDEBAR
-══════════════════════════════════════ -->
 <aside class="sidebar">
     <div class="brand">
         <div class="brand-row">
@@ -301,12 +268,9 @@
         <div class="nav-group-label">Actions</div>
         <button class="nav-btn" onclick="openModal('modal-add')"><span class="nav-icon">＋</span> Add Invoice</button>
     </nav>
-    <div class="sidebar-footer">PayTrack v8.1 &nbsp;·&nbsp; © 2026</div>
+    <div class="sidebar-footer">PayTrack v8.2 &nbsp;·&nbsp; © 2026</div>
 </aside>
 
-<!-- ══════════════════════════════════════
-     MAIN
-══════════════════════════════════════ -->
 <div class="main">
     <header class="topbar">
         <span class="topbar-title" id="page-title">Dashboard</span>
@@ -330,15 +294,15 @@
 
     <div class="content">
 
-        <!-- ── CONFIG BANNER (shown until URL is set) ── -->
+        <!-- CONFIG BANNER -->
         <div class="config-banner" id="config-banner">
             <span style="font-size:20px">⚙️</span>
-            <p><strong>Setup Required:</strong> Paste your Google Apps Script Web App URL below, then press Save. Deploy Code.gs as a Web App first (Execute as: Me, Access: Anyone).</p>
-            <input type="text" id="webapp-url-input" placeholder="https://script.google.com/macros/s/YOUR_ID/exec">
-            <button class="btn btn-primary btn-sm" onclick="saveWebAppUrl()">Save URL</button>
+            <p><strong>Setup Required:</strong> Apps Script deploy karo (Execute as: Me, Access: Anyone), phir URL paste karo.</p>
+            <input type="text" id="webapp-url-input" placeholder="https://script.google.com/macros/s/YOUR_SCRIPT_ID/exec">
+            <button class="btn btn-primary btn-sm" onclick="saveWebAppUrl()">Save & Connect</button>
         </div>
 
-        <!-- ░░ SEARCH RESULTS ░░ -->
+        <!-- SEARCH RESULTS -->
         <div class="page" id="page-search">
             <div class="card">
                 <div class="card-head">
@@ -354,7 +318,7 @@
             </div>
         </div>
 
-        <!-- ░░ DASHBOARD ░░ -->
+        <!-- DASHBOARD -->
         <div class="page active" id="page-dashboard">
             <div class="card section-gap">
                 <div class="card-body" style="padding:10px 20px; background:var(--navy); color:#fff; border-radius:var(--radius-lg)">
@@ -401,7 +365,7 @@
                     <div class="card-head" style="background:linear-gradient(to right, #fff, #F8FAFD)">
                         <div class="stat-icon-wrap" style="background:var(--blue-light); font-size:14px">📉</div>
                         <span class="card-title">Aging Analysis</span>
-                        <span class="card-subtitle">Snapshot of outstanding by period</span>
+                        <span class="card-subtitle">Outstanding by period</span>
                     </div>
                     <div class="card-body" id="aging-container"><div class="skeleton-rect" style="height:220px"></div></div>
                 </div>
@@ -431,13 +395,17 @@
             </div>
         </div>
 
-        <!-- ░░ TODAY'S CALLING ░░ -->
+        <!-- TODAY'S CALLING -->
         <div class="page" id="page-today">
-            <div class="summary-chips" id="today-chips"></div>
+            <div style="display:flex; align-items:center; gap:8px; margin-bottom:14px; flex-wrap:wrap;">
+                <button class="ftab active" id="tab-today-calling" onclick="setTodayFilter('today', this)">📞 Aaj Ki Calling</button>
+                <button class="ftab" id="tab-pending-calling" onclick="setTodayFilter('pending', this)">⏳ Pending <span id="pending-count-badge" style="background:var(--red);color:#fff;font-size:10px;font-weight:700;padding:1px 7px;border-radius:10px;margin-left:4px">0</span></button>
+                <div class="summary-chips" id="today-chips" style="margin:0; flex:1;"></div>
+            </div>
             <div class="call-list" id="call-list-container"></div>
         </div>
 
-        <!-- ░░ ACTIVE PAYMENTS ░░ -->
+        <!-- ACTIVE PAYMENTS -->
         <div class="page" id="page-active">
             <div class="filter-tabs">
                 <button class="ftab active" onclick="filterActive('all',this)">All</button>
@@ -465,7 +433,7 @@
             </div>
         </div>
 
-        <!-- ░░ CALL HISTORY ░░ -->
+        <!-- CALL HISTORY -->
         <div class="page" id="page-history">
             <div class="card">
                 <div class="card-head">
@@ -481,7 +449,7 @@
             </div>
         </div>
 
-        <!-- ░░ ANALYSIS ░░ -->
+        <!-- ANALYSIS -->
         <div class="page" id="page-analysis">
             <div class="analysis-controls">
                 <div class="toggle-group">
@@ -494,7 +462,7 @@
             </div>
         </div>
 
-        <!-- ░░ ARCHIVED ░░ -->
+        <!-- ARCHIVED -->
         <div class="page" id="page-archived">
             <div class="card">
                 <div class="card-head">
@@ -511,12 +479,10 @@
             </div>
         </div>
 
-    </div><!-- /content -->
-</div><!-- /main -->
+    </div>
+</div>
 
-<!-- ══════════════════════════════════════ MODALS ══════════════════════════════════════ -->
-
-<!-- ADD INVOICE -->
+<!-- ADD INVOICE MODAL -->
 <div class="modal-bg" id="modal-add">
     <div class="modal">
         <div class="modal-hd">
@@ -554,7 +520,7 @@
     </div>
 </div>
 
-<!-- LOG CALL -->
+<!-- LOG CALL MODAL -->
 <div class="modal-bg" id="modal-call">
     <div class="modal">
         <div class="modal-hd">
@@ -576,7 +542,16 @@
                 <div class="field"><label>Follow-up Date</label><input id="c-fup" type="date" required></div>
                 <div class="field full"><label>Customer Response / Remarks *</label><textarea id="c-rmk" placeholder="What did customer say?"></textarea></div>
                 <div class="field"><label>Adjustment (₹)</label><input id="c-adj" type="number" placeholder="0"></div>
-                <div class="field"><label>Adjustment Reason</label><input id="c-adjr" type="text" placeholder="Reason"></div>
+                <div class="field"><label>Adjustment Reason</label>
+                    <select id="c-adjr">
+                        <option value="">-- Select --</option>
+                        <option value="Token">Token</option>
+                        <option value="Scheme">Scheme</option>
+                        <option value="CD">CD</option>
+                        <option value="Material Return">Material Return</option>
+                        <option value="Freight">Freight</option>
+                    </select>
+                </div>
             </div>
         </div>
         <div class="modal-ft">
@@ -586,636 +561,726 @@
     </div>
 </div>
 
-<!-- LOADER -->
 <div class="loader-wrap" id="loader"><div class="spinner"></div><div class="loader-txt" id="loader-msg">Loading...</div></div>
-
-<!-- TOASTS -->
 <div class="toast-wrap" id="toasts"></div>
 
-<!-- ══════════════════════════════════════ JAVASCRIPT ══════════════════════════════════════ -->
 <script>
-    // ═══════════════════════════════════════════
-    // ── CONFIG — PASTE YOUR WEB APP URL HERE ───
-    // ═══════════════════════════════════════════
-    // After deploying Code.gs as a Web App, paste the URL below.
-    // OR use the yellow banner on the page to set it without editing code.
-    let WEBAPP_URL = localStorage.getItem('paytrack_webapp_url') || '';
+// ═══════════════════════════════════════════
+// PAYTRACK — MAIN CONFIG
+// ═══════════════════════════════════════════
 
-    // ─── Config banner logic ─────────────────────────────────────
-    function saveWebAppUrl() {
-        const val = document.getElementById('webapp-url-input').value.trim();
-        if (!val || !val.startsWith('https://')) {
-            toast('Please enter a valid https:// URL', 'error'); return;
-        }
-        WEBAPP_URL = val;
-        localStorage.setItem('paytrack_webapp_url', val);
+// ── URL localStorage se load hoga — banner mein paste karo ──
+let WEBAPP_URL = localStorage.getItem('paytrack_webapp_url') || '';
+
+// ── Config banner ─────────────────────────────────────────────
+function saveWebAppUrl() {
+    const val = document.getElementById('webapp-url-input').value.trim();
+    if (!val || !val.startsWith('https://')) {
+        toast('Valid https:// URL daalo', 'error'); return;
+    }
+    WEBAPP_URL = val;
+    localStorage.setItem('paytrack_webapp_url', val);
+    document.getElementById('config-banner').classList.add('hidden');
+    toast('URL save ho gaya! Dashboard load ho raha hai...', 'success');
+    loadDashboard(true);
+}
+
+// ── App State ──────────────────────────────────────────────────
+const AppState = {
+    dashboard: null, active: null, activeFilter: 'all',
+    history: null, analysis: null, today: null, archived: null,
+};
+
+const SKELETONS = {
+    aging: `<div class="skeleton-text"></div>`.repeat(6),
+    table: (rows = 5) => `<tr><td colspan="15"><div class="skeleton-text"></div></td></tr>`.repeat(rows)
+};
+
+let currentPage = 'dashboard';
+let searchTimer = null;
+
+// ── INIT ───────────────────────────────────────────────────────
+document.addEventListener('DOMContentLoaded', () => {
+    const now = new Date();
+    document.getElementById('today-date').textContent =
+        now.toLocaleDateString('en-IN', { weekday: 'short', day: '2-digit', month: 'short', year: 'numeric' });
+    const today = now.toISOString().split('T')[0];
+    document.getElementById('f-dd').value = today;
+    document.getElementById('c-fup').value = today;
+
+    if (WEBAPP_URL) {
         document.getElementById('config-banner').classList.add('hidden');
-        toast('Web App URL saved! Loading dashboard...', 'success');
+        loadDashboard();
+    } else {
+        document.getElementById('webapp-url-input').focus();
+    }
+});
+
+// ═══════════════════════════════════════════
+// API FUNCTION — CORS-SAFE FETCH
+// ═══════════════════════════════════════════
+// Google Apps Script CORS fix:
+// 1. Content-Type: 'text/plain' — preflight avoid karta hai
+// 2. redirect: 'follow' — Apps Script redirect handle karta hai
+// 3. Agar "Failed to fetch" aaye toh check karo:
+//    - Script deployed hai? (Deploy > New Deployment > Web App)
+//    - "Execute as: Me" aur "Who has access: Anyone" set hai?
+//    - New deployment ke baad URL copy kiya? (old URL kaam nahi karta)
+
+async function api(action, payload, query, silent = false) {
+    if (!WEBAPP_URL) {
+        toast('Pehle Web App URL set karo (upar yellow banner mein)', 'error');
+        return null;
+    }
+
+    if (!silent) setGlobalLoading(true);
+
+    const body = { action };
+    if (payload !== undefined) body.payload = payload;
+    if (query !== undefined) body.query = query;
+
+    try {
+        const res = await fetch(WEBAPP_URL, {
+            method: 'POST',
+            headers: {
+                // 'text/plain' use karo — yeh CORS preflight nahi bhejta
+                // 'application/json' use karne par browser OPTIONS request bhejta hai
+                // jo Apps Script handle nahi karta → CORS error
+                'Content-Type': 'text/plain;charset=utf-8',
+            },
+            body: JSON.stringify(body),
+            redirect: 'follow',   // Apps Script redirect follow karna zaroori hai
+        });
+
+        if (!res.ok) {
+            throw new Error(`HTTP ${res.status}: ${res.statusText}`);
+        }
+
+        const text = await res.text();
+
+        if (!text || text.trim() === '') {
+            throw new Error('Server ne empty response diya. Script deploy check karo.');
+        }
+
+        let data;
+        try {
+            // Apps Script kabhi kabhi BOM ya extra whitespace bhejta hai
+            data = JSON.parse(text.replace(/^\uFEFF/, '').trim());
+        } catch {
+            throw new Error('JSON parse nahi hua: ' + text.slice(0, 150));
+        }
+
+        if (!data) { toast('Server se empty response', 'error'); return null; }
+        if (!data.success) { toast(data.message || 'Kuch galat hua', 'error'); return null; }
+        return data;
+
+    } catch (err) {
+        // Detailed error message for debugging
+        let msg = err.message;
+        if (msg.includes('Failed to fetch')) {
+            msg = 'CORS error ya network problem. Script deploy check karo: Execute as Me, Access Anyone.';
+        }
+        toast('API Error: ' + msg, 'error');
+        console.error('PayTrack API Error:', err, '\nURL:', WEBAPP_URL, '\nAction:', action);
+        return null;
+    } finally {
+        if (!silent) setGlobalLoading(false);
+    }
+}
+
+function setGlobalLoading(isLoading) {
+    const shim = document.getElementById('shimmer-top');
+    if (shim) shim.style.display = isLoading ? 'block' : 'none';
+}
+
+// ── NAV ────────────────────────────────────────────────────────
+const PAGE_META = {
+    dashboard: ['Dashboard', 'Payment overview & analytics'],
+    today: ["Today's Calling", 'Contacts to call today'],
+    active: ['Active Payments', 'All pending invoices'],
+    history: ['Call History', 'Complete call log records'],
+    analysis: ['Data Analysis', 'Track performance by User or Dealer'],
+    search: ['Search Results', 'Matching payment records'],
+    archived: ['Archived Payments', 'Historical paid records'],
+};
+
+function nav(page, force = false) {
+    document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+    document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
+    const pg = document.getElementById('page-' + page);
+    if (pg) pg.classList.add('active');
+    document.querySelectorAll('.nav-btn').forEach(b => {
+        if (b.onclick && b.onclick.toString().includes(`'${page}'`)) b.classList.add('active');
+    });
+    const [title, sub] = PAGE_META[page] || [page, ''];
+    document.getElementById('page-title').textContent = title;
+    document.getElementById('page-sub').textContent = sub;
+    currentPage = page;
+    if (page === 'dashboard') loadDashboard(force);
+    if (page === 'today')     loadToday(force);
+    if (page === 'active')    loadActive(force);
+    if (page === 'history')   loadHistory(force);
+    if (page === 'analysis')  loadAnalysis(force);
+    if (page === 'archived')  loadArchived(force);
+}
+
+// ── DASHBOARD ──────────────────────────────────────────────────
+async function loadDashboard(force = false) {
+    if (!force && AppState.dashboard) { renderDashboard(AppState.dashboard); return; }
+    document.getElementById('aging-container').innerHTML = SKELETONS.aging;
+    const res = await api('getDashboardData');
+    if (!res) return;
+    AppState.dashboard = res.data;
+    renderDashboard(res.data);
+}
+
+function renderDashboard(d) {
+    document.getElementById('last-update-time').textContent = new Date().toLocaleTimeString();
+    document.getElementById('s-total').textContent = fmt(d.totalOutstanding);
+    document.getElementById('s-overdue').textContent = fmt(d.overdue);
+    document.getElementById('s-soon').textContent = fmt(d.dueSoon);
+    document.getElementById('s-calls').textContent = d.todayCallCount;
+    document.getElementById('s-parties').textContent = d.activeParties || 0;
+    document.getElementById('s-records').textContent = `${d.totalRecords} total pending invoices`;
+    document.getElementById('badge-today').textContent = d.todayCallCount;
+    renderAging(d.agingBuckets, d.totalOutstanding);
+    renderTopOverdue(d.topOverdue || []);
+
+    // Speed: silently preload Today + Active in background so they open instantly
+    if (!AppState.today) {
+        api('getTodayCalling', undefined, undefined, true).then(r => { if (r) AppState.today = r.data; });
+    }
+    if (!AppState.active) {
+        api('getActivePayments', undefined, undefined, true).then(r => { if (r) AppState.active = r.data; });
+    }
+}
+
+function renderAging(buckets, total) {
+    const colors = { 'Within Credit': '#059669', '<30 Days': '#2563EB', '30-60 Days': '#D97706', '60-90 Days': '#EA580C', '90-120 Days': '#DC2626', '>120 Days': '#7C3AED' };
+    document.getElementById('aging-container').innerHTML = Object.entries(buckets).map(([lbl, amt]) => {
+        const pct = total > 0 ? Math.max(2, (amt / total) * 100) : 0;
+        return `<div class="aging-item"><span class="aging-lbl">${lbl}</span><div class="aging-bar-track"><div class="aging-bar-fill" style="width:${pct}%;background:${colors[lbl] || '#94A3B8'}"></div></div><span class="aging-amt">${fmt(amt)}</span></div>`;
+    }).join('');
+}
+
+function renderTopOverdue(records) {
+    const tbody = document.getElementById('tbl-overdue');
+    if (!records.length) {
+        tbody.innerHTML = `<tr><td colspan="8"><div class="empty-state"><span class="icon">🎉</span><p>No overdue accounts</p></div></td></tr>`; return;
+    }
+    tbody.innerHTML = records.map((r, i) => `
+    <tr>
+      <td style="color:var(--text-muted)">${i+1}</td>
+      <td><div class="td-primary">${r['Customer Name']}</div><div style="font-size:11px;color:var(--text-muted)">${r['Dealer Code']}</div></td>
+      <td><span class="mono">${r['Invoice No.']}</span></td>
+      <td style="font-size:12px">${r['Dispatch Date'] || '—'}</td>
+      <td style="font-family:'JetBrains Mono',monospace;font-weight:700;color:var(--red)">${fmt(r.balanceNum || 0)}</td>
+      <td><span style="font-weight:700;color:var(--red)">${r.dueDays} days</span></td>
+      <td>${pill(r.priority || 'Critical')}</td>
+      <td><button class="btn btn-outline btn-sm" onclick="openCallModal('${esc(r['Dealer Code'])}','${esc(r['Customer Name'])}','${esc(r['Location'])}','${esc(r['Invoice No.'])}',${r['Balance']})">📞 Call</button></td>
+    </tr>`).join('');
+}
+
+// ── TODAY'S CALLING ────────────────────────────────────────────
+let todayFilter = 'today'; // 'today' or 'pending'
+
+function setTodayFilter(filter, el) {
+    todayFilter = filter;
+    document.querySelectorAll('#tab-today-calling, #tab-pending-calling').forEach(b => b.classList.remove('active'));
+    if (el) el.classList.add('active');
+    if (AppState.today) renderToday(AppState.today);
+}
+
+async function loadToday(force = false) {
+    if (!force && AppState.today) { renderToday(AppState.today); return; }
+    document.getElementById('call-list-container').innerHTML = `<div class="card"><div class="card-body">${SKELETONS.aging}</div></div>`;
+    const res = await api('getTodayCalling');
+    if (!res) return;
+    AppState.today = res.data;
+    renderToday(res.data);
+}
+
+function renderToday(records) {
+    // Separate today vs pending
+    const todayStr = new Date().toISOString().split('T')[0];
+    const todayRecords = records.filter(r => {
+        // Today: follow-up date is today OR no previous call and due today
+        const fu = r['Next Follow-up'] || r['lastCallFollowup'];
+        if (fu) {
+            try { return new Date(fu).toISOString().split('T')[0] === todayStr; } catch {}
+        }
+        return r.overdueDays === 0;
+    });
+    const pendingRecords = records.filter(r => {
+        // Pending: overdue > 0 OR follow-up date is in past
+        const fu = r['Next Follow-up'] || r['lastCallFollowup'];
+        if (fu) {
+            try { return new Date(fu).toISOString().split('T')[0] < todayStr; } catch {}
+        }
+        return r.overdueDays > 0;
+    });
+    // If filter is today, show todayRecords; if pending, show pendingRecords
+    // But if todayRecords is empty, just use all records in today tab
+    const displayToday = todayRecords.length > 0 ? todayRecords : records.filter(r => r.overdueDays <= 0);
+    const displayPending = pendingRecords.length > 0 ? pendingRecords : records.filter(r => r.overdueDays > 0);
+    const filtered = todayFilter === 'today' ? displayToday : displayPending;
+
+    document.getElementById('badge-today').textContent = records.length;
+    document.getElementById('pending-count-badge').textContent = displayPending.length;
+    if (AppState.dashboard) AppState.dashboard.todayCallCount = records.length;
+
+    const counts = { Critical: 0, High: 0, Medium: 0, Normal: 0, Reminder: 0 };
+    filtered.forEach(r => { const p = r['Priority'] || r.priority; if (counts[p] !== undefined) counts[p]++; });
+    const chipColors = { Critical: 'var(--red)', High: 'var(--orange)', Medium: 'var(--yellow)', Normal: 'var(--green)', Reminder: 'var(--blue)' };
+    document.getElementById('today-chips').innerHTML = Object.entries(counts).filter(([,c]) => c > 0).map(([p, c]) => `
+    <div class="s-chip"><div class="s-dot" style="background:${chipColors[p]}"></div><span class="lbl">${p}</span><span class="val">${c}</span></div>`).join('');
+
+    const container = document.getElementById('call-list-container');
+    if (!filtered.length) {
+        const msg = todayFilter === 'today' ? 'Aaj koi nai calling nahi!' : 'Koi pending call nahi!';
+        const sub = todayFilter === 'today' ? 'Sab accounts credit period mein hain ya call ho chuki hai.' : 'Sab follow-ups done hain.';
+        container.innerHTML = `<div class="card"><div class="empty-state"><span class="icon">🎉</span><p>${msg}</p><small>${sub}</small></div></div>`; return;
+    }
+    const icons = { Critical: '🚨', High: '⚠️', Medium: '📌', Normal: '📞', Reminder: '🔔' };
+    const iconBg = { Critical: 'var(--red-bg)', High: 'var(--orange-bg)', Medium: 'var(--yellow-bg)', Normal: 'var(--green-bg)', Reminder: 'var(--blue-light)' };
+    container.innerHTML = filtered.map(r => {
+        const hasRemark = r['Last Remarks'] && r['Last Remarks'] !== '-' && r['Last Remarks'] !== 'No Previous Call';
+        const prio = r['Priority'] || r.priority || 'Normal';
+        return `
+    <div class="call-card priority-${prio.toLowerCase()}">
+      <div class="call-avatar" style="background:${iconBg[prio] || 'var(--bg)'}">${icons[prio] || '📞'}</div>
+      <div class="call-info">
+        <div style="display:flex;justify-content:space-between;align-items:flex-start">
+           <div style="font-size:14px;font-weight:700">${r['Customer Name']} <span style="font-size:12px;font-weight:400;color:var(--text-muted)">(${r['Dealer Code']})</span> ${pill(prio)}</div>
+           <div style="background:var(--red-bg);color:var(--red);padding:4px 10px;border-radius:var(--radius-sm);font-weight:800;font-family:'JetBrains Mono';font-size:16px">${fmt(r['Balance'])}</div>
+        </div>
+        <div style="margin-top:8px;font-size:13px;display:flex;gap:12px;flex-wrap:wrap">
+          <span>📞 <a href="tel:${r['Dealer Ph. No.']}" style="color:var(--blue);font-weight:800;text-decoration:none;border-bottom:2px solid var(--blue-light)">${r['Dealer Ph. No.'] || 'No Phone'}</a></span>
+          <span>📄 <span class="mono">${r['Invoice No.']}</span></span>
+          <span style="color:#000;font-weight:900">🚚 Dispatched: ${r['Dispatch Date'] || '—'}</span>
+        </div>
+        <div style="margin-top:6px;font-size:12px;display:flex;gap:12px;flex-wrap:wrap">
+           <span>⏳ Due Days: <strong>${r.dueDays || 0}d</strong></span>
+           <span>📍 ${r['Location'] || '—'}</span>
+           ${r['Dealer Type'] ? `<span>🏷️ ${r['Dealer Type']}</span>` : ''}
+           <span>👤 ${r['Sales Person'] || '—'}</span>
+           <span style="color:#000;font-weight:900">💰 Inv: <span style="font-family:'JetBrains Mono'">${fmt(r['Invoice Amount'])}</span></span>
+        </div>
+        ${hasRemark ? `<div style="margin-top:12px;padding:10px;background:#F8FAFC;border:1px solid var(--border);border-radius:var(--radius-sm)"><div style="font-size:10px;font-weight:800;color:var(--text-muted);text-transform:uppercase;margin-bottom:4px">Last Conversation</div><div style="font-size:13px;color:var(--text-secondary)">💬 ${r['Last Remarks']}</div><div style="font-size:11px;color:var(--text-muted);margin-top:4px">📅 ${r['Last Call Date'] || '—'}</div></div>` : ''}
+      </div>
+      <div class="call-actions" style="margin-left:16px">
+        <a href="tel:${r['Dealer Ph. No.']}" class="btn btn-outline btn-sm" style="justify-content:center;color:var(--blue);border-color:var(--blue)">📞 Call Now</a>
+        <button class="btn btn-primary btn-sm" onclick="openCallModal('${esc(r['Dealer Code'])}','${esc(r['Customer Name'])}','${esc(r['Location'])}','${esc(r['Invoice No.'])}',${r['Balance']})">✍️ Log Call</button>
+      </div>
+    </div>`;
+    }).join('');
+}
+
+// ── ACTIVE PAYMENTS ────────────────────────────────────────────
+async function loadActive(force = false) {
+    if (!force && AppState.active) { renderActive(AppState.active); return; }
+    document.getElementById('tbl-active').innerHTML = SKELETONS.table(8);
+    const res = await api('getActivePayments');
+    if (!res) return;
+    AppState.active = res.data;
+    renderActive(res.data);
+}
+
+function filterActive(f, el) {
+    AppState.activeFilter = f;
+    document.querySelectorAll('.ftab').forEach(t => t.classList.remove('active'));
+    if (el) el.classList.add('active');
+    renderActive(AppState.active);
+}
+
+function renderActive(data) {
+    if (!data) return;
+    let filtered = AppState.activeFilter === 'all' ? data
+        : AppState.activeFilter === 'Paid' ? data.filter(r => String(r['status']||'').toLowerCase() === 'paid')
+        : AppState.activeFilter === 'active_status' ? data.filter(r => String(r['status']||'').toLowerCase() !== 'paid')
+        : data.filter(r => r.priority === AppState.activeFilter && String(r['status']||'').toLowerCase() !== 'paid');
+
+    const countEl = document.getElementById('active-count');
+    if (countEl) countEl.textContent = `${filtered.length} records`;
+
+    const tbody = document.getElementById('tbl-active');
+    if (!filtered.length) {
+        tbody.innerHTML = `<tr><td colspan="14"><div class="empty-state"><span class="icon">✅</span><p>Is filter ke liye koi record nahi</p></div></td></tr>`; return;
+    }
+    tbody.innerHTML = filtered.map((r, i) => {
+        const paid = String(r['Status']||'').toLowerCase() === 'paid';
+        const overdueStyle = r.overdueDays > 0 && !paid ? 'color:var(--red);font-weight:700' : 'color:var(--green);font-weight:600';
+        return `
+    <tr>
+      <td style="color:var(--text-muted)">${i+1}</td>
+      <td><div class="td-primary">${r['Customer Name']}</div><div style="font-size:11px;color:var(--text-muted)">${r['Dealer Code']}</div></td>
+      <td><a href="tel:${r['Dealer Ph. No.']}" style="color:var(--blue);text-decoration:none;font-weight:600;font-size:12.5px">${r['Dealer Ph. No.'] || '—'}</a></td>
+      <td><span class="mono">${r['Invoice No.']}</span></td>
+      <td><span class="badge badge-reminder" style="font-size:11px">${r['Dealer Type'] || '—'}</span></td>
+      <td style="font-size:12px">${r['Sales Person'] || '—'}</td>
+      <td style="font-family:'JetBrains Mono',monospace;font-size:12px">${fmt(r['Invoice Amount'])}</td>
+      <td style="font-family:'JetBrains Mono',monospace;font-size:13px;font-weight:700;color:${paid?'var(--green)':'var(--red)'}">${fmt(r['Balance'])}</td>
+      <td style="font-size:12px">${r['Dispatch Date'] || '—'}</td>
+      <td style="font-size:12px">${fmtDate(r['Payment Due Date'])}</td>
+      <td style="${overdueStyle};font-size:12px">${r.dueDays}d</td>
+      <td>${pill(r.priority)}</td>
+      <td>${paid ? '<span class="badge badge-paid">Paid</span>' : '<span class="badge badge-active">Active</span>'}</td>
+      <td>${!paid ? `<button class="btn btn-outline btn-sm" onclick="openCallModal('${esc(r['Dealer Code'])}','${esc(r['Customer Name'])}','${esc(r['Location'])}','${esc(r['Invoice No.'])}',${r['Balance']})">📞 Log</button>` : '—'}</td>
+    </tr>`;
+    }).join('');
+}
+
+function downloadActiveExcel() {
+    try {
+        if (!AppState.active || !AppState.active.length) { toast('Pehle data load karo', 'error'); return; }
+        toast('Download prepare ho raha hai...', 'info');
+        let filtered = AppState.activeFilter === 'all' ? AppState.active
+            : AppState.activeFilter === 'Paid' ? AppState.active.filter(r => String(r.status||'').toLowerCase() === 'paid')
+            : AppState.activeFilter === 'active_status' ? AppState.active.filter(r => String(r.status||'').toLowerCase() !== 'paid')
+            : AppState.active.filter(r => r.priority === AppState.activeFilter && String(r.status||'').toLowerCase() !== 'paid');
+        if (!filtered.length) { toast('Is filter mein koi record nahi', 'info'); return; }
+        const headers = ['Customer Name','Dealer Code','Phone No.','Invoice No.','Sales Person','Invoice Amount','Balance','Dispatch Date','Due Date','Due Days','Priority','Status'];
+        const csvRows = [headers.join(',')];
+        filtered.forEach(r => {
+            const isPaid = String(r.status||'').toLowerCase() === 'paid';
+            csvRows.push([
+                `"${(r['Customer Name']||'').replace(/"/g,'""')}"`,`"${(r['Dealer Code']||'').replace(/"/g,'""')}"`,
+                `"${(r['Dealer Ph. No.']||'').replace(/"/g,'""')}"`,`"${(r['Invoice No.']||'').replace(/"/g,'""')}"`,
+                `"${(r['Sales Person']||'').replace(/"/g,'""')}"`,r['Invoice Amount']||0,r['Balance']||0,
+                `"${(r['Dispatch Date']||'')}"`,`"${fmtDate(r['Payment Due Date'])}"`,r.dueDays||0,`"${r.priority||''}"`,isPaid?'Paid':'Active'
+            ].join(','));
+        });
+        const blob = new Blob(["\ufeff" + csvRows.join('\r\n')], { type: 'text/csv;charset=utf-8;' });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url; a.download = `Active_Payments_${new Date().toISOString().slice(0,10)}.csv`;
+        document.body.appendChild(a); a.click();
+        setTimeout(() => { document.body.removeChild(a); URL.revokeObjectURL(url); }, 100);
+        toast('Download shuru ho gaya!', 'success');
+    } catch (err) { toast('Export failed: ' + err.message, 'error'); }
+}
+
+// ── CALL HISTORY ───────────────────────────────────────────────
+async function loadHistory(force = false) {
+    if (!force && AppState.history) { renderHistory(AppState.history); return; }
+    document.getElementById('tbl-history').innerHTML = SKELETONS.table(10);
+    const res = await api('getCallingHistory');
+    if (!res) return;
+    AppState.history = res.data;
+    renderHistory(res.data);
+}
+
+function renderHistory(raw) {
+    const records = [...raw].reverse();
+    const tbody = document.getElementById('tbl-history');
+    if (!records.length) {
+        tbody.innerHTML = `<tr><td colspan="10"><div class="empty-state"><span class="icon">📋</span><p>Koi call record nahi abhi tak</p></div></td></tr>`; return;
+    }
+    tbody.innerHTML = records.map((r, i) => `
+    <tr>
+      <td style="color:var(--text-muted)">${i+1}</td>
+      <td style="font-size:11.5px;color:var(--text-muted)">${fmtDT(r['Timestamp'])}</td>
+      <td><div class="td-primary">${r['Customer Name']}</div><div style="font-size:11px;color:var(--text-muted)">${r['Dealer Code']}</div></td>
+      <td><span class="mono">${r['Invoice No.']}</span></td>
+      <td style="font-family:'JetBrains Mono',monospace;font-size:12px;color:${parseFloat(r['Amount Received'])>0?'var(--green)':'var(--text-muted)'}">${r['Amount Received']!==undefined&&r['Amount Received']!==''?fmt(r['Amount Received']):'—'}</td>
+      <td style="font-size:12px">${r['Scheduled Follow-up']?fmtDate(r['Scheduled Follow-up']):'—'}</td>
+      <td style="font-size:12px">${r['Follow Up Date']?fmtDate(r['Follow Up Date']):'—'}</td>
+      <td style="font-size:12px;max-width:200px;white-space:normal;color:var(--text-secondary)">${r['Remarks']||'—'}</td>
+      <td style="font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--text-muted)">${r['Adjustment Amount']!==undefined&&r['Adjustment Amount']!==''?fmt(r['Adjustment Amount']):'—'}</td>
+      <td style="font-size:12px;color:var(--text-secondary)">${r['Adjustment Remarks']||'—'}</td>
+    </tr>`).join('');
+}
+
+// ── ARCHIVES ───────────────────────────────────────────────────
+async function loadArchived(force = false) {
+    if (!force && AppState.archived) { renderArchived(AppState.archived); return; }
+    document.getElementById('tbl-archived').innerHTML = SKELETONS.table(8);
+    const res = await api('getArchivedData');
+    if (!res) return;
+    AppState.archived = res.data;
+    renderArchived(res.data);
+}
+
+function renderArchived(data) {
+    const countEl = document.getElementById('archive-count');
+    if (countEl) countEl.textContent = `${data.length} historical records`;
+    const tbody = document.getElementById('tbl-archived');
+    if (!data.length) {
+        tbody.innerHTML = `<tr><td colspan="9"><div class="empty-state"><span class="icon">📁</span><p>Koi archived record nahi</p></div></td></tr>`; return;
+    }
+    tbody.innerHTML = data.map((r, i) => `
+    <tr>
+      <td style="color:var(--text-muted)">${i+1}</td>
+      <td><div class="td-primary">${r['Customer Name']}</div><div style="font-size:11px;color:var(--text-muted)">${r['Dealer Code']}</div></td>
+      <td><span class="mono">${r['Invoice No.']}</span></td>
+      <td><span class="badge badge-reminder" style="font-size:11px">${r['Dealer Type']||'—'}</span></td>
+      <td style="font-size:12px">${r['Sales Person']||'—'}</td>
+      <td style="font-family:'JetBrains Mono',monospace;font-size:12px">${fmt(r['Invoice Amount'])}</td>
+      <td style="font-size:12px">${fmtDate(r['Payment Due Date'])}</td>
+      <td>${pill(r.priority)}</td>
+      <td style="font-size:11.5px;color:var(--text-muted)">${fmtDate(r['Archived Date'])}</td>
+    </tr>`).join('');
+}
+
+async function runArchiveNow() {
+    if (!confirm('Sab PAID aur 0-balance invoices Archive mein move honge. Continue?')) return;
+    loader('Archiving records...');
+    const res = await api('archiveNow');
+    hideLoader();
+    if (!res) return;
+    toast(res.message, 'success');
+    AppState.dashboard = null; AppState.active = null; AppState.today = null; AppState.archived = null;
+    nav(currentPage, true);
+}
+
+// ── ANALYSIS ───────────────────────────────────────────────────
+let analysisView = 'user';
+let cachedAnalysisData = null;
+
+function setAnalysisView(view, el) {
+    analysisView = view;
+    document.querySelectorAll('.tbtn').forEach(b => b.classList.remove('active'));
+    if (el) el.classList.add('active');
+    if (cachedAnalysisData) renderCurrentAnalysis();
+    else loadAnalysis();
+}
+
+function renderCurrentAnalysis() {
+    if (!cachedAnalysisData) return;
+    if (analysisView === 'dealer') renderDealerAnalysis(cachedAnalysisData.dealer);
+    else renderUserAnalysis(cachedAnalysisData.user);
+}
+
+async function loadAnalysis() {
+    const container = document.getElementById('analysis-content');
+    container.innerHTML = `<div class="empty-state"><span class="icon">⏳</span><p>Analysis data load ho raha hai...</p></div>`;
+    const res = await api('getAnalysisData');
+    if (!res) { container.innerHTML = `<div class="empty-state"><p>Analysis load karne mein error</p></div>`; return; }
+    cachedAnalysisData = res.data;
+    renderCurrentAnalysis();
+}
+
+function renderDealerAnalysis(data) {
+    const container = document.getElementById('analysis-content');
+    const stats = data.stats || { total: data.list.length, active: data.list.filter(d => d.status === 'Active').length, totalOutstanding: data.list.reduce((s, d) => s + d.totalOutstanding, 0), priorityBreakdown: {} };
+    const pb = stats.priorityBreakdown || {};
+    const prioConfig = [{ k:'Critical',c:'var(--red)'},{ k:'High',c:'var(--orange)'},{ k:'Medium',c:'var(--yellow)'},{ k:'Normal',c:'var(--blue)'},{ k:'Reminder',c:'var(--text-muted)'}];
+    let prioHtml = prioConfig.map(p => {
+        const count = pb[p.k] || 0;
+        const pct = stats.total > 0 ? (count / stats.total * 100) : 0;
+        return `<div class="prio-row"><span class="prio-label">${p.k}</span><div class="prio-bar-wrap"><div class="prio-bar" style="width:${pct}%;background:${p.c}"></div></div><span class="prio-count">${count}</span></div>`;
+    }).join('');
+    container.innerHTML = `
+    <div class="analysis-grid">
+      <div class="stat-card"><span class="stat-label">Total Dealers</span><div class="stat-value">${stats.total}</div><div class="stat-footer">${stats.active} Active</div></div>
+      <div class="stat-card"><span class="stat-label">Total Outstanding</span><div class="stat-value" style="font-size:20px">${fmt(stats.totalOutstanding)}</div></div>
+      <div class="stat-card"><span class="stat-label">Priority Distribution</span><div style="margin-top:8px">${prioHtml}</div></div>
+    </div>
+    <div class="analysis-table-card">
+      <div class="card-head"><span class="card-title">Top 50 Dealers by Outstanding</span></div>
+      <div class="tbl-wrap"><table><thead><tr><th>#</th><th>Dealer Code</th><th>Customer Name</th><th>Outstanding</th><th>Priority</th><th>Status</th></tr></thead>
+      <tbody>${data.list.map((d,i) => `<tr><td style="color:var(--text-muted)">${i+1}</td><td><span class="mono">${d.code}</span></td><td><div style="font-weight:600">${d.name}</div><div style="font-size:10px;color:var(--text-muted)">${d.location}</div></td><td style="font-weight:700">${fmt(d.totalOutstanding)}</td><td>${pill(d.priority)}</td><td><span class="badge badge-${d.status.toLowerCase()}">${d.status}</span></td></tr>`).join('')}</tbody>
+      </table></div>
+    </div>`;
+}
+
+function renderUserAnalysis(data) {
+    const container = document.getElementById('analysis-content');
+    const now = new Date();
+    const monthName = now.toLocaleString('default', { month: 'long' });
+    container.innerHTML = `
+    <div class="analysis-grid">
+      <div class="stat-card"><span class="stat-label">Total Active Users</span><div class="stat-value">${data.list.length}</div></div>
+      <div class="stat-card"><span class="stat-label">Monthly Collections</span><div class="stat-value" style="font-size:20px">${fmt(data.list.reduce((s,u)=>s+(u.monthlyAmountCollected||0),0))}</div></div>
+      <div class="stat-card"><span class="stat-label">Total Calls</span><div class="stat-value">${data.list.reduce((s,u)=>s+(u.monthlyCalls||0),0)}</div></div>
+    </div>
+    <div class="analysis-table-card">
+      <div class="card-head"><span class="card-title">User Performance — ${monthName} ${now.getFullYear()}</span></div>
+      <div class="tbl-wrap"><table><thead><tr><th>#</th><th>Sales Person</th><th>Calls (Month)</th><th>Collected (Month)</th><th>Lifetime Collection</th></tr></thead>
+      <tbody>${!data.list.length ? '<tr><td colspan="5" style="text-align:center;padding:40px;color:var(--text-muted)">Abhi tak koi user activity record nahi hai.</td></tr>'
+        : data.list.map((u,i)=>`<tr><td style="color:var(--text-muted)">${i+1}</td><td style="font-weight:700">${u.name}</td><td>${u.monthlyCalls||0} <span style="font-size:10px;color:var(--text-muted)">/ ${u.totalCalls||0}</span></td><td style="color:var(--green);font-weight:700">${fmt(u.monthlyAmountCollected||0)}</td><td style="color:var(--text-muted);font-size:12px">${fmt(u.totalAmountCollected||0)}</td></tr>`).join('')}</tbody>
+      </table></div>
+    </div>`;
+}
+
+// ── FORMS ──────────────────────────────────────────────────────
+async function submitAddInvoice() {
+    const p = {
+        salesPerson: v('f-sp'), dispatchDate: v('f-dd'), dealerCode: v('f-dc'),
+        customerName: v('f-cn'), location: v('f-loc'), dealerType: v('f-dt'),
+        orderNo: v('f-ord'), dealerPhNo: v('f-ph'), invoiceNo: v('f-inv'),
+        invoiceAmount: v('f-amt'), creditDays: v('f-crd'),
+    };
+    if (!p.salesPerson || !p.customerName || !p.invoiceNo || !p.invoiceAmount) {
+        toast('Sab required (*) fields bharo', 'error'); return;
+    }
+    loader('Invoice add ho raha hai...');
+    const res = await api('addInvoice', p);
+    hideLoader();
+    if (!res) return;
+    AppState.dashboard = null; AppState.active = null; AppState.today = null;
+    toast(res.message, 'success');
+    closeModal('modal-add');
+    if (currentPage === 'dashboard') loadDashboard(true);
+    if (currentPage === 'active') loadActive(true);
+}
+
+function openCallModal(dc, name, loc, inv, bal) {
+    document.getElementById('c-name').textContent = name;
+    document.getElementById('c-inv').textContent = inv;
+    document.getElementById('c-loc').textContent = loc;
+    document.getElementById('c-bal').textContent = fmt(bal);
+    document.getElementById('c-dc').value = dc;
+    document.getElementById('c-amt').value = '';
+    document.getElementById('c-rmk').value = '';
+    document.getElementById('c-adj').value = '';
+    document.getElementById('c-adjr').value = '';
+    const m = document.getElementById('modal-call');
+    m.dataset.inv = inv; m.dataset.name = name; m.dataset.loc = loc; m.dataset.bal = bal || 0;
+    openModal('modal-call');
+}
+
+async function submitLogCall() {
+    const m = document.getElementById('modal-call');
+    const p = {
+        dealerCode: v('c-dc'), customerName: m.dataset.name, location: m.dataset.loc,
+        invoiceNo: m.dataset.inv, amountReceived: v('c-amt') || 0, followUpDate: v('c-fup'),
+        remarks: v('c-rmk'), adjustment: v('c-adj') || 0, adjustmentRemarks: v('c-adjr'),
+    };
+    const bal = parseFloat(m.dataset.bal) || 0;
+    const amt = parseFloat(p.amountReceived) || 0;
+    const adj = parseFloat(p.adjustment) || 0;
+    if (amt + adj > bal) { toast(`Total (₹${amt+adj}) balance (₹${bal}) se zyada nahi ho sakta.`, 'error'); return; }
+    if (!p.remarks) { toast('Customer ke remarks daalo', 'error'); return; }
+
+    // Save scroll position before anything
+    const scrollY = window.scrollY;
+
+    loader('Call log save ho raha hai...');
+    const res = await api('logCall', p);
+    hideLoader();
+    if (!res) return;
+
+    // Clear cache
+    AppState.dashboard = null; AppState.today = null; AppState.active = null; AppState.history = null;
+    toast(res.message, 'success');
+    closeModal('modal-call');
+
+    // Refresh current page data WITHOUT scrolling to top
+    if (currentPage === 'today') {
+        const todayRes = await api('getTodayCalling', undefined, undefined, true);
+        if (todayRes) { AppState.today = todayRes.data; renderToday(todayRes.data); }
+    } else if (currentPage === 'active') {
+        const activeRes = await api('getActivePayments', undefined, undefined, true);
+        if (activeRes) { AppState.active = activeRes.data; renderActive(activeRes.data); }
+    } else if (currentPage === 'dashboard') {
         loadDashboard(true);
     }
 
-    // ─── App State ────────────────────────────────────────────────
-    const AppState = {
-        dashboard: null, active: null, activeFilter: 'all',
-        history: null, analysis: null, today: null, archived: null,
-    };
+    // Restore scroll position after render
+    requestAnimationFrame(() => window.scrollTo({ top: scrollY, behavior: 'instant' }));
+}
 
-    const SKELETONS = {
-        aging: `<div class="skeleton-text"></div>`.repeat(6),
-        table: (rows = 5) => `<tr><td colspan="15"><div class="skeleton-text"></div></td></tr>`.repeat(rows)
-    };
+// ── SEARCH ─────────────────────────────────────────────────────
+async function globalSearch(val) {
+    clearTimeout(searchTimer);
+    const q = val.trim().toLowerCase();
 
-    let currentPage = 'dashboard';
-    let searchTimer = null;
-
-    // ─── INIT ─────────────────────────────────────────────────────
-    document.addEventListener('DOMContentLoaded', () => {
-        const now = new Date();
-        document.getElementById('today-date').textContent =
-            now.toLocaleDateString('en-IN', { weekday: 'short', day: '2-digit', month: 'short', year: 'numeric' });
-
-        const today = now.toISOString().split('T')[0];
-        document.getElementById('f-dd').value = today;
-        document.getElementById('c-fup').value = today;
-
-        // Hide config banner if URL already saved
-        if (WEBAPP_URL) {
-            document.getElementById('config-banner').classList.add('hidden');
-            loadDashboard();
-        } else {
-            document.getElementById('webapp-url-input').focus();
-        }
-    });
-
-    // ─── API — fetch() based (works from GitHub Pages) ───────────
-    async function api(action, payload, query, silent = false) {
-        if (!WEBAPP_URL) {
-            toast('Please set your Web App URL first (yellow banner above)', 'error');
-            return null;
-        }
-
-        if (!silent) setGlobalLoading(true);
-
-        const body = { action };
-        if (payload !== undefined) body.payload = payload;
-        if (query !== undefined) body.query = query;
-
-        try {
-            const res = await fetch(WEBAPP_URL, {
-                method: 'POST',
-                // NOTE: Apps Script requires no-cors for some deployments,
-                // but since we're using "Execute as: Me, Access: Anyone" with doPost,
-                // standard fetch with JSON should work.
-                // If you hit CORS errors, change mode to 'no-cors' and handle accordingly.
-                headers: { 'Content-Type': 'text/plain' }, // text/plain avoids CORS preflight
-                body: JSON.stringify(body)
-            });
-
-            const text = await res.text();
-            let data;
-            try { data = JSON.parse(text); }
-            catch { throw new Error('Invalid JSON from server: ' + text.slice(0, 100)); }
-
-            if (!data) { toast('Server returned empty response', 'error'); return null; }
-            if (!data.success) { toast(data.message || 'Something went wrong', 'error'); return null; }
-            return data;
-        } catch (err) {
-            toast('API Error: ' + err.message, 'error');
-            console.error('API Error:', err);
-            return null;
-        } finally {
-            if (!silent) setGlobalLoading(false);
-        }
+    if (currentPage === 'active') {
+        if (!q) { renderActive(AppState.active); return; }
+        renderActive((AppState.active||[]).filter(r => matchQ(q, r['Customer Name'], r['Invoice No.'], r['Dealer Code'], r['Dealer Ph. No.'], r['Location'])));
+        return;
+    }
+    if (currentPage === 'today') {
+        if (!q) { renderToday(AppState.today||[]); return; }
+        renderToday((AppState.today||[]).filter(r => matchQ(q, r['Customer Name'], r['Invoice No.'], r['Dealer Code'], r['Dealer Ph. No.'])));
+        return;
+    }
+    if (currentPage === 'history') {
+        if (!q) { renderHistory(AppState.history||[]); return; }
+        renderHistory((AppState.history||[]).filter(r => matchQ(q, r['Customer Name'], r['Invoice No.'], r['Dealer Code'], r['Remarks'])));
+        return;
+    }
+    if (currentPage === 'archived') {
+        if (!q) { renderArchived(AppState.archived||[]); return; }
+        renderArchived((AppState.archived||[]).filter(r => matchQ(q, r['Customer Name'], r['Invoice No.'], r['Dealer Code'])));
+        return;
     }
 
-    function setGlobalLoading(isLoading) {
-        const shim = document.getElementById('shimmer-top');
-        if (shim) shim.style.display = isLoading ? 'block' : 'none';
-    }
-
-    // ─── NAV ──────────────────────────────────────────────────────
-    const PAGE_META = {
-        dashboard: ['Dashboard', 'Payment overview & analytics'],
-        today: ["Today's Calling", 'Contacts to call today'],
-        active: ['Active Payments', 'All pending invoices'],
-        history: ['Call History', 'Complete call log records'],
-        analysis: ['Data Analysis', 'Track performance by User or Dealer'],
-        search: ['Search Results', 'Matching payment records'],
-        archived: ['Archived Payments', 'Historical paid records'],
-    };
-
-    function nav(page, force = false) {
-        document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
-        document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
-        const pg = document.getElementById('page-' + page);
-        if (pg) pg.classList.add('active');
-        document.querySelectorAll('.nav-btn').forEach(b => {
-            if (b.onclick && b.onclick.toString().includes(`'${page}'`)) b.classList.add('active');
-        });
-        const [title, sub] = PAGE_META[page] || [page, ''];
-        document.getElementById('page-title').textContent = title;
-        document.getElementById('page-sub').textContent = sub;
-        currentPage = page;
-        if (page === 'dashboard') loadDashboard(force);
-        if (page === 'today')     loadToday(force);
-        if (page === 'active')    loadActive(force);
-        if (page === 'history')   loadHistory(force);
-        if (page === 'analysis')  loadAnalysis(force);
-        if (page === 'archived')  loadArchived(force);
-    }
-
-    // ─── DASHBOARD ────────────────────────────────────────────────
-    async function loadDashboard(force = false) {
-        if (!force && AppState.dashboard) { renderDashboard(AppState.dashboard); return; }
-        document.getElementById('aging-container').innerHTML = SKELETONS.aging;
-        const res = await api('getDashboardData');
+    if (q.length < 2) { if (currentPage === 'search') nav('dashboard'); return; }
+    searchTimer = setTimeout(async () => {
+        nav('search');
+        document.getElementById('tbl-search').innerHTML = SKELETONS.table(10);
+        const res = await api('searchRecords', undefined, val);
         if (!res) return;
-        AppState.dashboard = res.data;
-        renderDashboard(res.data);
-    }
-
-    function renderDashboard(d) {
-        document.getElementById('last-update-time').textContent = new Date().toLocaleTimeString();
-        document.getElementById('s-total').textContent = fmt(d.totalOutstanding);
-        document.getElementById('s-overdue').textContent = fmt(d.overdue);
-        document.getElementById('s-soon').textContent = fmt(d.dueSoon);
-        document.getElementById('s-calls').textContent = d.todayCallCount;
-        document.getElementById('s-parties').textContent = d.activeParties || 0;
-        document.getElementById('s-records').textContent = `${d.totalRecords} total pending invoices`;
-        document.getElementById('badge-today').textContent = d.todayCallCount;
-        renderAging(d.agingBuckets, d.totalOutstanding);
-        renderTopOverdue(d.topOverdue || []);
-    }
-
-    function renderAging(buckets, total) {
-        const colors = { 'Within Credit': '#059669', '<30 Days': '#2563EB', '30-60 Days': '#D97706', '60-90 Days': '#EA580C', '90-120 Days': '#DC2626', '>120 Days': '#7C3AED' };
-        document.getElementById('aging-container').innerHTML = Object.entries(buckets).map(([lbl, amt]) => {
-            const pct = total > 0 ? Math.max(2, (amt / total) * 100) : 0;
-            return `<div class="aging-item"><span class="aging-lbl">${lbl}</span><div class="aging-bar-track"><div class="aging-bar-fill" style="width:${pct}%;background:${colors[lbl] || '#94A3B8'}"></div></div><span class="aging-amt">${fmt(amt)}</span></div>`;
-        }).join('');
-    }
-
-    function renderTopOverdue(records) {
-        const tbody = document.getElementById('tbl-overdue');
+        const records = res.data;
+        document.getElementById('search-count').textContent = `${records.length} results`;
+        const tbody = document.getElementById('tbl-search');
         if (!records.length) {
-            tbody.innerHTML = `<tr><td colspan="8"><div class="empty-state"><span class="icon">🎉</span><p>No overdue accounts</p></div></td></tr>`; return;
+            tbody.innerHTML = `<tr><td colspan="9"><div class="empty-state"><span class="icon">🔍</span><p>Koi record nahi mila</p></div></td></tr>`; return;
         }
-        tbody.innerHTML = records.map((r, i) => `
+        tbody.innerHTML = records.map(r => `
         <tr>
-          <td style="color:var(--text-muted)">${i+1}</td>
           <td><div class="td-primary">${r['Customer Name']}</div><div style="font-size:11px;color:var(--text-muted)">${r['Dealer Code']}</div></td>
+          <td><a href="tel:${r['Dealer Ph. No.']}" style="color:var(--blue);text-decoration:none;font-weight:600;font-size:12.5px">${r['Dealer Ph. No.']||'—'}</a></td>
           <td><span class="mono">${r['Invoice No.']}</span></td>
-          <td style="font-size:12px">${r['Dispatch Date'] || '—'}</td>
-          <td style="font-family:'JetBrains Mono',monospace;font-weight:700;color:var(--red)">${fmt(r.balanceNum || 0)}</td>
-          <td><span style="font-weight:700;color:var(--red)">${r.dueDays} days</span></td>
-          <td>${pill(r.priority || 'Critical')}</td>
-          <td><button class="btn btn-outline btn-sm" onclick="openCallModal('${esc(r['Dealer Code'])}','${esc(r['Customer Name'])}','${esc(r['Location'])}','${esc(r['Invoice No.'])}',${r['Balance']})">📞 Call</button></td>
-        </tr>`).join('');
-    }
-
-    // ─── TODAY'S CALLING ──────────────────────────────────────────
-    async function loadToday(force = false) {
-        if (!force && AppState.today) { renderToday(AppState.today); return; }
-        document.getElementById('call-list-container').innerHTML = `<div class="card"><div class="card-body">${SKELETONS.aging}</div></div>`;
-        const res = await api('getTodayCalling');
-        if (!res) return;
-        AppState.today = res.data;
-        renderToday(res.data);
-    }
-
-    function renderToday(records) {
-        document.getElementById('badge-today').textContent = records.length;
-        if (AppState.dashboard) AppState.dashboard.todayCallCount = records.length;
-        const counts = { Critical: 0, High: 0, Medium: 0, Normal: 0, Reminder: 0 };
-        records.forEach(r => { if (counts[r['Priority']] !== undefined) counts[r['Priority']]++; });
-        const chipColors = { Critical: 'var(--red)', High: 'var(--orange)', Medium: 'var(--yellow)', Normal: 'var(--green)', Reminder: 'var(--blue)' };
-        document.getElementById('today-chips').innerHTML = Object.entries(counts).filter(([,c]) => c > 0).map(([p, c]) => `
-        <div class="s-chip"><div class="s-dot" style="background:${chipColors[p]}"></div><span class="lbl">${p}</span><span class="val">${c}</span></div>`).join('');
-
-        const container = document.getElementById('call-list-container');
-        if (!records.length) {
-            container.innerHTML = `<div class="card"><div class="empty-state"><span class="icon">🎉</span><p>No calls needed today!</p><small>All accounts are within credit period or already called.</small></div></div>`; return;
-        }
-        const icons = { Critical: '🚨', High: '⚠️', Medium: '📌', Normal: '📞', Reminder: '🔔' };
-        const iconBg = { Critical: 'var(--red-bg)', High: 'var(--orange-bg)', Medium: 'var(--yellow-bg)', Normal: 'var(--green-bg)', Reminder: 'var(--blue-light)' };
-        container.innerHTML = records.map(r => {
-            const hasRemark = r['Last Remarks'] && r['Last Remarks'] !== '-' && r['Last Remarks'] !== 'No Previous Call';
-            return `
-        <div class="call-card priority-${(r['Priority'] || 'normal').toLowerCase()}">
-          <div class="call-avatar" style="background:${iconBg[r['Priority']] || 'var(--bg)'}">${icons[r['Priority']] || '📞'}</div>
-          <div class="call-info">
-            <div style="display:flex;justify-content:space-between;align-items:flex-start">
-               <div style="font-size:14px;font-weight:700">${r['Customer Name']} <span style="font-size:12px;font-weight:400;color:var(--text-muted)">(${r['Dealer Code']})</span> ${pill(r['Priority'] || r.priority)}</div>
-               <div style="background:var(--red-bg);color:var(--red);padding:4px 10px;border-radius:var(--radius-sm);font-weight:800;font-family:'JetBrains Mono';font-size:16px">${fmt(r['Balance'])}</div>
-            </div>
-            <div style="margin-top:8px;font-size:13px;display:flex;gap:12px;flex-wrap:wrap">
-              <span>📞 <a href="tel:${r['Dealer Ph. No.']}" style="color:var(--blue);font-weight:800;text-decoration:none;border-bottom:2px solid var(--blue-light)">${r['Dealer Ph. No.'] || 'No Phone'}</a></span>
-              <span>📄 <span class="mono">${r['Invoice No.']}</span></span>
-              <span style="color:#000;font-weight:900">🚚 Dispatched: ${r['Dispatch Date'] || '—'}</span>
-            </div>
-            <div style="margin-top:6px;font-size:12px;display:flex;gap:12px;flex-wrap:wrap">
-               <span>⏳ Due Days: <strong>${r.dueDays || 0}d</strong></span>
-               <span>📍 ${r['Location'] || '—'}</span>
-               ${r['Dealer Type'] ? `<span>🏷️ ${r['Dealer Type']}</span>` : ''}
-               <span>👤 ${r['Sales Person'] || '—'}</span>
-               <span style="color:#000;font-weight:900">💰 Inv: <span style="font-family:'JetBrains Mono'">${fmt(r['Invoice Amount'])}</span></span>
-            </div>
-            ${hasRemark ? `<div style="margin-top:12px;padding:10px;background:#F8FAFC;border:1px solid var(--border);border-radius:var(--radius-sm)"><div style="font-size:10px;font-weight:800;color:var(--text-muted);text-transform:uppercase;margin-bottom:4px">Last Conversation</div><div style="font-size:13px;color:var(--text-secondary)">💬 ${r['Last Remarks']}</div><div style="font-size:11px;color:var(--text-muted);margin-top:4px">📅 ${r['Last Call Date'] || '—'}</div></div>` : ''}
-          </div>
-          <div class="call-actions" style="margin-left:16px">
-            <a href="tel:${r['Dealer Ph. No.']}" class="btn btn-outline btn-sm" style="justify-content:center;color:var(--blue);border-color:var(--blue)">📞 Call Now</a>
-            <button class="btn btn-primary btn-sm" onclick="openCallModal('${esc(r['Dealer Code'])}','${esc(r['Customer Name'])}','${esc(r['Location'])}','${esc(r['Invoice No.'])}',${r['Balance']})">✍️ Log Call</button>
-          </div>
-        </div>`;
-        }).join('');
-    }
-
-    // ─── ACTIVE PAYMENTS ──────────────────────────────────────────
-    async function loadActive(force = false) {
-        if (!force && AppState.active) { renderActive(AppState.active); return; }
-        document.getElementById('tbl-active').innerHTML = SKELETONS.table(8);
-        const res = await api('getActivePayments');
-        if (!res) return;
-        AppState.active = res.data;
-        renderActive(res.data);
-    }
-
-    function filterActive(f, el) {
-        AppState.activeFilter = f;
-        document.querySelectorAll('.ftab').forEach(t => t.classList.remove('active'));
-        if (el) el.classList.add('active');
-        renderActive(AppState.active);
-    }
-
-    function renderActive(data) {
-        if (!data) return;
-        let filtered = AppState.activeFilter === 'all' ? data
-            : AppState.activeFilter === 'Paid' ? data.filter(r => String(r['status']||'').toLowerCase() === 'paid')
-            : AppState.activeFilter === 'active_status' ? data.filter(r => String(r['status']||'').toLowerCase() !== 'paid')
-            : data.filter(r => r.priority === AppState.activeFilter && String(r['status']||'').toLowerCase() !== 'paid');
-
-        const countEl = document.getElementById('active-count');
-        if (countEl) countEl.textContent = `${filtered.length} records`;
-
-        const tbody = document.getElementById('tbl-active');
-        if (!filtered.length) {
-            tbody.innerHTML = `<tr><td colspan="14"><div class="empty-state"><span class="icon">✅</span><p>No records for this filter</p></div></td></tr>`; return;
-        }
-        tbody.innerHTML = filtered.map((r, i) => {
-            const paid = String(r['Status']||'').toLowerCase() === 'paid';
-            const overdueStyle = r.overdueDays > 0 && !paid ? 'color:var(--red);font-weight:700' : 'color:var(--green);font-weight:600';
-            return `
-        <tr>
-          <td style="color:var(--text-muted)">${i+1}</td>
-          <td><div class="td-primary">${r['Customer Name']}</div><div style="font-size:11px;color:var(--text-muted)">${r['Dealer Code']}</div></td>
-          <td><a href="tel:${r['Dealer Ph. No.']}" style="color:var(--blue);text-decoration:none;font-weight:600;font-size:12.5px">${r['Dealer Ph. No.'] || '—'}</a></td>
-          <td><span class="mono">${r['Invoice No.']}</span></td>
-          <td><span class="badge badge-reminder" style="font-size:11px">${r['Dealer Type'] || '—'}</span></td>
-          <td style="font-size:12px">${r['Sales Person'] || '—'}</td>
-          <td style="font-family:'JetBrains Mono',monospace;font-size:12px">${fmt(r['Invoice Amount'])}</td>
-          <td style="font-family:'JetBrains Mono',monospace;font-size:13px;font-weight:700;color:${paid?'var(--green)':'var(--red)'}">${fmt(r['Balance'])}</td>
-          <td style="font-size:12px">${r['Dispatch Date'] || '—'}</td>
+          <td style="font-size:12px">${r['Dispatch Date']||'—'}</td>
+          <td style="font-family:'JetBrains Mono',monospace;font-size:13px;font-weight:700;color:var(--red)">${fmt(r['Balance'])}</td>
           <td style="font-size:12px">${fmtDate(r['Payment Due Date'])}</td>
-          <td style="${overdueStyle};font-size:12px">${r.dueDays}d</td>
-          <td>${pill(r.priority)}</td>
-          <td>${paid ? '<span class="badge badge-paid">Paid</span>' : '<span class="badge badge-active">Active</span>'}</td>
-          <td>${!paid ? `<button class="btn btn-outline btn-sm" onclick="openCallModal('${esc(r['Dealer Code'])}','${esc(r['Customer Name'])}','${esc(r['Location'])}','${esc(r['Invoice No.'])}',${r['Balance']})">📞 Log</button>` : '—'}</td>
-        </tr>`;
-        }).join('');
-    }
-
-    function downloadActiveExcel() {
-        try {
-            if (!AppState.active || !AppState.active.length) { toast('No data loaded to download.', 'error'); return; }
-            toast('Preparing download...', 'info');
-            let filtered = AppState.activeFilter === 'all' ? AppState.active
-                : AppState.activeFilter === 'Paid' ? AppState.active.filter(r => String(r.status||'').toLowerCase() === 'paid')
-                : AppState.activeFilter === 'active_status' ? AppState.active.filter(r => String(r.status||'').toLowerCase() !== 'paid')
-                : AppState.active.filter(r => r.priority === AppState.activeFilter && String(r.status||'').toLowerCase() !== 'paid');
-            if (!filtered.length) { toast('No records for current filter', 'info'); return; }
-            const headers = ['Customer Name','Dealer Code','Phone No.','Invoice No.','Sales Person','Invoice Amount','Balance','Dispatch Date','Due Date','Due Days','Priority','Status'];
-            const csvRows = [headers.join(',')];
-            filtered.forEach(r => {
-                const isPaid = String(r.status||'').toLowerCase() === 'paid';
-                csvRows.push([
-                    `"${(r['Customer Name']||'').replace(/"/g,'""')}"`,`"${(r['Dealer Code']||'').replace(/"/g,'""')}"`,
-                    `"${(r['Dealer Ph. No.']||'').replace(/"/g,'""')}"`,`"${(r['Invoice No.']||'').replace(/"/g,'""')}"`,
-                    `"${(r['Sales Person']||'').replace(/"/g,'""')}"`,r['Invoice Amount']||0,r['Balance']||0,
-                    `"${(r['Dispatch Date']||'')}"`,`"${fmtDate(r['Payment Due Date'])}"`,r.dueDays||0,`"${r.priority||''}"`,isPaid?'Paid':'Active'
-                ].join(','));
-            });
-            const blob = new Blob(["\ufeff" + csvRows.join('\r\n')], { type: 'text/csv;charset=utf-8;' });
-            const url = URL.createObjectURL(blob);
-            const a = document.createElement('a');
-            a.href = url; a.download = `Active_Payments_${new Date().toISOString().slice(0,10)}.csv`;
-            document.body.appendChild(a); a.click();
-            setTimeout(() => { document.body.removeChild(a); URL.revokeObjectURL(url); }, 100);
-            toast('Download started!', 'success');
-        } catch (err) { toast('Export failed: ' + err.message, 'error'); }
-    }
-
-    // ─── CALL HISTORY ─────────────────────────────────────────────
-    async function loadHistory(force = false) {
-        if (!force && AppState.history) { renderHistory(AppState.history); return; }
-        document.getElementById('tbl-history').innerHTML = SKELETONS.table(10);
-        const res = await api('getCallingHistory');
-        if (!res) return;
-        AppState.history = res.data;
-        renderHistory(res.data);
-    }
-
-    function renderHistory(raw) {
-        const records = [...raw].reverse();
-        const tbody = document.getElementById('tbl-history');
-        if (!records.length) {
-            tbody.innerHTML = `<tr><td colspan="10"><div class="empty-state"><span class="icon">📋</span><p>No call records yet</p></div></td></tr>`; return;
-        }
-        tbody.innerHTML = records.map((r, i) => `
-        <tr>
-          <td style="color:var(--text-muted)">${i+1}</td>
-          <td style="font-size:11.5px;color:var(--text-muted)">${fmtDT(r['Timestamp'])}</td>
-          <td><div class="td-primary">${r['Customer Name']}</div><div style="font-size:11px;color:var(--text-muted)">${r['Dealer Code']}</div></td>
-          <td><span class="mono">${r['Invoice No.']}</span></td>
-          <td style="font-family:'JetBrains Mono',monospace;font-size:12px;color:${parseFloat(r['Amount Received'])>0?'var(--green)':'var(--text-muted)'}">${r['Amount Received']!==undefined&&r['Amount Received']!==''?fmt(r['Amount Received']):'—'}</td>
-          <td style="font-size:12px">${r['Scheduled Follow-up']?fmtDate(r['Scheduled Follow-up']):'—'}</td>
-          <td style="font-size:12px">${r['Follow Up Date']?fmtDate(r['Follow Up Date']):'—'}</td>
-          <td style="font-size:12px;max-width:200px;white-space:normal;color:var(--text-secondary)">${r['Remarks']||'—'}</td>
-          <td style="font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--text-muted)">${r['Adjustment Amount']!==undefined&&r['Adjustment Amount']!==''?fmt(r['Adjustment Amount']):'—'}</td>
-          <td style="font-size:12px;color:var(--text-secondary)">${r['Adjustment Remarks']||'—'}</td>
+          <td style="font-size:12px;font-weight:600;color:${r.overdueDays>0?'var(--red)':'var(--green)'}">${Math.max(0,r.overdueDays)}d</td>
+          <td>${String(r['Status']||'').toLowerCase()==='paid'?'<span class="badge badge-paid">Paid</span>':pill(r.priority||'Normal')}</td>
+          <td>${String(r['Status']||'').toLowerCase()!=='paid'?`<button class="btn btn-outline btn-sm" onclick="openCallModal('${esc(r['Dealer Code'])}','${esc(r['Customer Name'])}','${esc(r['Location'])}','${esc(r['Invoice No.'])}',${r['Balance']})">📞 Log</button>`:'—'}</td>
         </tr>`).join('');
-    }
+    }, 450);
+}
 
-    // ─── ARCHIVES ─────────────────────────────────────────────────
-    async function loadArchived(force = false) {
-        if (!force && AppState.archived) { renderArchived(AppState.archived); return; }
-        document.getElementById('tbl-archived').innerHTML = SKELETONS.table(8);
-        const res = await api('getArchivedData');
-        if (!res) return;
-        AppState.archived = res.data;
-        renderArchived(res.data);
-    }
+// ── HELPERS ────────────────────────────────────────────────────
+function matchQ(q, ...fields) { return fields.some(f => f && String(f).toLowerCase().includes(q)); }
+function openModal(id) { document.getElementById(id).classList.add('open'); }
+function closeModal(id) { document.getElementById(id).classList.remove('open'); }
+document.addEventListener('click', e => { if (e.target.classList.contains('modal-bg')) closeModal(e.target.id); });
+function loader(msg = 'Loading...') { document.getElementById('loader-msg').textContent = msg; document.getElementById('loader').classList.add('show'); }
+function hideLoader() { document.getElementById('loader').classList.remove('show'); }
 
-    function renderArchived(data) {
-        const countEl = document.getElementById('archive-count');
-        if (countEl) countEl.textContent = `${data.length} historical records`;
-        const tbody = document.getElementById('tbl-archived');
-        if (!data.length) {
-            tbody.innerHTML = `<tr><td colspan="9"><div class="empty-state"><span class="icon">📁</span><p>No archived records</p></div></td></tr>`; return;
-        }
-        tbody.innerHTML = data.map((r, i) => `
-        <tr>
-          <td style="color:var(--text-muted)">${i+1}</td>
-          <td><div class="td-primary">${r['Customer Name']}</div><div style="font-size:11px;color:var(--text-muted)">${r['Dealer Code']}</div></td>
-          <td><span class="mono">${r['Invoice No.']}</span></td>
-          <td><span class="badge badge-reminder" style="font-size:11px">${r['Dealer Type']||'—'}</span></td>
-          <td style="font-size:12px">${r['Sales Person']||'—'}</td>
-          <td style="font-family:'JetBrains Mono',monospace;font-size:12px">${fmt(r['Invoice Amount'])}</td>
-          <td style="font-size:12px">${fmtDate(r['Payment Due Date'])}</td>
-          <td>${pill(r.priority)}</td>
-          <td style="font-size:11.5px;color:var(--text-muted)">${fmtDate(r['Archived Date'])}</td>
-        </tr>`).join('');
-    }
+function toast(msg, type = 'info') {
+    const icons = { success: '✅', error: '❌', info: 'ℹ️' };
+    const el = document.createElement('div');
+    el.className = `toast ${type}`;
+    el.innerHTML = `<span class="toast-icon">${icons[type]}</span><span>${msg}</span>`;
+    document.getElementById('toasts').appendChild(el);
+    setTimeout(() => el.style.opacity = '0', 3500);
+    setTimeout(() => el.remove(), 3800);
+}
 
-    async function runArchiveNow() {
-        if (!confirm('This will move all PAID and 0-balance invoices to Archive. Continue?')) return;
-        loader('Archiving records...');
-        const res = await api('archiveNow');
-        hideLoader();
-        if (!res) return;
-        toast(res.message, 'success');
-        AppState.dashboard = null; AppState.active = null; AppState.today = null; AppState.archived = null;
-        nav(currentPage, true);
-    }
+function fmt(n) {
+    const val = parseFloat(n) || 0;
+    if (val >= 1e7) return '₹' + (val/1e7).toFixed(2) + ' Cr';
+    if (val >= 1e5) return '₹' + (val/1e5).toFixed(2) + ' L';
+    return '₹' + val.toLocaleString('en-IN', { maximumFractionDigits: 0 });
+}
 
-    // ─── ANALYSIS ─────────────────────────────────────────────────
-    let analysisView = 'user';
-    let cachedAnalysisData = null;
+function fmtDate(val) {
+    if (!val) return '—';
+    try { return new Date(val).toLocaleDateString('en-IN', { day:'2-digit', month:'short', year:'numeric' }); }
+    catch { return val; }
+}
 
-    function setAnalysisView(view, el) {
-        analysisView = view;
-        document.querySelectorAll('.tbtn').forEach(b => b.classList.remove('active'));
-        if (el) el.classList.add('active');
-        if (cachedAnalysisData) renderCurrentAnalysis();
-        else loadAnalysis();
-    }
+function fmtDT(val) {
+    if (!val) return '—';
+    try {
+        const d = new Date(val);
+        return d.toLocaleDateString('en-IN', { day:'2-digit', month:'short' }) + ' ' +
+               d.toLocaleTimeString('en-IN', { hour:'2-digit', minute:'2-digit' });
+    } catch { return val; }
+}
 
-    function renderCurrentAnalysis() {
-        if (!cachedAnalysisData) return;
-        if (analysisView === 'dealer') renderDealerAnalysis(cachedAnalysisData.dealer);
-        else renderUserAnalysis(cachedAnalysisData.user);
-    }
+function pill(priority = 'Normal') {
+    const map = { Critical:'critical', High:'high', Medium:'medium', Normal:'normal', Reminder:'reminder' };
+    return `<span class="badge badge-${map[priority]||'normal'}">${priority}</span>`;
+}
 
-    async function loadAnalysis() {
-        const container = document.getElementById('analysis-content');
-        container.innerHTML = `<div class="empty-state"><span class="icon">⏳</span><p>Loading analysis data...</p></div>`;
-        const res = await api('getAnalysisData');
-        if (!res) { container.innerHTML = `<div class="empty-state"><p>Error loading analysis</p></div>`; return; }
-        cachedAnalysisData = res.data;
-        renderCurrentAnalysis();
-    }
-
-    function renderDealerAnalysis(data) {
-        const container = document.getElementById('analysis-content');
-        const stats = data.stats || { total: data.list.length, active: data.list.filter(d => d.status === 'Active').length, totalOutstanding: data.list.reduce((s, d) => s + d.totalOutstanding, 0), priorityBreakdown: {} };
-        const pb = stats.priorityBreakdown || {};
-        const prioConfig = [{ k:'Critical',c:'var(--red)'},{ k:'High',c:'var(--orange)'},{ k:'Medium',c:'var(--yellow)'},{ k:'Normal',c:'var(--blue)'},{ k:'Reminder',c:'var(--text-muted)'}];
-        let prioHtml = prioConfig.map(p => {
-            const count = pb[p.k] || 0;
-            const pct = stats.total > 0 ? (count / stats.total * 100) : 0;
-            return `<div class="prio-row"><span class="prio-label">${p.k}</span><div class="prio-bar-wrap"><div class="prio-bar" style="width:${pct}%;background:${p.c}"></div></div><span class="prio-count">${count}</span></div>`;
-        }).join('');
-        container.innerHTML = `
-        <div class="analysis-grid">
-          <div class="stat-card"><span class="stat-label">Total Dealers</span><div class="stat-value">${stats.total}</div><div class="stat-footer">${stats.active} Active</div></div>
-          <div class="stat-card"><span class="stat-label">Total Outstanding</span><div class="stat-value" style="font-size:20px">${fmt(stats.totalOutstanding)}</div></div>
-          <div class="stat-card"><span class="stat-label">Priority Distribution</span><div style="margin-top:8px">${prioHtml}</div></div>
-        </div>
-        <div class="analysis-table-card">
-          <div class="card-head"><span class="card-title">Top 50 Dealers by Outstanding</span></div>
-          <div class="tbl-wrap"><table><thead><tr><th>#</th><th>Dealer Code</th><th>Customer Name</th><th>Outstanding</th><th>Priority</th><th>Status</th></tr></thead>
-          <tbody>${data.list.map((d,i) => `<tr><td style="color:var(--text-muted)">${i+1}</td><td><span class="mono">${d.code}</span></td><td><div style="font-weight:600">${d.name}</div><div style="font-size:10px;color:var(--text-muted)">${d.location}</div></td><td style="font-weight:700">${fmt(d.totalOutstanding)}</td><td>${pill(d.priority)}</td><td><span class="badge badge-${d.status.toLowerCase()}">${d.status}</span></td></tr>`).join('')}</tbody>
-          </table></div>
-        </div>`;
-    }
-
-    function renderUserAnalysis(data) {
-        const container = document.getElementById('analysis-content');
-        const now = new Date();
-        const monthName = now.toLocaleString('default', { month: 'long' });
-        container.innerHTML = `
-        <div class="analysis-grid">
-          <div class="stat-card"><span class="stat-label">Total Active Users</span><div class="stat-value">${data.list.length}</div></div>
-          <div class="stat-card"><span class="stat-label">Monthly Collections</span><div class="stat-value" style="font-size:20px">${fmt(data.list.reduce((s,u)=>s+(u.monthlyAmountCollected||0),0))}</div></div>
-          <div class="stat-card"><span class="stat-label">Total Calls</span><div class="stat-value">${data.list.reduce((s,u)=>s+(u.monthlyCalls||0),0)}</div></div>
-        </div>
-        <div class="analysis-table-card">
-          <div class="card-head"><span class="card-title">User Performance — ${monthName} ${now.getFullYear()}</span></div>
-          <div class="tbl-wrap"><table><thead><tr><th>#</th><th>Sales Person</th><th>Calls (Month)</th><th>Collected (Month)</th><th>Lifetime Collection</th></tr></thead>
-          <tbody>${!data.list.length ? '<tr><td colspan="5" style="text-align:center;padding:40px;color:var(--text-muted)">No user activity recorded yet.</td></tr>'
-            : data.list.map((u,i)=>`<tr><td style="color:var(--text-muted)">${i+1}</td><td style="font-weight:700">${u.name}</td><td>${u.monthlyCalls||0} <span style="font-size:10px;color:var(--text-muted)">/ ${u.totalCalls||0}</span></td><td style="color:var(--green);font-weight:700">${fmt(u.monthlyAmountCollected||0)}</td><td style="color:var(--text-muted);font-size:12px">${fmt(u.totalAmountCollected||0)}</td></tr>`).join('')}</tbody>
-          </table></div>
-        </div>`;
-    }
-
-    // ─── FORMS ────────────────────────────────────────────────────
-    async function submitAddInvoice() {
-        const p = {
-            salesPerson: v('f-sp'), dispatchDate: v('f-dd'), dealerCode: v('f-dc'),
-            customerName: v('f-cn'), location: v('f-loc'), dealerType: v('f-dt'),
-            orderNo: v('f-ord'), dealerPhNo: v('f-ph'), invoiceNo: v('f-inv'),
-            invoiceAmount: v('f-amt'), creditDays: v('f-crd'),
-        };
-        if (!p.salesPerson || !p.customerName || !p.invoiceNo || !p.invoiceAmount) {
-            toast('Please fill all required (*) fields', 'error'); return;
-        }
-        loader('Adding invoice...');
-        const res = await api('addInvoice', p);
-        hideLoader();
-        if (!res) return;
-        AppState.dashboard = null; AppState.active = null; AppState.today = null;
-        toast(res.message, 'success');
-        closeModal('modal-add');
-        if (currentPage === 'dashboard') loadDashboard(true);
-        if (currentPage === 'active') loadActive(true);
-    }
-
-    function openCallModal(dc, name, loc, inv, bal) {
-        document.getElementById('c-name').textContent = name;
-        document.getElementById('c-inv').textContent = inv;
-        document.getElementById('c-loc').textContent = loc;
-        document.getElementById('c-bal').textContent = fmt(bal);
-        document.getElementById('c-dc').value = dc;
-        document.getElementById('c-amt').value = '';
-        document.getElementById('c-rmk').value = '';
-        document.getElementById('c-adj').value = '';
-        document.getElementById('c-adjr').value = '';
-        const m = document.getElementById('modal-call');
-        m.dataset.inv = inv; m.dataset.name = name; m.dataset.loc = loc; m.dataset.bal = bal || 0;
-        openModal('modal-call');
-    }
-
-    async function submitLogCall() {
-        const m = document.getElementById('modal-call');
-        const p = {
-            dealerCode: v('c-dc'), customerName: m.dataset.name, location: m.dataset.loc,
-            invoiceNo: m.dataset.inv, amountReceived: v('c-amt') || 0, followUpDate: v('c-fup'),
-            remarks: v('c-rmk'), adjustment: v('c-adj') || 0, adjustmentRemarks: v('c-adjr'),
-        };
-        const bal = parseFloat(m.dataset.bal) || 0;
-        const amt = parseFloat(p.amountReceived) || 0;
-        const adj = parseFloat(p.adjustment) || 0;
-        if (amt + adj > bal) { toast(`Total (₹${amt+adj}) cannot exceed balance (₹${bal}).`, 'error'); return; }
-        if (!p.remarks) { toast('Please enter customer remarks', 'error'); return; }
-        loader('Saving call log...');
-        const res = await api('logCall', p);
-        hideLoader();
-        if (!res) return;
-        AppState.dashboard = null; AppState.today = null; AppState.active = null; AppState.history = null;
-        toast(res.message, 'success');
-        closeModal('modal-call');
-        nav(currentPage, true);
-    }
-
-    // ─── SEARCH ───────────────────────────────────────────────────
-    async function globalSearch(val) {
-        clearTimeout(searchTimer);
-        const q = val.trim().toLowerCase();
-
-        if (currentPage === 'active') {
-            if (!q) { renderActive(AppState.active); return; }
-            renderActive((AppState.active||[]).filter(r => matchQ(q, r['Customer Name'], r['Invoice No.'], r['Dealer Code'], r['Dealer Ph. No.'], r['Location'])));
-            return;
-        }
-        if (currentPage === 'today') {
-            if (!q) { renderToday(AppState.today||[]); return; }
-            renderToday((AppState.today||[]).filter(r => matchQ(q, r['Customer Name'], r['Invoice No.'], r['Dealer Code'], r['Dealer Ph. No.'])));
-            return;
-        }
-        if (currentPage === 'history') {
-            if (!q) { renderHistory(AppState.history||[]); return; }
-            renderHistory((AppState.history||[]).filter(r => matchQ(q, r['Customer Name'], r['Invoice No.'], r['Dealer Code'], r['Remarks'])));
-            return;
-        }
-        if (currentPage === 'archived') {
-            if (!q) { renderArchived(AppState.archived||[]); return; }
-            renderArchived((AppState.archived||[]).filter(r => matchQ(q, r['Customer Name'], r['Invoice No.'], r['Dealer Code'])));
-            return;
-        }
-
-        if (q.length < 2) { if (currentPage === 'search') nav('dashboard'); return; }
-        searchTimer = setTimeout(async () => {
-            nav('search');
-            document.getElementById('tbl-search').innerHTML = SKELETONS.table(10);
-            const res = await api('searchRecords', undefined, val);
-            if (!res) return;
-            const records = res.data;
-            document.getElementById('search-count').textContent = `${records.length} results`;
-            const tbody = document.getElementById('tbl-search');
-            if (!records.length) {
-                tbody.innerHTML = `<tr><td colspan="9"><div class="empty-state"><span class="icon">🔍</span><p>No records found</p></div></td></tr>`; return;
-            }
-            tbody.innerHTML = records.map(r => `
-            <tr>
-              <td><div class="td-primary">${r['Customer Name']}</div><div style="font-size:11px;color:var(--text-muted)">${r['Dealer Code']}</div></td>
-              <td><a href="tel:${r['Dealer Ph. No.']}" style="color:var(--blue);text-decoration:none;font-weight:600;font-size:12.5px">${r['Dealer Ph. No.']||'—'}</a></td>
-              <td><span class="mono">${r['Invoice No.']}</span></td>
-              <td style="font-size:12px">${r['Dispatch Date']||'—'}</td>
-              <td style="font-family:'JetBrains Mono',monospace;font-size:13px;font-weight:700;color:var(--red)">${fmt(r['Balance'])}</td>
-              <td style="font-size:12px">${fmtDate(r['Payment Due Date'])}</td>
-              <td style="font-size:12px;font-weight:600;color:${r.overdueDays>0?'var(--red)':'var(--green)'}">${Math.max(0,r.overdueDays)}d</td>
-              <td>${String(r['Status']||'').toLowerCase()==='paid'?'<span class="badge badge-paid">Paid</span>':pill(r.priority||'Normal')}</td>
-              <td>${String(r['Status']||'').toLowerCase()!=='paid'?`<button class="btn btn-outline btn-sm" onclick="openCallModal('${esc(r['Dealer Code'])}','${esc(r['Customer Name'])}','${esc(r['Location'])}','${esc(r['Invoice No.'])}',${r['Balance']})">📞 Log</button>`:'—'}</td>
-            </tr>`).join('');
-        }, 450);
-    }
-
-    // ─── HELPERS ──────────────────────────────────────────────────
-    function matchQ(q, ...fields) { return fields.some(f => f && String(f).toLowerCase().includes(q)); }
-    function openModal(id) { document.getElementById(id).classList.add('open'); }
-    function closeModal(id) { document.getElementById(id).classList.remove('open'); }
-    document.addEventListener('click', e => { if (e.target.classList.contains('modal-bg')) closeModal(e.target.id); });
-    function loader(msg = 'Loading...') { document.getElementById('loader-msg').textContent = msg; document.getElementById('loader').classList.add('show'); }
-    function hideLoader() { document.getElementById('loader').classList.remove('show'); }
-
-    function toast(msg, type = 'info') {
-        const icons = { success: '✅', error: '❌', info: 'ℹ️' };
-        const el = document.createElement('div');
-        el.className = `toast ${type}`;
-        el.innerHTML = `<span class="toast-icon">${icons[type]}</span><span>${msg}</span>`;
-        document.getElementById('toasts').appendChild(el);
-        setTimeout(() => el.style.opacity = '0', 3500);
-        setTimeout(() => el.remove(), 3800);
-    }
-
-    function fmt(n) {
-        const val = parseFloat(n) || 0;
-        if (val >= 1e7) return '₹' + (val/1e7).toFixed(2) + ' Cr';
-        if (val >= 1e5) return '₹' + (val/1e5).toFixed(2) + ' L';
-        return '₹' + val.toLocaleString('en-IN', { maximumFractionDigits: 0 });
-    }
-
-    function fmtDate(val) {
-        if (!val) return '—';
-        try { return new Date(val).toLocaleDateString('en-IN', { day:'2-digit', month:'short', year:'numeric' }); }
-        catch { return val; }
-    }
-
-    function fmtDT(val) {
-        if (!val) return '—';
-        try {
-            const d = new Date(val);
-            return d.toLocaleDateString('en-IN', { day:'2-digit', month:'short' }) + ' ' +
-                   d.toLocaleTimeString('en-IN', { hour:'2-digit', minute:'2-digit' });
-        } catch { return val; }
-    }
-
-    function pill(priority = 'Normal') {
-        const map = { Critical:'critical', High:'high', Medium:'medium', Normal:'normal', Reminder:'reminder' };
-        return `<span class="badge badge-${map[priority]||'normal'}">${priority}</span>`;
-    }
-
-    function esc(s) { return (s||'').replace(/\\/g,'\\\\').replace(/'/g,"\\'"); }
-    function v(id) { return (document.getElementById(id)||{}).value || ''; }
+function esc(s) { return (s||'').replace(/\\/g,'\\\\').replace(/'/g,"\\'"); }
+function v(id) { return (document.getElementById(id)||{}).value || ''; }
 </script>
 </body>
 </html>
