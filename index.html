@@ -69,7 +69,6 @@
         @keyframes btn-spin { to { transform: rotate(360deg); } }
         .btn-spinner { display: inline-block; width: 13px; height: 13px; border: 2px solid rgba(255,255,255,0.4); border-top-color: #fff; border-radius: 50%; animation: btn-spin 0.6s linear infinite; flex-shrink: 0; }
 
-        /* In-place update animation for call cards */
         @keyframes cardFlash { 0%{background:rgba(16,185,129,0.15)} 100%{background:transparent} }
         .call-card.flash-update { animation: cardFlash 1.2s ease-out forwards; }
 
@@ -144,8 +143,6 @@
         .call-avatar { width: 42px; height: 42px; border-radius: var(--radius); display: flex; align-items: center; justify-content: center; font-size: 18px; flex-shrink: 0; }
         .call-info { flex: 1; min-width: 0; }
         .call-actions { display: flex; flex-direction: column; gap: 6px; flex-shrink: 0; }
-
-        /* Call count badge on card - shows how many times called today */
         .call-count-badge { display: inline-flex; align-items: center; gap: 3px; background: var(--blue-light); color: var(--blue); font-size: 10px; font-weight: 700; padding: 2px 7px; border-radius: 10px; margin-left: 6px; }
 
         .filter-tabs { display: flex; gap: 6px; margin-bottom: 14px; flex-wrap: wrap; align-items: center; }
@@ -171,7 +168,6 @@
         .modal-close:hover { background: var(--red-bg); color: var(--red); border-color: var(--red); }
         .modal-body { padding: 20px 24px; }
         .modal-ft { padding: 14px 24px; border-top: 1px solid var(--border); display: flex; gap: 8px; justify-content: flex-end; background: #FAFBFC; }
-
         .modal-wide { width: 820px; max-width: 96vw; }
 
         .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
@@ -214,6 +210,11 @@
         .analysis-body { padding-top: 20px; }
         .analysis-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 16px; margin-bottom: 20px; }
         .analysis-table-card { background: var(--white); border-radius: var(--radius-lg); border: 1px solid var(--border); box-shadow: var(--shadow); overflow: hidden; }
+
+        /* Dealer analysis filter bar */
+        .dealer-filter-bar { display: flex; align-items: center; gap: 8px; padding: 12px 20px; border-bottom: 1px solid var(--border); flex-wrap: wrap; background: #FAFBFC; }
+        .dealer-search { flex: 1; min-width: 180px; font-family: inherit; font-size: 13px; border: 1.5px solid var(--border); border-radius: var(--radius-sm); padding: 6px 12px; outline: none; }
+        .dealer-search:focus { border-color: var(--blue); }
 
         .day-bar-row { display: flex; align-items: center; gap: 10px; padding: 8px 0; border-bottom: 1px solid var(--border); }
         .day-bar-row:last-child { border-bottom: none; }
@@ -273,7 +274,7 @@
         <button class="nav-btn" onclick="openModal('modal-add')"><span class="nav-icon">＋</span> Add Invoice</button>
         <button class="nav-btn" onclick="hardRefresh()"><span class="nav-icon">🔄</span> Force Refresh</button>
     </nav>
-    <div class="sidebar-footer">PayTrack v12.0 &nbsp;·&nbsp; © 2026</div>
+    <div class="sidebar-footer">PayTrack v13.0 &nbsp;·&nbsp; © 2026</div>
 </aside>
 
 <div class="main">
@@ -379,7 +380,7 @@
 
         <!-- ACTIVE PAYMENTS -->
         <div class="page" id="page-active">
-            <div class="filter-tabs">
+            <div class="filter-tabs" id="active-filter-tabs">
                 <button class="ftab active" onclick="filterActive('all',this)">All</button>
                 <button class="ftab" onclick="filterActive('Active',this)">🔵 Active</button>
                 <button class="ftab" onclick="filterActive('Critical',this)">🔴 Critical</button>
@@ -406,8 +407,20 @@
 
         <!-- CALL HISTORY -->
         <div class="page" id="page-history">
+            <!-- History-specific filter bar -->
+            <div style="display:flex;align-items:center;gap:8px;margin-bottom:14px;flex-wrap:wrap;">
+                <button class="ftab active" id="hist-ftab-all" onclick="filterHistory('all',this)">All</button>
+                <button class="ftab" id="hist-ftab-paid" onclick="filterHistory('paid',this)">💰 With Payment</button>
+                <button class="ftab" id="hist-ftab-adj" onclick="filterHistory('adj',this)">📋 With Adjustment</button>
+                <input type="text" id="hist-search" placeholder="Search customer / invoice..." oninput="filterHistory('search',null,this.value)"
+                    style="border:1.5px solid var(--border);border-radius:20px;padding:5px 14px;font-size:12.5px;outline:none;font-family:inherit;min-width:200px;">
+            </div>
             <div class="card">
-                <div class="card-head"><span class="card-title">Call History</span><button class="btn btn-ghost btn-sm" onclick="loadHistory(true)" style="margin-left:auto">↺ Refresh</button></div>
+                <div class="card-head">
+                    <span class="card-title">Call History</span>
+                    <span class="card-subtitle" id="history-count"></span>
+                    <button class="btn btn-ghost btn-sm" onclick="loadHistory(true)" style="margin-left:auto">↺ Refresh</button>
+                </div>
                 <div class="tbl-wrap"><table>
                     <thead><tr><th>#</th><th>Date & Time</th><th>Customer</th><th>Invoice</th><th>Amount Recd.</th><th>Scheduled For</th><th>Next Follow-up</th><th>Remarks</th><th>ADJ.</th><th>ADJ. Remarks</th></tr></thead>
                     <tbody id="tbl-history"></tbody>
@@ -431,6 +444,18 @@
 
         <!-- ARCHIVED -->
         <div class="page" id="page-archived">
+            <!-- Archive-specific filter bar -->
+            <div style="display:flex;align-items:center;gap:8px;margin-bottom:14px;flex-wrap:wrap;">
+                <button class="ftab active" id="arch-ftab-all"      onclick="filterArchived('all',this)">All</button>
+                <button class="ftab" id="arch-ftab-Critical"  onclick="filterArchived('Critical',this)">🔴 Critical</button>
+                <button class="ftab" id="arch-ftab-High"      onclick="filterArchived('High',this)">🟠 High</button>
+                <button class="ftab" id="arch-ftab-Medium"    onclick="filterArchived('Medium',this)">🟡 Medium</button>
+                <button class="ftab" id="arch-ftab-Normal"    onclick="filterArchived('Normal',this)">🟢 Normal</button>
+                <button class="ftab" id="arch-ftab-Reminder"  onclick="filterArchived('Reminder',this)">🔵 Reminder</button>
+                <input type="text" id="arch-search" placeholder="Search customer / invoice..."
+                    oninput="filterArchived('search',null,this.value)"
+                    style="border:1.5px solid var(--border);border-radius:20px;padding:5px 14px;font-size:12.5px;outline:none;font-family:inherit;min-width:180px;margin-left:auto;">
+            </div>
             <div class="card">
                 <div class="card-head">
                     <span class="card-title">Archived Payments</span>
@@ -519,33 +544,27 @@
 
 <script>
 // ══════════════════════════════════════════════════════
-// PAYTRACK v12.0
+// PAYTRACK v13.0 — Frontend
 //
-// FIX 1 — Scroll Preservation:
-//   submitLogCall() → in-place card update (optimistic UI)
-//   No full page reload → scroll position preserved
-//   AppData.today cache updated locally without re-render
-//
-// FIX 2 — Today/Pending Logic (CORRECT):
-//   TODAY tab  = followUp date == TODAY  OR  due date == TODAY (od === 0)
-//   PENDING tab = followUp date < TODAY  OR  (od > 0 AND no followup / followup < today)
-//   Rule: agar aaj ki date hai follow-up mein → always TODAY tab
-//   Rule: agar kal ya baad ki → future → skip (not in either tab)
-//   Rule: multiple calls same day → fully supported
-//
-// FIX 3 — After logCall, pending record with today follow-up → moves to TODAY tab
+// FIX 1 — Call History: Shows ALL records, section-specific filters
+// FIX 2 — Archived: Section-specific filters (priority, search)
+// FIX 3 — Dealer Analysis: Full list, searchable, no row cap
+// FIX 4 — Global search only fires on search/non-dedicated pages
+// FIX 5 — Performance: server returns all data, frontend pages it
 // ══════════════════════════════════════════════════════
 
 let WEBAPP_URL = localStorage.getItem('paytrack_webapp_url') || '';
 
 const AppData = {
     dashboard: null,
-    today: null,       // raw array from server (all eligible records)
+    today: null,
     active: null,
     activeAll: null,
     history: null,
+    historyAll: null,   // full unfiltered history
     analysis: null,
     archived: null,
+    archivedAll: null,  // full unfiltered archived
 };
 
 const AppState = {
@@ -553,18 +572,19 @@ const AppState = {
     activeFilter: 'all',
     activePage: 1,
     historyPage: 1,
+    historyFilter: 'all',
+    historySearch: '',
     archivedPage: 1,
+    archivedFilter: 'all',
+    archivedSearch: '',
     todayFilter: 'today',
     searchTimer: null,
-    // Tracks per-invoice call count for current session (for badge display)
     sessionCallCounts: {},
-    // Stores last remarks per invoice for optimistic update
     lastCallMap: {},
 };
 
 const PAGE_SIZE = { active: 100, history: 50, archived: 100 };
 
-// ── Today's date string (YYYY-MM-DD, local) ───────────────────────
 const _todayStr = (() => {
     const d = new Date();
     return d.getFullYear() + '-' +
@@ -572,7 +592,7 @@ const _todayStr = (() => {
            String(d.getDate()).padStart(2,'0');
 })();
 
-// ── Config ─────────────────────────────────────────────────────
+// ── Config ──────────────────────────────────────────────────
 function saveWebAppUrl() {
     const val = document.getElementById('webapp-url-input').value.trim();
     if (!val || !val.startsWith('https://')) { toast('Valid https:// URL daalo', 'error'); return; }
@@ -583,7 +603,7 @@ function saveWebAppUrl() {
     loadDashboard(true);
 }
 
-// ── INIT ───────────────────────────────────────────────────────
+// ── INIT ────────────────────────────────────────────────────
 document.addEventListener('DOMContentLoaded', () => {
     const now = new Date();
     document.getElementById('today-date').textContent =
@@ -668,6 +688,10 @@ const PAGE_META = {
 };
 
 function nav(page, force) {
+    // Clear global search when switching pages
+    if (AppState.currentPage !== page) {
+        document.getElementById('g-search').value = '';
+    }
     document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
     document.querySelectorAll('.nav-btn[data-page]').forEach(b => b.classList.remove('active'));
     const pg = document.getElementById('page-' + page);
@@ -688,7 +712,8 @@ function nav(page, force) {
 
 async function hardRefresh() {
     AppData.dashboard = null; AppData.today = null; AppData.active = null;
-    AppData.activeAll = null; AppData.history = null; AppData.analysis = null; AppData.archived = null;
+    AppData.activeAll = null; AppData.history = null; AppData.historyAll = null;
+    AppData.analysis = null; AppData.archived = null; AppData.archivedAll = null;
     AppState.sessionCallCounts = {};
     AppState.lastCallMap = {};
     await api('clearCache', null, null, true);
@@ -705,7 +730,7 @@ async function loadDashboard(force) {
     if (!res) return;
     AppData.dashboard = res.data;
     renderDashboard(res.data, res.fromCache);
-    if (!AppData.today) api('getTodayCalling', null, null, true).then(r => { if (r) AppData.today = r.data; });
+    if (!AppData.today) api('getTodayCalling', null, null, true).then(r => { if (r) { AppData.today = r.data; } });
 }
 
 function renderDashboard(d, fromCache) {
@@ -753,11 +778,9 @@ function renderTopOverdue(records) {
 // DATE PARSING HELPER
 // ══════════════════════════════════════════════════════
 function _parseDateToStr(val) {
-    // Returns YYYY-MM-DD string or null
     if (!val) return null;
     try {
         const s = String(val).trim();
-        // Handle "dd-MMM-yyyy" (e.g., "11-Apr-2026")
         const m = s.match(/^(\d{1,2})-([A-Za-z]{3})-(\d{4})$/);
         if (m) {
             const months = { jan:0,feb:1,mar:2,apr:3,may:4,jun:5,jul:6,aug:7,sep:8,oct:9,nov:10,dec:11 };
@@ -769,7 +792,6 @@ function _parseDateToStr(val) {
                        String(d.getDate()).padStart(2,'0');
             }
         }
-        // Handle ISO / yyyy-mm-dd
         const d = new Date(s.split(' ')[0]);
         if (!isNaN(d.getTime())) {
             return d.getFullYear() + '-' +
@@ -781,53 +803,24 @@ function _parseDateToStr(val) {
 }
 
 // ══════════════════════════════════════════════════════
-// TODAY / PENDING CATEGORIZATION — CORE LOGIC
-//
-// RULE (simple & clear):
-//   TODAY tab  → followUp == today  OR  due date == today (od === 0)
-//   PENDING tab → followUp < today  OR  (od > 0 AND followup is null/past)
-//   FUTURE     → followUp > today  → skip (not shown in either tab)
-//   od < 0 AND no followup/future followup → skip
-//
-// Multiple calls same day = fully supported
-// If pending record is called and follow-up set to today → moves to TODAY tab
+// TODAY CALLING
 // ══════════════════════════════════════════════════════
 function _categorizeTodayRecords(records) {
     const todayRecs   = [];
     const pendingRecs = [];
-
     for (const r of records) {
         const fupStr = _parseDateToStr(r['Next Follow-up']);
         const od = typeof r.overdueDays === 'number' ? r.overdueDays : (r.dueDays || 0);
-
-        // Determine follow-up relationship to today
         const fupIsToday  = fupStr === _todayStr;
         const fupIsPast   = fupStr && fupStr < _todayStr;
         const fupIsFuture = fupStr && fupStr > _todayStr;
-
-        // Skip: future follow-up set → not relevant yet
         if (fupIsFuture) continue;
-
-        // TODAY: follow-up is today OR due date is today (od === 0)
-        if (fupIsToday || od === 0) {
-            todayRecs.push(r);
-            continue;
-        }
-
-        // PENDING: overdue (od > 0) OR follow-up was in past (missed)
-        // (also catches od > 0 with no follow-up set)
-        if (od > 0 || fupIsPast) {
-            pendingRecs.push(r);
-            continue;
-        }
-
-        // od < 0 (future due) and no follow-up → skip
+        if (fupIsToday || od === 0) { todayRecs.push(r); continue; }
+        if (od > 0 || fupIsPast) { pendingRecs.push(r); continue; }
     }
-
     return { todayRecs, pendingRecs };
 }
 
-// Sort by priority → then A→Z by Customer Name
 function _sortTodayRecords(records) {
     const pOrder = { Critical:0, High:1, Medium:2, Normal:3, Reminder:4 };
     return records.slice().sort((a, b) => {
@@ -858,14 +851,12 @@ function renderToday(records) {
     const sortedToday   = _sortTodayRecords(todayRecs);
     const sortedPending = _sortTodayRecords(pendingRecs);
 
-    // Update badges
     document.getElementById('badge-today').textContent = sortedToday.length;
     document.getElementById('today-count-badge').textContent = sortedToday.length;
     document.getElementById('pending-count-badge').textContent = sortedPending.length;
 
     const filtered = AppState.todayFilter === 'pending' ? sortedPending : sortedToday;
 
-    // Summary chips
     const counts = { Critical:0, High:0, Medium:0, Normal:0, Reminder:0 };
     filtered.forEach(r => { if (r.priority in counts) counts[r.priority]++; });
     const chipColors = { Critical:'var(--red)', High:'var(--orange)', Medium:'var(--yellow)', Normal:'var(--green)', Reminder:'var(--blue)' };
@@ -877,22 +868,17 @@ function renderToday(records) {
         container.innerHTML = `<div class="card"><div class="empty-state"><span class="icon">🎉</span><p>${AppState.todayFilter==='pending'?'No pending calls!':'No calls for today!'}</p></div></div>`;
         return;
     }
-
     container.innerHTML = filtered.map(r => _buildCallCardHTML(r)).join('');
 }
 
-// Build a single call card HTML — extracted so we can also use it for in-place update
 function _buildCallCardHTML(r) {
     const icons   = { Critical:'🚨', High:'⚠️', Medium:'📌', Normal:'📞', Reminder:'🔔' };
     const iconBg  = { Critical:'var(--red-bg)', High:'var(--orange-bg)', Medium:'var(--yellow-bg)', Normal:'var(--green-bg)', Reminder:'var(--blue-light)' };
     const prio    = r.priority || 'Normal';
-
-    // Session call count badge (how many times called today in this session)
     const callCount = AppState.sessionCallCounts[r['Invoice No.']] || 0;
     const callBadge = callCount > 0
         ? `<span class="call-count-badge">✅ Called ${callCount}x</span>`
         : '';
-
     const hasRemark = r['Last Remarks'] && r['Last Remarks'] !== '-' && r['Last Remarks'] !== 'No Previous Call';
     const fupStr    = _parseDateToStr(r['Next Follow-up']);
     const fupLabel  = r['Next Follow-up']
@@ -934,50 +920,34 @@ function _buildCallCardHTML(r) {
     </div>`;
 }
 
-// ══════════════════════════════════════════════════════
-// IN-PLACE CARD UPDATE (FIX 1: no scroll jump)
-// Called after a successful logCall when on today/pending page
-// Updates the specific card's remarks + balance + call count
-// Also moves card between tabs if follow-up date changed
-// ══════════════════════════════════════════════════════
 function _updateCardInPlace(invoiceNo, payload) {
     const newFupStr = _parseDateToStr(payload.followUpDate);
     const amtPaid   = parseFloat(payload.amountReceived) || 0;
     const adjPaid   = parseFloat(payload.adjustment) || 0;
 
-    // Update AppData.today in memory
     if (AppData.today) {
         const rec = AppData.today.find(r => r['Invoice No.'] === invoiceNo);
         if (rec) {
-            // Update balance
             rec['Balance'] = Math.max(0, (rec['Balance'] || 0) - amtPaid - adjPaid);
-            // Update follow-up
             if (payload.followUpDate) rec['Next Follow-up'] = payload.followUpDate;
-            // Update last remarks
             rec['Last Remarks'] = payload.remarks;
             rec['Last Call Date'] = new Date().toLocaleDateString('en-IN',{day:'2-digit',month:'short',year:'numeric',hour:'2-digit',minute:'2-digit'});
         }
     }
 
-    // Decide if card should stay in current tab or move
-    // After update: re-categorize
     if (!AppData.today) return;
     const { todayRecs, pendingRecs } = _categorizeTodayRecords(AppData.today);
     const sortedToday   = _sortTodayRecords(todayRecs);
     const sortedPending = _sortTodayRecords(pendingRecs);
 
-    // Update badges
     document.getElementById('badge-today').textContent       = sortedToday.length;
     document.getElementById('today-count-badge').textContent = sortedToday.length;
     document.getElementById('pending-count-badge').textContent = sortedPending.length;
 
     const currentFiltered = AppState.todayFilter === 'pending' ? sortedPending : sortedToday;
-
-    // Check if the invoice is still in current tab view
     const stillInTab = currentFiltered.some(r => r['Invoice No.'] === invoiceNo);
 
     if (stillInTab) {
-        // Just flash + update the specific card in place
         const cardEl = document.querySelector(`.call-card[data-inv="${CSS.escape(invoiceNo)}"]`);
         if (cardEl) {
             const rec = AppData.today.find(r => r['Invoice No.'] === invoiceNo);
@@ -991,35 +961,22 @@ function _updateCardInPlace(invoiceNo, payload) {
             }
         }
     } else {
-        // Card moved to the other tab — remove it from current view with animation
         const cardEl = document.querySelector(`.call-card[data-inv="${CSS.escape(invoiceNo)}"]`);
         if (cardEl) {
             cardEl.style.transition = 'opacity 0.3s, transform 0.3s';
             cardEl.style.opacity = '0';
             cardEl.style.transform = 'translateX(20px)';
-            setTimeout(() => {
-                cardEl.remove();
-                // Update chips
-                const remaining = currentFiltered.filter(r => r['Invoice No.'] !== invoiceNo);
-                const counts = { Critical:0, High:0, Medium:0, Normal:0, Reminder:0 };
-                remaining.forEach(r => { if (r.priority in counts) counts[r.priority]++; });
-                const chipColors = { Critical:'var(--red)', High:'var(--orange)', Medium:'var(--yellow)', Normal:'var(--green)', Reminder:'var(--blue)' };
-                document.getElementById('today-chips').innerHTML = Object.entries(counts).filter(([,c]) => c > 0)
-                    .map(([p,c]) => `<div class="s-chip"><div class="s-dot" style="background:${chipColors[p]}"></div><span class="lbl">${p}</span><span class="val">${c}</span></div>`).join('');
-            }, 320);
+            setTimeout(() => { cardEl.remove(); _updateTodayChips(currentFiltered.filter(r => r['Invoice No.'] !== invoiceNo)); }, 320);
         }
-
-        // Show a toast hint
-        if (newFupStr === _todayStr) {
-            toast('Record aaj ke Today Calling mein move ho gaya ✅', 'info');
-        } else if (!newFupStr || newFupStr < _todayStr) {
-            toast('Record Pending mein hai — follow-up set karo', 'info');
-        }
+        if (newFupStr === _todayStr) toast('Record Today Calling mein move ho gaya ✅', 'info');
+        else if (!newFupStr || newFupStr < _todayStr) toast('Record Pending mein hai — follow-up set karo', 'info');
     }
+    _updateTodayChips(currentFiltered);
+}
 
-    // Update summary chips for remaining items
+function _updateTodayChips(filtered) {
     const counts = { Critical:0, High:0, Medium:0, Normal:0, Reminder:0 };
-    currentFiltered.forEach(r => { if (r.priority in counts) counts[r.priority]++; });
+    filtered.forEach(r => { if (r.priority in counts) counts[r.priority]++; });
     const chipColors = { Critical:'var(--red)', High:'var(--orange)', Medium:'var(--yellow)', Normal:'var(--green)', Reminder:'var(--blue)' };
     document.getElementById('today-chips').innerHTML = Object.entries(counts).filter(([,c]) => c > 0)
         .map(([p,c]) => `<div class="s-chip"><div class="s-dot" style="background:${chipColors[p]}"></div><span class="lbl">${p}</span><span class="val">${c}</span></div>`).join('');
@@ -1031,7 +988,7 @@ function _updateCardInPlace(invoiceNo, payload) {
 async function loadActive(force) {
     if (!force && AppData.activeAll) { applyActiveFilter(); return; }
     document.getElementById('tbl-active').innerHTML = Array(6).fill('<tr><td colspan="14"><div class="sk sk-row"></div></td></tr>').join('');
-    const res = await api('getActivePayments', { page: 1, pageSize: 500 });
+    const res = await api('getActivePayments', {});
     if (!res) return;
     AppData.activeAll = res.data;
     AppState.activePage = 1;
@@ -1041,26 +998,31 @@ async function loadActive(force) {
 function filterActive(f, el) {
     AppState.activeFilter = f;
     AppState.activePage = 1;
-    document.querySelectorAll('.filter-tabs .ftab').forEach(t => t.classList.remove('active'));
+    document.querySelectorAll('#active-filter-tabs .ftab').forEach(t => t.classList.remove('active'));
     if (el) el.classList.add('active');
     if (AppData.activeAll) applyActiveFilter();
     else loadActive(true);
 }
 
-function applyActiveFilter() {
+function _getActiveFiltered() {
     const f = AppState.activeFilter;
     let data = AppData.activeAll || [];
-    if (f === 'Paid')   data = data.filter(r => r.status === 'Paid');
-    else if (f === 'Active') data = data.filter(r => r.status !== 'Paid');
-    else if (f !== 'all') data = data.filter(r => r.priority === f && r.status !== 'Paid');
+    if (f === 'Paid')   return data.filter(r => r.status === 'Paid');
+    if (f === 'Active') return data.filter(r => r.status !== 'Paid');
+    if (f !== 'all')    return data.filter(r => r.priority === f && r.status !== 'Paid');
+    return data;
+}
+
+function applyActiveFilter() {
+    const data = _getActiveFiltered();
     const ps = PAGE_SIZE.active;
     const total = data.length;
     const pg = AppState.activePage;
     const start = (pg - 1) * ps;
-    renderActiveRows(data.slice(start, start + ps), { page: pg, pageSize: ps, total, totalPages: Math.ceil(total / ps) }, data);
+    renderActiveRows(data.slice(start, start + ps), { page: pg, pageSize: ps, total, totalPages: Math.ceil(total / ps) });
 }
 
-function renderActiveRows(pageData, pagination, allFiltered) {
+function renderActiveRows(pageData, pagination) {
     document.getElementById('active-count').textContent = `${pagination.total} records`;
     const start = (pagination.page - 1) * pagination.pageSize;
     const tbody = document.getElementById('tbl-active');
@@ -1091,38 +1053,68 @@ function renderActiveRows(pageData, pagination, allFiltered) {
 
     renderPagination('active-pagination', pagination, pg => {
         AppState.activePage = pg;
-        const f = AppState.activeFilter;
-        let data = AppData.activeAll || [];
-        if (f === 'Paid') data = data.filter(r => r.status === 'Paid');
-        else if (f === 'Active') data = data.filter(r => r.status !== 'Paid');
-        else if (f !== 'all') data = data.filter(r => r.priority === f && r.status !== 'Paid');
-        const ps = PAGE_SIZE.active, start = (pg-1)*ps;
-        renderActiveRows(data.slice(start, start+ps), { page:pg, pageSize:ps, total:data.length, totalPages:Math.ceil(data.length/ps) }, data);
+        applyActiveFilter();
         window.scrollTo({ top: 0, behavior: 'smooth' });
     });
 }
 
 // ══════════════════════════════════════════════════════
-// CALL HISTORY
+// CALL HISTORY — section-specific filters
 // ══════════════════════════════════════════════════════
 async function loadHistory(force) {
-    if (!force && AppData.history) {
-        const ps = PAGE_SIZE.history;
-        renderHistoryRows(AppData.history.slice(0, ps), { page:1, pageSize:ps, total:AppData.history.length, totalPages:Math.ceil(AppData.history.length/ps) });
-        return;
-    }
+    if (!force && AppData.historyAll) { applyHistoryFilter(); return; }
     document.getElementById('tbl-history').innerHTML = Array(5).fill('<tr><td colspan="10"><div class="sk sk-row"></div></td></tr>').join('');
-    const res = await api('getCallingHistory', { page: 1, pageSize: 500 });
+    const res = await api('getCallingHistory', {});
     if (!res) return;
+    // Server returns ALL data — cache it
+    AppData.historyAll = res.data;
     AppData.history = res.data;
     AppState.historyPage = 1;
+    applyHistoryFilter();
+}
+
+function filterHistory(type, el, searchVal) {
+    if (type === 'search') {
+        AppState.historySearch = (searchVal || '').trim().toLowerCase();
+        // Don't change filter type
+    } else if (type !== null) {
+        AppState.historyFilter = type;
+        // Update tab active state
+        document.querySelectorAll('#hist-ftab-all,#hist-ftab-paid,#hist-ftab-adj').forEach(b => b.classList.remove('active'));
+        const tabEl = document.getElementById('hist-ftab-' + type);
+        if (tabEl) tabEl.classList.add('active');
+        else if (el) el.classList.add('active');
+    }
+    AppState.historyPage = 1;
+    applyHistoryFilter();
+}
+
+function _getHistoryFiltered() {
+    let data = AppData.historyAll || [];
+    const f = AppState.historyFilter;
+    if (f === 'paid') data = data.filter(r => (r['Amount Received'] || 0) > 0);
+    else if (f === 'adj') data = data.filter(r => (r['Adjustment Amount'] || 0) > 0);
+    const q = AppState.historySearch;
+    if (q) data = data.filter(r => matchQ(q, r['Customer Name'], r['Invoice No.'], r['Dealer Code'], r['Remarks']));
+    return data;
+}
+
+function applyHistoryFilter() {
+    const data = _getHistoryFiltered();
     const ps = PAGE_SIZE.history;
-    renderHistoryRows(res.data.slice(0, ps), { page:1, pageSize:ps, total:res.data.length, totalPages:Math.ceil(res.data.length/ps) });
+    const pg = AppState.historyPage;
+    const start = (pg - 1) * ps;
+    renderHistoryRows(data.slice(start, start + ps), { page: pg, pageSize: ps, total: data.length, totalPages: Math.ceil(data.length / ps) });
 }
 
 function renderHistoryRows(records, pagination) {
+    document.getElementById('history-count').textContent = `${pagination.total} records`;
     const tbody = document.getElementById('tbl-history');
-    if (!records.length) { tbody.innerHTML = `<tr><td colspan="10"><div class="empty-state"><span class="icon">📋</span><p>Koi record nahi</p></div></td></tr>`; document.getElementById('history-pagination').innerHTML = ''; return; }
+    if (!records.length) {
+        tbody.innerHTML = `<tr><td colspan="10"><div class="empty-state"><span class="icon">📋</span><p>Koi record nahi</p></div></td></tr>`;
+        document.getElementById('history-pagination').innerHTML = '';
+        return;
+    }
     const start = (pagination.page-1)*pagination.pageSize;
     tbody.innerHTML = records.map((r,i) => `
     <tr>
@@ -1140,52 +1132,81 @@ function renderHistoryRows(records, pagination) {
 
     renderPagination('history-pagination', pagination, pg => {
         AppState.historyPage = pg;
-        const data = AppData.history || [];
-        const ps = PAGE_SIZE.history, start = (pg-1)*ps;
-        renderHistoryRows(data.slice(start, start+ps), { page:pg, pageSize:ps, total:data.length, totalPages:Math.ceil(data.length/ps) });
+        applyHistoryFilter();
         window.scrollTo({ top: 0, behavior: 'smooth' });
     });
 }
 
 // ══════════════════════════════════════════════════════
-// ARCHIVES
+// ARCHIVES — section-specific filters
 // ══════════════════════════════════════════════════════
 async function loadArchived(force) {
-    if (!force && AppData.archived) {
-        const ps = PAGE_SIZE.archived;
-        renderArchivedRows(AppData.archived.slice(0, ps), { page:1, pageSize:ps, total:AppData.archived.length, totalPages:Math.ceil(AppData.archived.length/ps) });
-        return;
-    }
+    if (!force && AppData.archivedAll) { applyArchivedFilter(); return; }
     document.getElementById('tbl-archived').innerHTML = Array(5).fill('<tr><td colspan="9"><div class="sk sk-row"></div></td></tr>').join('');
-    const res = await api('getArchivedData', { page: 1, pageSize: 500 });
+    const res = await api('getArchivedData', {});
     if (!res) return;
+    AppData.archivedAll = res.data;
     AppData.archived = res.data;
     document.getElementById('archive-count').textContent = `${res.pagination.total} historical records`;
+    AppState.archivedPage = 1;
+    applyArchivedFilter();
+}
+
+function filterArchived(type, el, searchVal) {
+    if (type === 'search') {
+        AppState.archivedSearch = (searchVal || '').trim().toLowerCase();
+    } else if (type !== null) {
+        AppState.archivedFilter = type;
+        document.querySelectorAll('[id^="arch-ftab-"]').forEach(b => b.classList.remove('active'));
+        const tabEl = document.getElementById('arch-ftab-' + type);
+        if (tabEl) tabEl.classList.add('active');
+        else if (el) el.classList.add('active');
+    }
+    AppState.archivedPage = 1;
+    applyArchivedFilter();
+}
+
+function _getArchivedFiltered() {
+    let data = AppData.archivedAll || [];
+    const f = AppState.archivedFilter;
+    if (f !== 'all') data = data.filter(r => r['Priority'] === f || r['priority'] === f);
+    const q = AppState.archivedSearch;
+    if (q) data = data.filter(r => matchQ(q, r['Customer Name'], r['Invoice No.'], r['Dealer Code']));
+    return data;
+}
+
+function applyArchivedFilter() {
+    const data = _getArchivedFiltered();
     const ps = PAGE_SIZE.archived;
-    renderArchivedRows(res.data.slice(0, ps), { page:1, pageSize:ps, total:res.data.length, totalPages:Math.ceil(res.data.length/ps) });
+    const pg = AppState.archivedPage;
+    const start = (pg - 1) * ps;
+    renderArchivedRows(data.slice(start, start + ps), { page: pg, pageSize: ps, total: data.length, totalPages: Math.ceil(data.length / ps) });
 }
 
 function renderArchivedRows(data, pagination) {
     const tbody = document.getElementById('tbl-archived');
-    if (!data.length) { tbody.innerHTML = `<tr><td colspan="9"><div class="empty-state"><span class="icon">📁</span><p>Koi record nahi</p></div></td></tr>`; document.getElementById('archived-pagination').innerHTML = ''; return; }
+    if (!data.length) {
+        tbody.innerHTML = `<tr><td colspan="9"><div class="empty-state"><span class="icon">📁</span><p>Koi record nahi</p></div></td></tr>`;
+        document.getElementById('archived-pagination').innerHTML = '';
+        return;
+    }
     const start = (pagination.page-1)*pagination.pageSize;
     tbody.innerHTML = data.map((r,i) => `
     <tr>
       <td style="color:var(--text-muted)">${start+i+1}</td>
-      <td><div class="td-primary">${r['Customer Name']}</div><div style="font-size:11px;color:var(--text-muted)">${r['Dealer Code']}</div></td>
-      <td><span class="mono">${r['Invoice No.']}</span></td>
+      <td><div class="td-primary">${r['Customer Name']||'—'}</div><div style="font-size:11px;color:var(--text-muted)">${r['Dealer Code']||'—'}</div></td>
+      <td><span class="mono">${r['Invoice No.']||'—'}</span></td>
       <td><span class="badge badge-reminder" style="font-size:11px">${r['Dealer Type']||'—'}</span></td>
       <td style="font-size:12px">${r['Sales Person']||'—'}</td>
-      <td style="font-family:'JetBrains Mono',monospace;font-size:12px">${fmt(r['Invoice Amount'])}</td>
+      <td style="font-family:'JetBrains Mono',monospace;font-size:12px">${fmt(r['Invoice Amount']||r['Balance']||0)}</td>
       <td style="font-size:12px">${fmtDate(r['Payment Due Date'])}</td>
-      <td>${pill(r.priority)}</td>
+      <td>${pill(r['priority']||r['Priority']||'Normal')}</td>
       <td style="font-size:11.5px;color:var(--text-muted)">${fmtDate(r['Archived Date'])}</td>
     </tr>`).join('');
 
     renderPagination('archived-pagination', pagination, pg => {
-        const data = AppData.archived || [];
-        const ps = PAGE_SIZE.archived, start = (pg-1)*ps;
-        renderArchivedRows(data.slice(start, start+ps), { page:pg, pageSize:ps, total:data.length, totalPages:Math.ceil(data.length/ps) });
+        AppState.archivedPage = pg;
+        applyArchivedFilter();
         window.scrollTo({ top: 0, behavior: 'smooth' });
     });
 }
@@ -1226,7 +1247,7 @@ function renderPagination(containerId, pg, onPageClick) {
 }
 
 // ══════════════════════════════════════════════════════
-// ANALYSIS
+// ANALYSIS — FULL DEALER LIST, SEARCHABLE
 // ══════════════════════════════════════════════════════
 let analysisView = 'user';
 
@@ -1234,20 +1255,22 @@ function setAnalysisView(view, el) {
     analysisView = view;
     document.querySelectorAll('.tbtn').forEach(b => b.classList.remove('active'));
     if (el) el.classList.add('active');
-    if (AppData.analysis && AppData.history) renderCurrentAnalysis(AppData.analysis, AppData.history);
+    if (AppData.analysis && AppData.historyAll) renderCurrentAnalysis(AppData.analysis, AppData.historyAll);
     else loadAnalysis();
 }
 
 async function loadAnalysis(force) {
-    if (!force && AppData.analysis && AppData.history) { renderCurrentAnalysis(AppData.analysis, AppData.history); return; }
+    if (!force && AppData.analysis && AppData.historyAll) { renderCurrentAnalysis(AppData.analysis, AppData.historyAll); return; }
     document.getElementById('analysis-content').innerHTML = `<div class="empty-state"><span class="icon">⏳</span><p>Analyzing data...</p></div>`;
     const [resA, resH] = await Promise.all([
         api('getAnalysisData', null, null, true),
-        AppData.history ? Promise.resolve({ success: true, data: AppData.history }) : api('getCallingHistory', { page:1, pageSize:5000 }, null, true)
+        AppData.historyAll
+            ? Promise.resolve({ success: true, data: AppData.historyAll })
+            : api('getCallingHistory', {}, null, true)
     ]);
     if (resA) AppData.analysis = resA.data;
-    if (resH) AppData.history = resH.data;
-    if (AppData.analysis) renderCurrentAnalysis(AppData.analysis, AppData.history || []);
+    if (resH) { AppData.historyAll = resH.data; AppData.history = resH.data; }
+    if (AppData.analysis) renderCurrentAnalysis(AppData.analysis, AppData.historyAll || []);
 }
 
 function renderCurrentAnalysis(data, history) {
@@ -1295,7 +1318,7 @@ function renderUserAnalysis(data, history) {
       </div>
       <div style="padding:6px 20px 16px">
         ${!dates.length ? '<div class="empty-state"><span class="icon">📋</span><p>Koi call history nahi</p></div>' :
-          dates.slice(0, 30).map(dateStr => {
+          dates.map(dateStr => {
             const day = dayMap[dateStr];
             const callsDone = day.calls.length;
             const isToday = dateStr === _todayStr;
@@ -1317,11 +1340,11 @@ function renderUserAnalysis(data, history) {
       </div>
     </div>
     <div class="analysis-table-card" style="margin-top:16px">
-      <div class="card-head" style="padding:14px 20px"><span class="card-title">Detailed Call Log (Last 50)</span></div>
+      <div class="card-head" style="padding:14px 20px"><span class="card-title">Detailed Call Log (All ${totalCalls})</span></div>
       <div class="tbl-wrap"><table>
         <thead><tr><th>#</th><th>Date</th><th>Invoice</th><th>Customer</th><th>Amount Recd.</th><th>Remarks</th></tr></thead>
         <tbody>
-        ${history.slice(0, 50).map((h, i) => `<tr>
+        ${history.map((h, i) => `<tr>
           <td style="color:var(--text-muted)">${i+1}</td>
           <td style="font-size:11.5px">${h['Timestamp']||'—'}</td>
           <td><span class="mono">${h['Invoice No.']||'—'}</span></td>
@@ -1336,6 +1359,7 @@ function renderUserAnalysis(data, history) {
 
 function renderDealerAnalysis(data, history) {
     const stats = data.stats || {};
+    // Build history map keyed by dealer code — uses ALL history
     const dealerHistoryMap = {};
     for (const h of history) {
         const code = (h['Dealer Code'] || '').trim();
@@ -1343,6 +1367,8 @@ function renderDealerAnalysis(data, history) {
         if (!dealerHistoryMap[code]) dealerHistoryMap[code] = [];
         dealerHistoryMap[code].push(h);
     }
+    window._dealerHistoryMap = dealerHistoryMap;
+    window._dealerList = data.list;
 
     document.getElementById('analysis-content').innerHTML = `
     <div class="analysis-grid">
@@ -1353,30 +1379,71 @@ function renderDealerAnalysis(data, history) {
     </div>
     <div class="analysis-table-card">
       <div class="card-head" style="padding:14px 20px">
-        <span class="card-title">All Dealers</span>
-        <span style="font-size:12px;color:var(--text-muted);margin-left:auto">Click on a row to see full call history</span>
+        <span class="card-title">All Dealers (${data.list.length})</span>
       </div>
-      <div class="tbl-wrap"><table>
-        <thead><tr><th>#</th><th>Dealer Code</th><th>Customer Name</th><th>Outstanding</th><th>Calls Logged</th><th>Priority</th><th>Status</th></tr></thead>
-        <tbody>
-        ${data.list.map((d, i) => {
-            const callCount = (dealerHistoryMap[d.code] || []).length;
-            return `<tr style="cursor:pointer" onclick="openDealerModal('${esc(d.code)}','${esc(d.name)}')">
-              <td style="color:var(--text-muted)">${i+1}</td>
-              <td><span class="mono">${d.code}</span></td>
-              <td><div style="font-weight:600">${d.name}</div><div style="font-size:11px;color:var(--text-muted)">${d.location||'—'}</div></td>
-              <td style="font-weight:700;font-family:'JetBrains Mono'">${fmt(d.totalOutstanding)}</td>
-              <td><span style="background:var(--blue-light);color:var(--blue);padding:2px 8px;border-radius:10px;font-size:12px;font-weight:700">${callCount}</span></td>
-              <td>${pill(d.priority)}</td>
-              <td><span class="badge badge-${d.status.toLowerCase()}">${d.status}</span></td>
-            </tr>`;
-        }).join('')}
-        </tbody>
+      <div class="dealer-filter-bar">
+        <input class="dealer-search" id="dealer-analysis-search" type="text" placeholder="🔍 Search dealer / customer..." oninput="filterDealerAnalysisTable(this.value)">
+        <select id="dealer-analysis-priority" onchange="filterDealerAnalysisTable()" style="font-family:inherit;font-size:12.5px;border:1.5px solid var(--border);border-radius:var(--radius-sm);padding:5px 10px;outline:none;">
+          <option value="">All Priorities</option>
+          <option value="Critical">🔴 Critical</option>
+          <option value="High">🟠 High</option>
+          <option value="Medium">🟡 Medium</option>
+          <option value="Normal">🟢 Normal</option>
+          <option value="Reminder">🔵 Reminder</option>
+        </select>
+        <select id="dealer-analysis-status" onchange="filterDealerAnalysisTable()" style="font-family:inherit;font-size:12.5px;border:1.5px solid var(--border);border-radius:var(--radius-sm);padding:5px 10px;outline:none;">
+          <option value="">All Status</option>
+          <option value="Active">Active</option>
+          <option value="Paid">Paid</option>
+        </select>
+        <span id="dealer-analysis-count" style="font-size:12px;color:var(--text-muted);white-space:nowrap">${data.list.length} dealers</span>
+      </div>
+      <div class="tbl-wrap"><table id="dealer-analysis-table">
+        <thead><tr><th>#</th><th>Dealer Code</th><th>Customer Name</th><th>Outstanding</th><th>Calls Logged</th><th>Amt. Received</th><th>Priority</th><th>Status</th></tr></thead>
+        <tbody id="tbl-dealer-analysis"></tbody>
       </table></div>
     </div>`;
 
-    window._dealerHistoryMap = dealerHistoryMap;
-    window._dealerList = data.list;
+    _renderDealerAnalysisRows(data.list, dealerHistoryMap);
+}
+
+function _renderDealerAnalysisRows(list, dealerHistoryMap) {
+    const tbody = document.getElementById('tbl-dealer-analysis');
+    if (!tbody) return;
+    if (!list.length) {
+        tbody.innerHTML = `<tr><td colspan="8"><div class="empty-state"><span class="icon">🔍</span><p>Koi dealer nahi mila</p></div></td></tr>`;
+        return;
+    }
+    tbody.innerHTML = list.map((d, i) => {
+        const callCount = (dealerHistoryMap || {})[d.code]
+            ? (dealerHistoryMap[d.code].length)
+            : (d.callCount || 0);
+        const totalReceived = d.totalReceived || 0;
+        return `<tr style="cursor:pointer" onclick="openDealerModal('${esc(d.code)}','${esc(d.name)}')">
+          <td style="color:var(--text-muted)">${i+1}</td>
+          <td><span class="mono">${d.code}</span></td>
+          <td><div style="font-weight:600">${d.name}</div><div style="font-size:11px;color:var(--text-muted)">${d.location||'—'}${d.dealerType?' · '+d.dealerType:''}</div></td>
+          <td style="font-weight:700;font-family:'JetBrains Mono'">${fmt(d.totalOutstanding)}</td>
+          <td><span style="background:var(--blue-light);color:var(--blue);padding:2px 8px;border-radius:10px;font-size:12px;font-weight:700">${callCount}</span></td>
+          <td style="font-family:'JetBrains Mono';font-size:12px;color:var(--green)">${totalReceived>0?fmt(totalReceived):'—'}</td>
+          <td>${pill(d.priority)}</td>
+          <td><span class="badge badge-${d.status.toLowerCase()}">${d.status}</span></td>
+        </tr>`;
+    }).join('');
+}
+
+function filterDealerAnalysisTable(searchVal) {
+    const q = (searchVal !== undefined ? searchVal : (document.getElementById('dealer-analysis-search')||{}).value || '').toLowerCase().trim();
+    const pf = (document.getElementById('dealer-analysis-priority')||{}).value || '';
+    const sf = (document.getElementById('dealer-analysis-status')||{}).value || '';
+    const list = window._dealerList || [];
+    let filtered = list;
+    if (q) filtered = filtered.filter(d => (d.code||'').toLowerCase().includes(q) || (d.name||'').toLowerCase().includes(q) || (d.location||'').toLowerCase().includes(q));
+    if (pf) filtered = filtered.filter(d => d.priority === pf);
+    if (sf) filtered = filtered.filter(d => d.status === sf);
+    const countEl = document.getElementById('dealer-analysis-count');
+    if (countEl) countEl.textContent = `${filtered.length} dealers`;
+    _renderDealerAnalysisRows(filtered, window._dealerHistoryMap);
 }
 
 function openDealerModal(code, name) {
@@ -1461,7 +1528,6 @@ function openCallModal(dc, name, loc, inv, bal) {
     document.getElementById('c-rmk').value = '';
     document.getElementById('c-adj').value = '';
     document.getElementById('c-adjr').value = '';
-    // Reset submit button state
     const btn = document.getElementById('btn-save-call');
     btn.disabled = false;
     btn.innerHTML = 'Save Call Log';
@@ -1497,40 +1563,31 @@ async function submitLogCall() {
         return;
     }
 
-    // ── Spinner on submit button ──────────────────────────────
     const btn = document.getElementById('btn-save-call');
     btn.disabled = true;
     btn.innerHTML = '<span class="btn-spinner"></span> Saving...';
 
     const res = await api('logCall', p);
 
-    // Reset button regardless
     btn.disabled = false;
     btn.innerHTML = 'Save Call Log';
 
     if (!res) return;
 
-    // ── Update session call count for this invoice ────────────
     AppState.sessionCallCounts[invoiceNo] = (AppState.sessionCallCounts[invoiceNo] || 0) + 1;
 
-    // Invalidate caches that need server refresh
     AppData.dashboard = null;
     AppData.activeAll = null;
-    AppData.history   = null;
-    AppData.analysis  = null;
-    // NOTE: We do NOT clear AppData.today — we update it in memory below
+    AppData.historyAll = null;
+    AppData.history = null;
+    AppData.analysis = null;
 
     toast(res.message || 'Call logged ✅', 'success');
     closeModal('modal-call');
 
-    // ══════════════════════════════════════════════════
-    // FIX 1: In-place update — NO full page reload
-    // Scroll position is completely preserved
-    // ══════════════════════════════════════════════════
     if (AppState.currentPage === 'today' && AppData.today) {
         _updateCardInPlace(invoiceNo, p);
     } else if (AppState.currentPage === 'active') {
-        // Active page: just update balance in local data, re-render
         if (AppData.activeAll) {
             const rec = AppData.activeAll.find(r => r['Invoice No.'] === invoiceNo);
             if (rec) {
@@ -1547,36 +1604,51 @@ async function submitLogCall() {
 }
 
 // ══════════════════════════════════════════════════════
-// GLOBAL SEARCH
+// GLOBAL SEARCH — only fires on non-dedicated pages
+// Dedicated pages (active, today, history, archived) have
+// their own section-specific filters; global search only
+// triggers a server-side search when on other pages.
 // ══════════════════════════════════════════════════════
 async function globalSearch(val) {
     clearTimeout(AppState.searchTimer);
     const q = val.trim().toLowerCase();
 
+    // Section-specific in-memory searches — these take priority
     if (AppState.currentPage === 'active' && AppData.activeAll) {
-        const filtered = q ? AppData.activeAll.filter(r => matchQ(q, r['Customer Name'], r['Invoice No.'], r['Dealer Code'], r['Dealer Ph. No.'])) : AppData.activeAll;
+        const filtered = q
+            ? AppData.activeAll.filter(r => matchQ(q, r['Customer Name'], r['Invoice No.'], r['Dealer Code'], r['Dealer Ph. No.']))
+            : AppData.activeAll;
         const ps = PAGE_SIZE.active;
-        renderActiveRows(filtered.slice(0, ps), { page:1, pageSize:ps, total:filtered.length, totalPages:Math.ceil(filtered.length/ps) }, filtered);
+        renderActiveRows(filtered.slice(0, ps), { page:1, pageSize:ps, total:filtered.length, totalPages:Math.ceil(filtered.length/ps) });
         return;
     }
     if (AppState.currentPage === 'today' && AppData.today) {
-        const filteredData = q ? AppData.today.filter(r => matchQ(q, r['Customer Name'], r['Invoice No.'], r['Dealer Code'], r['Dealer Ph. No.'])) : AppData.today;
+        const filteredData = q
+            ? AppData.today.filter(r => matchQ(q, r['Customer Name'], r['Invoice No.'], r['Dealer Code'], r['Dealer Ph. No.']))
+            : AppData.today;
         renderToday(filteredData);
         return;
     }
-    if (AppState.currentPage === 'history' && AppData.history) {
-        const filtered = q ? AppData.history.filter(r => matchQ(q, r['Customer Name'], r['Invoice No.'], r['Dealer Code'], r['Remarks'])) : AppData.history;
-        const ps = PAGE_SIZE.history;
-        renderHistoryRows(filtered.slice(0, ps), { page:1, pageSize:ps, total:filtered.length, totalPages:Math.ceil(filtered.length/ps) });
+    if (AppState.currentPage === 'history' && AppData.historyAll) {
+        AppState.historySearch = q;
+        AppState.historyPage = 1;
+        applyHistoryFilter();
         return;
     }
-    if (AppState.currentPage === 'archived' && AppData.archived) {
-        const filtered = q ? AppData.archived.filter(r => matchQ(q, r['Customer Name'], r['Invoice No.'], r['Dealer Code'])) : AppData.archived;
-        const ps = PAGE_SIZE.archived;
-        renderArchivedRows(filtered.slice(0, ps), { page:1, pageSize:ps, total:filtered.length, totalPages:Math.ceil(filtered.length/ps) });
+    if (AppState.currentPage === 'archived' && AppData.archivedAll) {
+        AppState.archivedSearch = q;
+        AppState.archivedPage = 1;
+        applyArchivedFilter();
+        return;
+    }
+    if (AppState.currentPage === 'analysis') {
+        // Delegate to dealer analysis search if visible
+        const dealerSearchEl = document.getElementById('dealer-analysis-search');
+        if (dealerSearchEl) { dealerSearchEl.value = val; filterDealerAnalysisTable(q); }
         return;
     }
 
+    // Global server search — only for dashboard or other pages
     if (q.length < 2) { if (AppState.currentPage === 'search') nav('dashboard'); return; }
     AppState.searchTimer = setTimeout(async () => {
         nav('search');
@@ -1607,7 +1679,8 @@ async function runArchiveNow() {
     const res = await api('archiveNow');
     hideLoader();
     if (!res) return;
-    AppData.dashboard = null; AppData.today = null; AppData.activeAll = null; AppData.archived = null;
+    AppData.dashboard = null; AppData.today = null; AppData.activeAll = null;
+    AppData.archived = null; AppData.archivedAll = null; AppData.analysis = null;
     toast(res.message, 'success');
     nav(AppState.currentPage, true);
 }
@@ -1615,11 +1688,7 @@ async function runArchiveNow() {
 function downloadActiveExcel() {
     const allData = AppData.activeAll;
     if (!allData || !allData.length) { toast('Pehle Active Payments page kholo', 'error'); return; }
-    let filtered = allData;
-    const f = AppState.activeFilter;
-    if (f === 'Paid') filtered = allData.filter(r => r.status === 'Paid');
-    else if (f === 'Active') filtered = allData.filter(r => r.status !== 'Paid');
-    else if (f !== 'all') filtered = allData.filter(r => r.priority === f && r.status !== 'Paid');
+    const filtered = _getActiveFiltered();
     if (!filtered.length) { toast('Koi record nahi', 'info'); return; }
     const headers = ['Customer Name','Dealer Code','Phone No.','Invoice No.','Sales Person','Invoice Amount','Balance','Dispatch Date','Due Date','Due Days','Priority','Status'];
     const csvRows = [headers.join(',')];
